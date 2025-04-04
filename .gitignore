@@ -10,6 +10,14 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+Temp/
+Obj/
+UnityGenerated/
+Library/
+Builds/
+Assets/AssetStoreTools*
+Logs/
+UserSettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -72,3 +80,58 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# ================================================ #
+# FMOD Files #
+# ================================================ #
+Assets/Plugins/FMOD/Resources/FMODStudioCache.asset
+Assets/Plugins/FMOD/Resources/FMODStudioCache.asset.meta
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset.meta
+Assets/StreamingAssets/*.bank
+Assets/StreamingAssets/*.bank.meta
+fmod_editor.log
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+# ============ #
+# Sketchup generated #
+# ============ #
+.skb
+*.ide
+
+# ================================================ #
+# JetBrains Rider #
+# ================================================ #
+.idea/
+
+UserSettings/QuickSearch.settings
+Assets/Resources/VersionInfo.asset
+Assets/Resources/VersionInfo.asset.meta
+.vsconfig
+*.TokenResponse-user
+Assets/Code/Editor/ContextInfoTool/ContextInfoUsagesCache.user.meta
+MemoryCaptures
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+.vs/
