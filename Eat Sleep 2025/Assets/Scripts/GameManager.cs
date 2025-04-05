@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +11,8 @@ public sealed class GameManager : Singleton<GameManager>
 
     public Action DeathEvent;
     public Action SleepEvent;
+    public Action WakeUpEvent;
+    public AnimationList Animations = new();
 
     [SerializeField] private GameState state = GameState.Day;
     [SerializeField] private NightAction nightAction = NightAction.Nothing;
@@ -25,7 +29,7 @@ public sealed class GameManager : Singleton<GameManager>
         {
             if (State == value) return;
 
-            StateEnd(State);
+            StateEnd(State, value);
             StateStart(value);
             Debug.Log($"[{nameof(GameState)}] {value}");
             state = value;
@@ -40,7 +44,9 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void Update()
     {
-        State = State switch
+        if (Animations.Running()) return;
+
+        State = state switch
         {
             GameState.Day => GameState.NightSetup,
             GameState.NightSetup => !setupTimer.Continue() ? GameState.NightSetup : GameState.Playing,
@@ -69,9 +75,6 @@ public sealed class GameManager : Singleton<GameManager>
                 break;
             case GameState.NightSetup:
                 setupTimer.Reset();
-                // Fade to black
-                // Make animation
-                // Call anomaly logic
                 AnomalyAI();
                 break;
             case GameState.LostNight:
@@ -80,11 +83,12 @@ public sealed class GameManager : Singleton<GameManager>
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
     }
-    private void StateEnd(GameState state)
+    private void StateEnd(GameState oldState, GameState newState)
     {
-        switch (state)
+        switch (oldState)
         {
             case GameState.Day:
+                WakeUpEvent?.Invoke();
                 break;
             case GameState.Playing:
                 InputActions.ShootYourself.action.performed -= ShootYourself;
@@ -93,11 +97,12 @@ public sealed class GameManager : Singleton<GameManager>
             case GameState.WonNight:
                 break;
             case GameState.NightSetup:
+                WakeUpEvent?.Invoke();
                 break;
             case GameState.LostNight:
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+                throw new ArgumentOutOfRangeException(nameof(oldState), oldState, null);
         }
     }
 
@@ -151,13 +156,13 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void ShootYourself()
     {
-        DeathEvent?.Invoke();
         nightAction = NightAction.ShootYourself;
+        DeathEvent?.Invoke();
     }
     private void GoToSleep()
     {
-        SleepEvent?.Invoke();
         nightAction = NightAction.GoToSleep;
+        SleepEvent?.Invoke();
     }
     private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
     private void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
@@ -216,5 +221,28 @@ public class RepeatedTimer
     public void Reset()
     {
         TimeLeft = TotalTime;
+    }
+}
+
+public struct AnimationIndex
+{
+    public int position;
+}
+public class AnimationList
+{
+    private readonly List<bool> _animations = new();
+    public AnimationIndex Add()
+    {
+        _animations.Add(false);
+        return new AnimationIndex { position = _animations.Count - 1 };
+    }
+    public void Complete(AnimationIndex animationIndex) => _animations[animationIndex.position] = true;
+
+    public bool Running()
+    {
+        if (_animations.Any(t => !t)) return true;
+
+        _animations.Clear();
+        return false;
     }
 }
