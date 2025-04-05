@@ -62,9 +62,12 @@ public sealed class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameState.Day:
+                const int openEyesDurationMS = 1000;
+                FadeToBlack.I.Clear(openEyesDurationMS);
                 anomalyAILevel = AnomalyAILevel.Easy;
                 break;
             case GameState.Playing:
+                WakeUpEvent?.Invoke();
                 nightTimer.Reset();
                 nightAction = NightAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
@@ -88,7 +91,6 @@ public sealed class GameManager : Singleton<GameManager>
         switch (oldState)
         {
             case GameState.Day:
-                WakeUpEvent?.Invoke();
                 break;
             case GameState.Playing:
                 InputActions.ShootYourself.action.performed -= ShootYourself;
@@ -97,7 +99,6 @@ public sealed class GameManager : Singleton<GameManager>
             case GameState.WonNight:
                 break;
             case GameState.NightSetup:
-                WakeUpEvent?.Invoke();
                 break;
             case GameState.LostNight:
                 break;
