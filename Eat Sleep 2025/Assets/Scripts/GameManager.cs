@@ -7,9 +7,14 @@ public sealed class GameManager : Singleton<GameManager>
     public InputActionReferences InputActions;
     private PlayerInput _playerInput;
 
+    public Action DeathEvent;
+    public Action SleepEvent;
+
     [SerializeField] private GameState state = GameState.Day;
     [SerializeField] private NightAction nightAction = NightAction.Nothing;
     [SerializeField] private AnomalyAIState aiState = AnomalyAIState.Awake;
+
+    [SerializeField] private AnomalyAILevel anomalyAILevel;
     public RepeatedTimer nightTimer = new(10.0f);
     public RepeatedTimer setupTimer = new(2.0f);
 
@@ -51,15 +56,19 @@ public sealed class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameState.Day:
+                anomalyAILevel = AnomalyAILevel.Easy;
                 break;
             case GameState.Playing:
+                nightTimer.Reset();
                 nightAction = NightAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.WonNight:
+                if (aiState is AnomalyAIState.Dreaming) anomalyAILevel++;
                 break;
             case GameState.NightSetup:
+                setupTimer.Reset();
                 // Fade to black
                 // Make animation
                 // Call anomaly logic
@@ -111,19 +120,43 @@ public sealed class GameManager : Singleton<GameManager>
     {
         AnomalyController.I.AnomalyReset();
         aiState = UnityEngine.Random.Range(0, 2) == 0 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
-        if (aiState is AnomalyAIState.Dreaming)
+        Debug.Log($"[{nameof(AnomalyAIState)}] {aiState}");
+        if (aiState is AnomalyAIState.Awake) return;
+
+        Debug.Log($"[{nameof(AnomalyAILevel)}] {anomalyAILevel}");
+        switch (anomalyAILevel)
         {
-            AnomalyController.I.AnomalySwap();
+            case AnomalyAILevel.Obvious:
+                AnomalyController.I.AnomalySpawn();
+                AnomalyController.I.AnomalySpawn();
+                break;
+            case AnomalyAILevel.Easy:
+                AnomalyController.I.AnomalySwap();
+                AnomalyController.I.AnomalySpawn();
+                break;
+            case AnomalyAILevel.Medium:
+                AnomalyController.I.AnomalySwap();
+                AnomalyController.I.AnomalyMove();
+                break;
+            case AnomalyAILevel.Hard:
+                AnomalyController.I.AnomalyMove();
+                AnomalyController.I.AnomalyMove();
+                break;
+            case AnomalyAILevel.VeryHard:
+                AnomalyController.I.AnomalyMove();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("You survived and won!!!");
         }
     }
     private void ShootYourself()
     {
-        // Do animation
+        DeathEvent?.Invoke();
         nightAction = NightAction.ShootYourself;
     }
     private void GoToSleep()
     {
-        // Do Animations
+        SleepEvent?.Invoke();
         nightAction = NightAction.GoToSleep;
     }
     private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
@@ -153,6 +186,15 @@ public enum AnomalyAIState
     Dreaming
 }
 
+public enum AnomalyAILevel
+{
+    Obvious,
+    Easy,
+    Medium,
+    Hard,
+    VeryHard,
+}
+
 [Serializable]
 public class RepeatedTimer
 {
@@ -164,20 +206,14 @@ public class RepeatedTimer
         TotalTime = totalTime;
         TimeLeft = totalTime;
     }
-
     public bool Continue()
     {
-        if (TimeLeft <= 0.0f)
-        {
-            Reset();
-            return false;
-        }
+        if (TimeLeft <= 0.0f) return false;
 
         TimeLeft -= Time.deltaTime;
         return true;
     }
-
-    private void Reset()
+    public void Reset()
     {
         TimeLeft = TotalTime;
     }

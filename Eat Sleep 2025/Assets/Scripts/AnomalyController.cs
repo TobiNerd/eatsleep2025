@@ -9,7 +9,7 @@ public sealed class AnomalyController : Singleton<AnomalyController>
     [SerializeField] private List<AnomalySwap> anomalies = new();
     [SerializeField] private List<Transform> spawnPoints = new();
     [SerializeField] private List<Transform> movePoints = new();
-    [SerializeField] private List<GameObject> spawnables = new();
+    [SerializeField] private List<Anomaly> spawnables = new();
     [SerializeField] private List<Transform> spawned = new();
 
     protected override void Awake()
@@ -41,11 +41,22 @@ public sealed class AnomalyController : Singleton<AnomalyController>
         // Spawn points
         movePoints = sceneObjects.OfType<AnomalyMovePointParent>().SelectMany(spawns => spawns.transform.Children()).ToList();
         Debug.Log($"[ANOMALY] Move points: {movePoints.Count}");
-
-        // Spawnable objects
-        spawnables = sceneObjects.OfType<AnomalySpawnObjects>().SelectMany(spawns => spawns.transform.Children()).Select(x => x.gameObject).ToList();
-        Debug.Log($"[ANOMALY] Spawnable objects: {spawnables.Count}");
+        
+        LoadAnomalyResources();
     }
+    
+    private void LoadAnomalyResources()
+    {
+        spawnables.Clear();
+        var spawnableAnomalies = Resources.LoadAll<GameObject>("Anomalies");
+        foreach (var go in spawnableAnomalies)
+        {
+            if (go.TryGetComponent<Anomaly>(out var spawnObject))
+                spawnables.Add(spawnObject);
+        }
+        Debug.Log($"[ANOMALY] Loaded {spawnables.Count} anomalies");
+    }
+    
     [ContextMenu("Anomaly Move")]
     public bool AnomalyMove()
     {
@@ -85,9 +96,9 @@ public sealed class AnomalyController : Singleton<AnomalyController>
             return false;
         }
 
-        GameObject prefab = spawnables.GetRandom();
+        Anomaly prefab = spawnables.GetRandom();
         Transform point = spawnPoints.GetRandom();
-        GameObject spawn = Instantiate(prefab, point.position, Quaternion.identity);
+        GameObject spawn = Instantiate(prefab.gameObject, point.position, Quaternion.identity);
 
         spawned.Add(spawn.transform);
 
