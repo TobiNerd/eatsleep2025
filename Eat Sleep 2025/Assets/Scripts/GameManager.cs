@@ -1,28 +1,29 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public sealed class GameManager : Singleton<GameManager>
 {
     public InputActionReferences InputActions;
     private PlayerInput _playerInput;
 
-    [SerializeField] private GameState _state = GameState.Day;
-    [FormerlySerializedAs("Actions")] [SerializeField] private NightActions NightAction = NightActions.Nothing;
+    [SerializeField] private GameState state = GameState.Day;
+    [SerializeField] private NightAction nightAction = NightAction.Nothing;
+    [SerializeField] private AnomalyAIState aiState = AnomalyAIState.Awake;
     public RepeatedTimer nightTimer = new(10.0f);
     public RepeatedTimer setupTimer = new(2.0f);
 
     private GameState State
     {
-        get => _state;
+        get => state;
         set
         {
             if (State == value) return;
 
             StateEnd(State);
             StateStart(value);
-            _state = value;
+            Debug.Log($"[{nameof(GameState)}] {value}");
+            state = value;
         }
     }
 
@@ -37,7 +38,7 @@ public sealed class GameManager : Singleton<GameManager>
         State = State switch
         {
             GameState.Day => GameState.NightSetup,
-            GameState.NightSetup => NightSetup(),
+            GameState.NightSetup => !setupTimer.Continue() ? GameState.NightSetup : GameState.Playing,
             GameState.Playing => NightLoop(),
             GameState.WonNight => GameState.NightSetup,
             GameState.LostNight => GameState.LostNight,
@@ -47,18 +48,23 @@ public sealed class GameManager : Singleton<GameManager>
 
     private void StateStart(GameState state)
     {
-        Debug.Log($"[{nameof(State)}] {State}");
         switch (state)
         {
             case GameState.Day:
                 break;
             case GameState.Playing:
-                NightAction = NightActions.Nothing;
+                nightAction = NightAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.WonNight:
+                break;
             case GameState.NightSetup:
+                // Fade to black
+                // Make animation
+                // Call anomaly logic
+                AnomalyAI();
+                break;
             case GameState.LostNight:
                 break;
             default:
@@ -88,45 +94,43 @@ public sealed class GameManager : Singleton<GameManager>
 
     private GameState NightLoop()
     {
-        if (!nightTimer.Continue()) NightAction = NightActions.Timeout;
+        if (!nightTimer.Continue()) nightAction = NightAction.Timeout;
 
-        if (NightAction is not NightActions.Nothing) Debug.Log($"[{nameof(GameState)}] {nameof(NightActions)} {NightAction}");
-        bool isAnomaly = UnityEngine.Random.Range(0, 2) == 0;
-        return NightAction switch
+        if (nightAction is not NightAction.Nothing) Debug.Log($"[{nameof(GameState)}] {nameof(NightAction)} {nightAction}");
+        bool isAnomaly = aiState is AnomalyAIState.Dreaming;
+        return nightAction switch
         {
-            NightActions.Nothing => GameState.Playing,
-            NightActions.ShootYourself => isAnomaly ? GameState.WonNight : GameState.LostNight,
-            NightActions.Timeout or NightActions.GoToSleep => isAnomaly ? GameState.LostNight : GameState.WonNight,
+            NightAction.Nothing => GameState.Playing,
+            NightAction.ShootYourself => isAnomaly ? GameState.WonNight : GameState.LostNight,
+            NightAction.Timeout or NightAction.GoToSleep => isAnomaly ? GameState.LostNight : GameState.WonNight,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
-    private GameState NightSetup()
+
+    private void AnomalyAI()
     {
-        if (!setupTimer.Continue())
+        AnomalyController.I.AnomalyReset();
+        aiState = UnityEngine.Random.Range(0, 2) == 0 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+        if (aiState is AnomalyAIState.Dreaming)
         {
-            // Fade to black
-            // ANOMALIES SET UP
-            return GameState.NightSetup;
+            AnomalyController.I.AnomalySwap();
         }
-
-        return GameState.Playing;
     }
-
-    void ShootYourself()
+    private void ShootYourself()
     {
         // Do animation
-        NightAction = NightActions.ShootYourself;
+        nightAction = NightAction.ShootYourself;
     }
-    void GoToSleep()
+    private void GoToSleep()
     {
         // Do Animations
-        NightAction = NightActions.GoToSleep;
+        nightAction = NightAction.GoToSleep;
     }
-    void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
-    void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
+    private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
+    private void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
 }
 
-public enum NightActions
+public enum NightAction
 {
     Nothing,
     ShootYourself,
@@ -141,6 +145,12 @@ public enum GameState
     WonNight,
     NightSetup,
     LostNight
+}
+
+public enum AnomalyAIState
+{
+    Awake,
+    Dreaming
 }
 
 [Serializable]
