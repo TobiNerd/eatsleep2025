@@ -14,6 +14,10 @@ public class FadeToBlack : Singleton<FadeToBlack>
         _red.style.opacity = 0.0f;
     }
 
+    public void Black()
+    {
+        _black.style.opacity = 1.0f;
+    }
     public void Fade(int fadeDurationMS, bool withBlood = false)
     {
         Debug.Log($"[{nameof(FadeToBlack)}] {nameof(Fade)}");

@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public sealed class GameManager : Singleton<GameManager>
 {
+    public CameraController CameraController;
     public InputActionReferences InputActions;
     private PlayerInput _playerInput;
 
-    public Action DeathEvent;
-    public Action SleepEvent;
-    public Action WakeUpEvent;
-    public Action StartGameEvent;
-    public Action LostGameEvent;
     public AnimationList Animations = new();
 
     [SerializeField] private GameState state;
@@ -93,14 +88,14 @@ public sealed class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameState.Day:
-                StartGameEvent?.Invoke();
+                CameraController.StartGameAnimation();
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.Playing:
-                WakeUpEvent?.Invoke();
+                CameraController.WakeUpAnimation();
                 nightTimer.Reset();
                 playerAction = PlayerAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
@@ -115,7 +110,7 @@ public sealed class GameManager : Singleton<GameManager>
                 break;
             case GameState.LostNight:
                 lostDelayTimer.Reset();
-                LostGameEvent?.Invoke();
+                CameraController.LostGameAnimation();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -195,14 +190,16 @@ public sealed class GameManager : Singleton<GameManager>
     private void ShootYourself()
     {
         if (playerAction is not PlayerAction.Nothing || Animations.Running()) return;
+
         playerAction = PlayerAction.ShootYourself;
-        DeathEvent?.Invoke();
+        CameraController.DeathAnimation();
     }
     private void GoToSleep()
     {
         if (playerAction is not PlayerAction.Nothing || Animations.Running()) return;
+
         playerAction = PlayerAction.GoToSleep;
-        SleepEvent?.Invoke();
+        CameraController.SleepAnimation();
     }
     private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
     private void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
@@ -268,6 +265,7 @@ public struct AnimationIndex
 {
     public int position;
 }
+
 public class AnimationList
 {
     private readonly List<bool> _animations = new();
