@@ -85,6 +85,7 @@ public class CameraController : MonoBehaviour
     [ContextMenu("Wake Up Animation")]
     void WakeUpAnimation()
     {
+        FadeToBlack.I.Clear((int)(headLiftTime * 500));
         AnimationIndex index = GameManager.I.Animations.Add();
         Sequence wakeSequence = DOTween.Sequence();
         wakeSequence.Append(_torso.DOLocalRotate(uprigthTorso, headLiftTime).SetEase(Ease.OutSine));
@@ -98,6 +99,7 @@ public class CameraController : MonoBehaviour
     [ContextMenu("Sleep Animation")]
     void SleepAnimation()
     {
+        FadeToBlack.I.Fade((int)(headLiftTime * 500));
         AnimationIndex index = GameManager.I.Animations.Add();
         Sequence wakeSequence = DOTween.Sequence();
         wakeSequence.Append(_torso.DOLocalRotate(layingDownTorso, headLiftTime).SetEase(Ease.OutSine));
