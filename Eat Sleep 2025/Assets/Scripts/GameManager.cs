@@ -12,6 +12,8 @@ public sealed class GameManager : Singleton<GameManager>
     public Action DeathEvent;
     public Action SleepEvent;
     public Action WakeUpEvent;
+    public Action StartGameEvent;
+    public Action LostGameEvent;
     public AnimationList Animations = new();
 
     [SerializeField] private GameState state = GameState.Day;
@@ -62,8 +64,7 @@ public sealed class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameState.Day:
-                const int openEyesDurationMS = 1000;
-                FadeToBlack.I.Clear(openEyesDurationMS);
+                StartGameEvent?.Invoke();
                 anomalyAILevel = AnomalyAILevel.Easy;
                 break;
             case GameState.Playing:
@@ -81,6 +82,7 @@ public sealed class GameManager : Singleton<GameManager>
                 AnomalyAI();
                 break;
             case GameState.LostNight:
+                LostGameEvent?.Invoke();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
