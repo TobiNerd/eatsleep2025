@@ -123,10 +123,9 @@ public sealed class GameManager : Singleton<GameManager>
         switch (newState)
         {
             case GameState.Day:
-                FadeToBlack.I.Black();
-                const int openEyesDurationMS = 1000;
+                const int openEyesDurationMS = 200;
                 FadeToBlack.I.Clear(openEyesDurationMS);
-                CameraController.UprightAnimation(openEyesDurationMS * MS_TO_S);
+                CameraController.ResetScene();
 
                 timesWon = 0;
                 anomalyAILevel = AnomalyAILevel.Easy;
@@ -154,7 +153,6 @@ public sealed class GameManager : Singleton<GameManager>
             case GameState.LostNight:
                 const int lostGameFadeDurationMS = 1000;
                 FadeToBlack.I.Fade(lostGameFadeDurationMS, withBlood: true);
-                CameraController.LaydownAnimation(lostGameFadeDurationMS * MS_TO_S * 0.5f);
                 lostDelayTimer.Reset();
                 break;
             case GameState.WinGame:
