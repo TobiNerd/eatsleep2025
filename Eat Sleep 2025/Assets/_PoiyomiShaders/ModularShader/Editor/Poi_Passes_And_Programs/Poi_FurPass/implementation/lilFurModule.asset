@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1039f25740a92fc4292bb1d94d07ad19, type: 3}
+  m_Name: lilFurModule
+  m_EditorClassIdentifier: 
+  Id: lilFur
+  Name: lilFur
+  Version: 
+  Author: 
+  Description: 
+  EnableProperties: []
+  Properties: []
+  ModuleDependencies: []
+  IncompatibleWith: []
+  Templates:
+  - Template: {fileID: 5698077969323175998, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - FUR_BASE_PASS_KEYWORDS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -6760419678316028184, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - FUR_SPECIFIC_PROPERTIES
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: 2005430743427767263, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - FUR_BASE_PROPERTY_VARIABLES
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -4429718151797391768, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - vertexOutData
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -4839226407552738775, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - VERTEX_MODS_LILFUR
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -592191765369617391, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - GEOMETRY_FUR_BASE_FUNCTIONS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -4458477087508487747, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - FUR_GEOMETRY_BEFORE_INIT
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -8294571740496712412, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - FUR_GEOMETRY_MODS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -6139261261289888340, guid: 01623cc1bb9ed074db14efd1b3803db5, type: 3}
+    Keywords:
+    - FRAGMENT_FUR_BASE_COLOR_LATE
+    NeedsVariant: 0
+    Queue: 0
+  Functions: []
+  AdditionalSerializedData: 

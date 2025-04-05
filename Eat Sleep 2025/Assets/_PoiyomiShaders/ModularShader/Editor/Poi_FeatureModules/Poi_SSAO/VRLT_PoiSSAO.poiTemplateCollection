@@ -1,0 +1,262 @@
+#T#PoiSSAOProperties
+//ifex _SSAOEnabled==0
+
+[HideInInspector] m_start_poiSSAO ("Screen Space Ambient Occlusion--{reference_property:_SSAOEnabled,button_help:{text:Tutorial,action:{type:URL,data:https://www.poiyomi.com/shading/ssao},hover:Documentation}}", Float) = 0
+[HideInInspector][ThryToggle(POI_SSAO)]_SSAOEnabled ("SSAO Enabled", Float) = 0
+[Helpbox(1)]_SSAODepthGetWarning ("SSAO Requires depth. Put the DepthGet.prefab on your avatar so it'll work in every world.", Int) = 0
+[ToggleUI]_SSAOAnimationToggle ("Animatable Toggle--{hover:A toggle you can animate to enable and disable SSAO entirely}", Float) = 1
+_SSAOIntensity ("AO Intensity", Range(0, 5)) = 1.0
+_SSAORadius ("AO Radius", Range(0.0001, 0.02)) = 0.002
+_SSAOQuality ("AO Quality", Range(1, 10)) = 2.4
+_SSAOCenterImportance ("Center Importance", Range(0, 1)) = 1
+_SSAOBias ("Depth Bias", Range(0, .2)) = 0.003
+_SSAOCone ("Cone Bias", Range(0, 1)) = 0
+_SSAORandomScale ("Random Jitter", Range(0, 1)) = 0.0
+_SSAOUseNormals ("Use Normals", Range(0, 1)) = 0
+
+[HideInInspector] s_start_SSAOColorAndMasking ("Color And Masking--{persistent_expand:true, default_expand:true}", Float) = 1
+[Toggle(SSAO_COLOR_TEX)]_SSAOEnableColorTexture ("Use Color Texture?", Float) = 0
+[sRGBWarning(true)]_SSAOColorMap ("Color--{reference_properties:[_SSAOColorMapPan, _SSAOColorMapUV, _SSAOAsRamp],condition_show:(_SSAOEnableColorTexture==1)}", 2D) = "white" { }
+[HideInInspector][Vector2]_SSAOColorMapPan ("Panning", Vector) = (0, 0, 0, 0)
+[HideInInspector][ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Panosphere, 4, World Pos, 5, Local Pos, 8, Polar UV, 6, Distorted UV, 7)] _SSAOColorMapUV ("UV", Int) = 0
+[HideInInspector][ToggleUI]_SSAOAsRamp ("AO as Ramp", Float) = 0
+
+[Toggle(SSAO_MASK_TEX)]_SSAOEnableMaskTexture ("Use Mask?", Float) = 0
+[sRGBWarning]_SSAOMask ("Mask--{reference_properties:[_SSAOMaskPan, _SSAOMaskUV, _SSAOMaskChannel, _SSAOMaskInvert],condition_show:(_SSAOEnableMaskTexture==1)}", 2D) = "white" { }
+[HideInInspector][Vector2]_SSAOMaskPan ("Panning", Vector) = (0, 0, 0, 0)
+[HideInInspector][ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Panosphere, 4, World Pos, 5, Local Pos, 8, Polar UV, 6, Distorted UV, 7)] _SSAOMaskUV ("UV", Int) = 0
+[HideInInspector][Enum(R, 0, G, 1, B, 2, A, 3)]_SSAOMaskChannel ("Channel", Float) = 0
+[HideInInspector][ToggleUI]_SSAOMaskInvert ("Invert", Float) = 0
+
+_SSAOHSV ("HSVG", Vector) = (0, 0, 0, 0)
+_SSAOColor ("Color--{reference_property:_SSAOColorThemeIndex}", Color) = (0, 0, 0)
+[HideInInspector][ThryWideEnum(Off, 0, Theme Color 0, 1, Theme Color 1, 2, Theme Color 2, 3, Theme Color 3, 4, ColorChord 0, 5, ColorChord 1, 6, ColorChord 2, 7, ColorChord 3, 8, AL Theme 0, 9, AL Theme 1, 10, AL Theme 2, 11, AL Theme 3, 12)] _SSAOColorThemeIndex ("", Int) = 0
+_SSAOUseSurfaceColor ("Use Surface Color", Range(0, 1)) = 0
+[ThryWideEnum(Replace, 0, Darken, 1, Multiply, 2, Lighten, 5, Screen, 6, Subtract, 7, Add, 8, Overlay, 9)]_SSAOBlendType ("Blend Mode", Float) = 2
+[HideInInspector] s_end_SSAOColorAndMasking ("", Float) = 0
+
+[HideInInspector] s_start_SSAOAdvanced ("Advanced & Global Masks--{persistent_expand:true, default_expand:false}", Float) = 0
+_SSAOHideByRampedLightMap ("Hide In Light", Range(0, 1)) = 0
+_SSAOFalloffStart ("Quality Falloff Start", Float) = 6.0
+_SSAOFalloffEnd ("Quality Falloff End", Float) = 8.0
+[Vector2]_SSAOMaxDistanceFalloff ("Max Distance Falloff", Vector) = (.01, .1, 1, 1)
+[ThryWideEnum(Off, 0, 1R, 1, 1G, 2, 1B, 3, 1A, 4, 2R, 5, 2G, 6, 2B, 7, 2A, 8, 3R, 9, 3G, 10, 3B, 11, 3A, 12, 4R, 13, 4G, 14, 4B, 15, 4A, 16)] _SSAOGlobalMaskIndex (" Apply From Global Mask--{reference_property:_SSAOGlobalMaskBlendType}", Int) = 0
+[HideInInspector][ThryWideEnum(Add, 7, Subtract, 1, Multiply, 2, Divide, 3, Min, 4, Max, 5, Average, 6, Replace, 0)]_SSAOGlobalMaskBlendType ("Blending", Range(0, 1)) = 2
+[ThryWideEnum(Off, 0, 1R, 1, 1G, 2, 1B, 3, 1A, 4, 2R, 5, 2G, 6, 2B, 7, 2A, 8, 3R, 9, 3G, 10, 3B, 11, 3A, 12, 4R, 13, 4G, 14, 4B, 15, 4A, 16)] _SSAOApplyGlobalMaskIndex (" Apply to Global Mask--{reference_property:_SSAOApplyGlobalMaskBlendType}", Int) = 0
+[HideInInspector][ThryWideEnum(Add, 7, Subtract, 1, Multiply, 2, Divide, 3, Min, 4, Max, 5, Average, 6, Replace, 0)] _SSAOApplyGlobalMaskBlendType ("Blending", Int) = 0
+[HideInInspector] s_end_SSAOAdvanced ("", Float) = 0
+
+[HideInInspector] m_end_poiSSAO ("Back Face", Float) = 0
+//endex
+#T#PoiSSAOKeywords
+//ifex _SSAOEnabled==0
+#pragma shader_feature POI_SSAO
+#pragma shader_feature_local SSAO_COLOR_TEX  // Shader keyword for enabling color texture
+#pragma shader_feature_local SSAO_MASK_TEX  // Shader keyword for enabling mask texture
+//endex
+
+#T#PoiSSAOVariables
+//ifex _SSAOEnabled==0
+#ifdef POI_SSAO
+	float4 _SSAOHSV;
+	float _SSAOBias;
+	float _SSAOEnabled;
+	float _SSAOIntensity;
+	float _SSAORadius;
+	float _SSAOQuality;
+	float _SSAOBlendType;
+	float _SSAOColorThemeIndex;
+	float _SSAOCenterImportance;
+	float _SSAOAnimationToggle;
+	float4 _SSAOMaxDistanceFalloff;
+	float4 _SSAOColor;
+	float _SSAOUseSurfaceColor;
+	float _SSAOHideByRampedLightMap;
+	float _SSAORandomScale;
+	float _SSAOCone;
+	float _SSAOUseNormals;
+
+	#if defined(PROP_SSAOCOLORMAP) || !defined(OPTIMIZER_ENABLED)
+		#ifdef SSAO_COLOR_TEX
+			texture2D _SSAOColorMap;
+		#endif
+		float4 _SSAOColorMap_ST;
+		float2 _SSAOColorMapPan;
+		float _SSAOColorMapUV;
+		float _SSAOAsRamp;
+	#endif
+	#if defined(PROP_SSAOMASK) || !defined(OPTIMIZER_ENABLED)
+		#ifdef SSAO_MASK_TEX
+			texture2D _SSAOMask;
+		#endif
+		float4 _SSAOMask_ST;
+		float2 _SSAOMaskPan;
+		float _SSAOMaskUV;
+		float _SSAOMaskChannel;
+		float _SSAOMaskInvert;
+	#endif
+
+	float _SSAOFalloffStart;
+	float _SSAOFalloffEnd;
+	float _SSAOGlobalMaskIndex;
+	float _SSAOGlobalMaskBlendType;
+	float _SSAOApplyGlobalMaskIndex;
+	float _SSAOApplyGlobalMaskBlendType;
+#endif
+//endex
+
+#T#PoiSSAOFunctions
+#if defined(POI_SSAO)
+
+	float SSAOInterleavedGradientNoise(float2 pixelCoord)
+	{
+		return glsl_mod(52.9829189f * glsl_mod(0.06711056f*float(pixelCoord.x) + 0.00583715f*float(pixelCoord.y), 1.0f), 1.0f);
+	}
+
+	// Calculate ambient occlusion based on screen position, depth, and sampling radius
+	float CalculateAmbientOcclusion(float2 uv, float depth, float3 normal, float radius, float4 worldDirection, PoiMesh poiMesh, PoiCam poiCam)
+	{
+		float ao = 0.0f;  // Initialize AO value
+		// Calculate the total number of samples based on quality and falloff range
+		int totalSamples = int((_SSAOQuality * 5) * smoothstep(_SSAOFalloffEnd, _SSAOFalloffStart, poiCam.clipPos.w));
+		float centerImportance = _SSAOCenterImportance;
+		float radiusFactor = radius * (1.0 / poiCam.clipPos.w);
+		// Calculate tangent and bitangent vectors for sampling orientation
+		float3 tangent, bitangent;
+		float3 up = float3(0, 1, 0);
+		float3 cross1 = cross(up, normal);
+		tangent = normalize(cross1);
+		bitangent = cross(normal, tangent);
+		float totalWeight = 0;
+
+		float randomValue = _SSAORandomScale * (SSAOInterleavedGradientNoise(uv * _ScreenParams.xy) * 2.0 - 1.0);
+
+		// Loop through each sample and accumulate AO value
+		[loop]
+		for (int sampleIndex = 0; sampleIndex < totalSamples; sampleIndex++)
+		{
+			float distance = sampleIndex * (1.0 / totalSamples) + randomValue;
+			float sampleAngle = (TWO_PI * 1.618033988 * sampleIndex) + randomValue;
+
+			float s, c;
+			sincos(sampleAngle, s, c);
+			float3 sampleDir = tangent * c + bitangent * s;
+			sampleDir = normalize(lerp(sampleDir, normal, _SSAOCone));
+
+			float offsetFactor = distance * lerp(1.0, distance, centerImportance);
+			float2 screenOffset = (sampleDir.xy) * radiusFactor * offsetFactor;
+			float zOffset = sampleDir.z * radius * offsetFactor;
+
+			// Calculate the sampling position on the screen, clamped to valid range
+			float2 samplePos = uv + screenOffset;
+			//skip if sample is out of bounds
+
+			// Sample depth at the new position and convert it to linear eye depth
+			float sampleDepthValue = SampleScreenDepth(samplePos);
+			float sampleDepth = CorrectedLinearEyeDepth(sampleDepthValue, worldDirection.w);
+			sampleDepth += zOffset;
+
+			float aoValue = 1.0;  // Initial AO value for the current sample
+			float depthDifference = depth - sampleDepth - _SSAOBias;
+			float weight = 1;
+			// Apply curve-based depth falloff for AO effect
+			aoValue = saturate(depthDifference / radius);
+			//aoValue *= saturate(length(abs(samplePos - uv)) / radiusFactor);
+			aoValue *= smoothstep(max(radius + _SSAOMaxDistanceFalloff.x + EPSILON, radius + _SSAOMaxDistanceFalloff.y), radius + _SSAOMaxDistanceFalloff.x, depthDifference);
+			//aoValue *= (1-distance) * 2;
+			//aoValue *= max(dot(normalize(normal), normalize(sampleDir)), 0);
+			// Accumulate AO value
+			ao += aoValue;
+		}
+
+		// Normalize AO value and apply intensity factor with distance-based falloff
+		return (1.0 - saturate((ao / totalSamples)) * smoothstep(_SSAOFalloffEnd, _SSAOFalloffStart, poiCam.clipPos.w));
+	}
+	
+	// Main SSAO calculation function
+	float calculateSSAO(PoiMesh poiMesh, PoiCam poiCam, inout PoiLight poiLight, inout PoiMods poiMods)
+	{
+		// Early Dropout Conditions
+		if (!DepthTextureExists() || _SSAOAnimationToggle == 0) return 1;
+
+		// Calculate perspective divide for position and direction
+		float perspectiveDivide = 1.0 / poiCam.clipPos.w;
+		float4 direction = poiCam.worldDirection * perspectiveDivide;
+		float2 screenPos = poiCam.posScreenSpace * perspectiveDivide;
+		/*
+		float z = SampleScreenDepth(screenPos);
+
+		// Handle special case for depth values
+		#if UNITY_REVERSED_Z
+		    if (z == 0.0)
+		#else
+		    if (z == 1.0)
+		#endif
+		return 1.0;
+		*/
+		// Calculate linear eye depth and transform normal vector
+		float depth = CorrectedLinearEyeDepth(poiCam.clipPos.z, direction.w);
+		float3 transformedNormal = mul((float3x3)UNITY_MATRIX_V, lerp(poiMesh.normals[0], poiMesh.normals[1], _SSAOUseNormals));
+
+		// Initialize mask value and apply SSAO mask if enabled
+		float mask = 1;
+
+		#ifdef SSAO_MASK_TEX
+			#if defined(PROP_SSAOMASK) || !defined(OPTIMIZER_ENABLED)
+				mask = POI2D_SAMPLER_PAN(_SSAOMask, _MainTex, poiUV(poiMesh.uv[_SSAOMaskUV], _SSAOMask_ST), _SSAOMaskPan)[_SSAOMaskChannel];
+				mask = _SSAOMaskInvert > 0 ? 1 - mask : mask;
+			#endif
+		#endif
+
+		// Apply global mask if needed
+		if (_SSAOGlobalMaskIndex > 0)
+		{
+			mask = maskBlend(mask, poiMods.globalMask[_SSAOGlobalMaskIndex - 1], _SSAOGlobalMaskBlendType);
+		}
+		
+		float ssao = CalculateAmbientOcclusion(screenPos, depth, transformedNormal, _SSAORadius, direction, poiMesh, poiCam);
+		
+		ssao = lerp(1, ssao, mask);
+		
+		// Optionally apply AO to a global mask
+		if (_SSAOApplyGlobalMaskIndex > 0)
+		{
+			applyToGlobalMask(poiMods, _SSAOApplyGlobalMaskIndex - 1, _SSAOApplyGlobalMaskBlendType, ssao);
+		}
+
+		return ssao;
+	}
+
+
+	// Apply SSAO effect to final fragment data
+	void applySSAO(float ssao, in PoiMesh poiMesh, inout PoiFragData poiFragData, inout PoiMods poiMods, inout PoiLight poiLight)
+	{
+		// Early Dropout Conditions
+		if (!DepthTextureExists() || _SSAOAnimationToggle == 0) return;
+
+		// Calculate SSAO color and apply theme blending if needed
+		ssao = lerp(ssao, 1, poiLight.rampedLightMap * _SSAOHideByRampedLightMap);
+		float3 ssaoColor = poiThemeColor(poiMods, _SSAOColor.rgb, _SSAOColorThemeIndex).rgb * lerp(1, poiFragData.baseColor, _SSAOUseSurfaceColor);
+		#ifdef SSAO_COLOR_TEX
+			#if defined(PROP_SSAOCOLORMAP) || !defined(OPTIMIZER_ENABLED)
+				float2 uv = _SSAOAsRamp ? ssao : poiMesh.uv[_SSAOColorMapUV] ;
+				ssaoColor *= POI2D_SAMPLER_PAN(_SSAOColorMap, _MainTex, poiUV(uv, _SSAOColorMap_ST), _SSAOColorMapPan);
+			#endif
+		#endif
+		if (any(_SSAOHSV))
+		{
+			poiFragData.baseColor = lerp(poiFragData.baseColor, lilToneCorrection(poiFragData.baseColor, _SSAOHSV + 1), (1 - ssao) * _SSAOIntensity);
+		}
+		poiFragData.baseColor = lerp(poiFragData.baseColor, customBlend(poiFragData.baseColor, ssaoColor, _SSAOBlendType), (1 - ssao) * _SSAOIntensity);
+	}
+#endif
+
+#T#PoiSSAOCalculate
+#if defined(POI_SSAO)
+	float ssao = calculateSSAO(poiMesh, poiCam, poiLight, poiMods);
+#endif
+
+#T#PoiSSAOApply
+#if defined(POI_SSAO)
+	applySSAO(ssao, poiMesh, poiFragData, poiMods, poiLight);
+#endif
