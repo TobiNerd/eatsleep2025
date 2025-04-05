@@ -14,6 +14,7 @@ public class NightEventSystem : Singleton<NightEventSystem>
     private bool eventTimeSet = false;
     private NightEvent activeEvent = null;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -52,27 +53,32 @@ public class NightEventSystem : Singleton<NightEventSystem>
             eventTimeSet = true;
         }
     }
-    
-    [Serializable]
-    public class NightEvent
+}
+
+[Serializable]
+public class NightEvent
+{
+    public StudioEventEmitter AudioEmitter;
+    public Animation Animation;
+    public GameObject EnableWhenActive;
+
+    public void Start()
     {
-        public StudioEventEmitter AudioEmitter;
-        public Animation Animation;
+        if (AudioEmitter)
+            AudioEmitter.Play();
+        if (Animation)
+            Animation.Play();
+        if (EnableWhenActive)
+            EnableWhenActive.SetActive(true);
+    }
 
-        public void Start()
-        {
-            if (AudioEmitter)
-                AudioEmitter.Play();
-            if (Animation)
-                Animation.Play();
-        }
-
-        public void End()
-        {
-            if (AudioEmitter)
-                AudioEmitter.Stop();
-            if (Animation)
-                Animation.Stop();
-        }
+    public void End()
+    {
+        if (AudioEmitter)
+            AudioEmitter.Stop();
+        if (Animation)
+            Animation.Stop();
+        if (EnableWhenActive)
+            EnableWhenActive.SetActive(false);
     }
 }
