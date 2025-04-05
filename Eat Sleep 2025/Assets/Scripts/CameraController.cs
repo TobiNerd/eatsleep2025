@@ -98,13 +98,13 @@ public class CameraController : MonoBehaviour
         FadeToBlack.I.Black();
         const int openEyesDurationMS = 1000;
         FadeToBlack.I.Clear(openEyesDurationMS);
-        _torso.localRotation = uprigthTorso;
+        _torso.DOLocalRotateQuaternion(uprigthTorso, openEyesDurationMS).SetEase(Ease.OutSine);
     }
     public void LostGameAnimation()
     {
         const int lostGameFadeDurationMS = 1000;
         FadeToBlack.I.Fade(lostGameFadeDurationMS, withBlood: true);
-        _torso.DOLocalRotateQuaternion(layingDownTorso, lostGameFadeDurationMS).SetEase(Ease.OutSine);
+        _torso.DOLocalRotateQuaternion(layingDownTorso, lostGameFadeDurationMS * 0.5f).SetEase(Ease.OutSine);
     }
     private void Update() => RotateCamera();
     private void OnMouseMoved(InputAction.CallbackContext ctx)
