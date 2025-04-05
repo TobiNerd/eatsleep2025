@@ -1,0 +1,210 @@
+#T#PoiUDIMDiscardProperties 
+//ifex _EnableUDIMDiscardOptions==0
+// SPECIALFX_PROPERTIES
+// UDIM Discard
+[HideInInspector] m_start_udimdiscardOptions ("UV Tile Discard--{reference_property:_EnableUDIMDiscardOptions,button_help:{text:Tutorial,action:{type:URL,data:https://www.poiyomi.com/special-fx/udim-discard},hover:Documentation}}", Float) = 0
+[HideInInspector][ThryToggle(POI_UDIMDISCARD)]_EnableUDIMDiscardOptions ("Enable UDIM Discard Options", Float) = 0
+[Helpbox(1)]_UDIMDiscardHelpbox ("UV Tile Discard requires special model setup. Place object UVs on different UV Tiles.", Int) = 0
+[ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3)]_UDIMDiscardUV ("Discard UV", Int) = 0
+[Enum(Vertex (Faster), 0, Pixel (Slower), 1)] _UDIMDiscardMode ("Discard Mode", Int) = 0
+
+[ThryMultiFloats(true, _UDIMDiscardRow3_1, _UDIMDiscardRow3_2, _UDIMDiscardRow3_3)] _UDIMDiscardRow3_0("v = 3", Float) = 0
+[HideInInspector] _UDIMDiscardRow3_1("", Float) = 0
+[HideInInspector] _UDIMDiscardRow3_2("", Float) = 0
+[HideInInspector] _UDIMDiscardRow3_3("", Float) = 0
+
+[ThryMultiFloats(true, _UDIMDiscardRow2_1, _UDIMDiscardRow2_2, _UDIMDiscardRow2_3)] _UDIMDiscardRow2_0("v = 2", Float) = 0
+[HideInInspector] _UDIMDiscardRow2_1("", Float) = 0
+[HideInInspector] _UDIMDiscardRow2_2("", Float) = 0
+[HideInInspector] _UDIMDiscardRow2_3("", Float) = 0
+
+[ThryMultiFloats(true, _UDIMDiscardRow1_1, _UDIMDiscardRow1_2, _UDIMDiscardRow1_3)] _UDIMDiscardRow1_0("v = 1", Float) = 0
+[HideInInspector] _UDIMDiscardRow1_1("", Float) = 0
+[HideInInspector] _UDIMDiscardRow1_2("", Float) = 0
+[HideInInspector] _UDIMDiscardRow1_3("", Float) = 0
+
+[ThryMultiFloats(true, _UDIMDiscardRow0_1, _UDIMDiscardRow0_2, _UDIMDiscardRow0_3)] _UDIMDiscardRow0_0("v = 0", Float) = 0
+[HideInInspector] _UDIMDiscardRow0_1("", Float) = 0
+[HideInInspector] _UDIMDiscardRow0_2("", Float) = 0
+[HideInInspector] _UDIMDiscardRow0_3("", Float) = 0
+
+[HideInInspector] m_start_udimfacediscardOptions ("Face Discard--{reference_property:_EnableUDIMFaceDiscardOptions}", Float) = 0
+[HideInInspector][ToggleUI]_EnableUDIMFaceDiscardOptions ("Enabled", Float) = 0
+[ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3)]_UDIMFaceDiscardUV ("Face Discard UV", Int) = 0
+[Enum(Back, 0, Front, 1)] _UDIMFaceDiscardFace ("Face to Discard", Int) = 0
+[ThryMultiFloats(true, _UDIMFaceDiscardRow3_1, _UDIMFaceDiscardRow3_2, _UDIMFaceDiscardRow3_3)] _UDIMFaceDiscardRow3_0("v = 3", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow3_1("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow3_2("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow3_3("", Float) = 0
+
+[ThryMultiFloats(true, _UDIMFaceDiscardRow2_1, _UDIMFaceDiscardRow2_2, _UDIMFaceDiscardRow2_3)] _UDIMFaceDiscardRow2_0("v = 2", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow2_1("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow2_2("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow2_3("", Float) = 0
+
+[ThryMultiFloats(true, _UDIMFaceDiscardRow1_1, _UDIMFaceDiscardRow1_2, _UDIMFaceDiscardRow1_3)] _UDIMFaceDiscardRow1_0("v = 1", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow1_1("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow1_2("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow1_3("", Float) = 0
+
+[ThryMultiFloats(true, _UDIMFaceDiscardRow0_1, _UDIMFaceDiscardRow0_2, _UDIMFaceDiscardRow0_3)] _UDIMFaceDiscardRow0_0("v = 0", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow0_1("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow0_2("", Float) = 0
+[HideInInspector] _UDIMFaceDiscardRow0_3("", Float) = 0
+[HideInInspector] m_end_udimfacediscardOptions ("Row 3", Float) = 0
+
+[HideInInspector] m_end_udimdiscardOptions ("UV Tile Discard", Float) = 0
+//endex
+
+#T#PoiUDIMDiscardKeywords
+//ifex _EnableUDIMDiscardOptions==0
+#pragma shader_feature_local POI_UDIMDISCARD 
+//endex
+
+#T#PoiUDIMDiscardVariables
+//ifex _EnableUDIMDiscardOptions==0
+#ifdef POI_UDIMDISCARD 
+	float _UDIMDiscardMode;
+    float _UDIMDiscardUV;
+	float _UDIMDiscardRow3_0;
+	float _UDIMDiscardRow3_1;
+	float _UDIMDiscardRow3_2;
+	float _UDIMDiscardRow3_3;
+	float _UDIMDiscardRow2_0;
+	float _UDIMDiscardRow2_1;
+	float _UDIMDiscardRow2_2;
+	float _UDIMDiscardRow2_3;
+	float _UDIMDiscardRow1_0;
+	float _UDIMDiscardRow1_1;
+	float _UDIMDiscardRow1_2;
+	float _UDIMDiscardRow1_3;
+	float _UDIMDiscardRow0_0;
+	float _UDIMDiscardRow0_1;
+	float _UDIMDiscardRow0_2;
+	float _UDIMDiscardRow0_3;
+
+    float _EnableUDIMFaceDiscardOptions;
+	float _UDIMFaceDiscardFace;
+    float _UDIMFaceDiscardUV;
+	float _UDIMFaceDiscardRow3_0;
+	float _UDIMFaceDiscardRow3_1;
+	float _UDIMFaceDiscardRow3_2;
+	float _UDIMFaceDiscardRow3_3;
+	float _UDIMFaceDiscardRow2_0;
+	float _UDIMFaceDiscardRow2_1;
+	float _UDIMFaceDiscardRow2_2;
+	float _UDIMFaceDiscardRow2_3;
+	float _UDIMFaceDiscardRow1_0;
+	float _UDIMFaceDiscardRow1_1;
+	float _UDIMFaceDiscardRow1_2;
+	float _UDIMFaceDiscardRow1_3;
+	float _UDIMFaceDiscardRow0_0;
+	float _UDIMFaceDiscardRow0_1;
+	float _UDIMFaceDiscardRow0_2;
+	float _UDIMFaceDiscardRow0_3;
+#endif
+//endex
+
+#T#PoiUDIMDiscardFunctions
+//ifex _EnableUDIMDiscardOptions==0
+#ifdef POI_UDIMDISCARD 
+    float shouldPerformUDIMDiscard(float2 udim, float4 UDIMDiscardRows[4])
+    {
+    	float shouldDiscard = 0;
+    	float4 xMask = float4(  (udim.x >= 0 && udim.x < 1), 
+    							(udim.x >= 1 && udim.x < 2),
+    							(udim.x >= 2 && udim.x < 3),
+    							(udim.x >= 3 && udim.x < 4));
+
+		shouldDiscard += (udim.y >= 0 && udim.y < 1) * dot(UDIMDiscardRows[0], xMask);
+		shouldDiscard += (udim.y >= 1 && udim.y < 2) * dot(UDIMDiscardRows[1], xMask);
+		shouldDiscard += (udim.y >= 2 && udim.y < 3) * dot(UDIMDiscardRows[2], xMask);
+		shouldDiscard += (udim.y >= 3 && udim.y < 4) * dot(UDIMDiscardRows[3], xMask);
+
+		shouldDiscard *= any(float4(udim.y >= 0, udim.y < 4, udim.x >= 0, udim.x < 4)); // never discard outside 4x4 grid in pos coords 
+
+		// Use a threshold so that there's some room for animations to be close to 0, but not exactly 0
+		const float threshold = 0.001;
+		return threshold - shouldDiscard;
+    }
+#endif
+//endex
+
+#T#PoiUDIMDiscardVertexImplementation
+//ifex _EnableUDIMDiscardOptions==0
+#ifdef POI_UDIMDISCARD 
+	UNITY_BRANCH
+	if(_UDIMDiscardMode == 0) // Discard Vertices instead of just pixels
+	{
+        // Branchless (inspired by s-ilent)
+        float2 udim = 0; 
+        // Select UV
+        udim += (v.uv0.xy * (_UDIMDiscardUV == 0));
+        udim += (v.uv1.xy * (_UDIMDiscardUV == 1));
+        udim += (v.uv2.xy * (_UDIMDiscardUV == 2));
+        udim += (v.uv3.xy * (_UDIMDiscardUV == 3));
+
+        float4 UDIMDiscardRows[4];
+        UDIMDiscardRows[0] = float4(_UDIMDiscardRow0_0, _UDIMDiscardRow0_1, _UDIMDiscardRow0_2, _UDIMDiscardRow0_3);
+        UDIMDiscardRows[1] = float4(_UDIMDiscardRow1_0, _UDIMDiscardRow1_1, _UDIMDiscardRow1_2, _UDIMDiscardRow1_3);
+        UDIMDiscardRows[2] = float4(_UDIMDiscardRow2_0, _UDIMDiscardRow2_1, _UDIMDiscardRow2_2, _UDIMDiscardRow2_3);
+        UDIMDiscardRows[3] = float4(_UDIMDiscardRow3_0, _UDIMDiscardRow3_1, _UDIMDiscardRow3_2, _UDIMDiscardRow3_3);
+
+		float shouldDiscard = shouldPerformUDIMDiscard(udim, UDIMDiscardRows);
+
+		if(shouldDiscard < 0) // Early Return skips rest of vertex shader
+		{
+			return (VertexOut)POI_NAN;
+		}
+	}
+#endif
+//endex 
+
+#T#PoiUDIMDiscardFragFunctions
+//ifex _EnableUDIMDiscardOptions==0
+#ifdef POI_UDIMDISCARD 
+    void applyUDIMDiscard(in VertexOut i, in uint facing)
+    {
+        // UDIM Discaarad
+		if(_UDIMDiscardMode == 1) // Don't run if in vertex mode
+		{
+			float2 udim = floor(vertexUV(i, _UDIMDiscardUV));
+
+            float4 UDIMDiscardRows[4];
+            UDIMDiscardRows[0] = float4(_UDIMDiscardRow0_0, _UDIMDiscardRow0_1, _UDIMDiscardRow0_2, _UDIMDiscardRow0_3);
+            UDIMDiscardRows[1] = float4(_UDIMDiscardRow1_0, _UDIMDiscardRow1_1, _UDIMDiscardRow1_2, _UDIMDiscardRow1_3);
+            UDIMDiscardRows[2] = float4(_UDIMDiscardRow2_0, _UDIMDiscardRow2_1, _UDIMDiscardRow2_2, _UDIMDiscardRow2_3);
+            UDIMDiscardRows[3] = float4(_UDIMDiscardRow3_0, _UDIMDiscardRow3_1, _UDIMDiscardRow3_2, _UDIMDiscardRow3_3);
+
+            float shouldDiscard = shouldPerformUDIMDiscard(udim, UDIMDiscardRows);
+
+	    	clip(shouldDiscard); // Clip if discarded
+		}
+
+        // UDIM Face Discard
+		if(_EnableUDIMFaceDiscardOptions && saturate(facing) == _UDIMFaceDiscardFace) // Run if Face Discard enabled & this is the face to discard
+		{
+            float2 faceUdim = floor(vertexUV(i, _UDIMFaceDiscardUV));
+
+            float4 UDIMFaceDiscardRows[4];
+            UDIMFaceDiscardRows[0] = float4(_UDIMFaceDiscardRow0_0, _UDIMFaceDiscardRow0_1, _UDIMFaceDiscardRow0_2, _UDIMFaceDiscardRow0_3);
+            UDIMFaceDiscardRows[1] = float4(_UDIMFaceDiscardRow1_0, _UDIMFaceDiscardRow1_1, _UDIMFaceDiscardRow1_2, _UDIMFaceDiscardRow1_3);
+            UDIMFaceDiscardRows[2] = float4(_UDIMFaceDiscardRow2_0, _UDIMFaceDiscardRow2_1, _UDIMFaceDiscardRow2_2, _UDIMFaceDiscardRow2_3);
+            UDIMFaceDiscardRows[3] = float4(_UDIMFaceDiscardRow3_0, _UDIMFaceDiscardRow3_1, _UDIMFaceDiscardRow3_2, _UDIMFaceDiscardRow3_3);
+
+            float shouldDiscard = shouldPerformUDIMDiscard(faceUdim, UDIMFaceDiscardRows);
+
+	    	clip(shouldDiscard); // Clip if discarded
+        }
+
+    	return;
+    }
+#endif
+//endex
+
+
+
+#T#PoiUDIMDiscardFragFunctionCalls 
+#ifdef POI_UDIMDISCARD 
+    applyUDIMDiscard(i, facing);
+#endif

@@ -1,0 +1,139 @@
+#T#lilFurProperties
+[HideInInspector]m_lilfurCategory ("lilFur", Float) = 0
+
+_FurNoiseMask ("Fur Noise--{reference_properties:[_FurNoiseMaskPan, _FurNoiseMaskUV]}", 2D) = "white" { }
+[HideInInspector][Vector2]_FurNoiseMaskPan ("Panning", Vector) = (0, 0, 0, 0)
+[HideInInspector][ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Panosphere, 4, World Pos, 5, Local Pos, 8, Polar UV, 6, Distorted UV, 7)]_FurNoiseMaskUV ("UV", Int) = 0
+//[HideInInspector][ToggleUI]_FurNoiseMaskStochastic ("Stochastic Sampling", Float) = 0
+
+_FurMask ("Fur Mask--{reference_properties:[_FurMaskPan, _FurMaskUV]}", 2D) = "white" { }
+[HideInInspector][Vector2]_FurMaskPan ("Panning", Vector) = (0, 0, 0, 0)
+[HideInInspector][ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Panosphere, 4, World Pos, 5, Local Pos, 8, Polar UV, 6, Distorted UV, 7)]_FurMaskUV ("UV", Int) = 0
+//[HideInInspector][ToggleUI]_FurMaskStochastic ("Stochastic Sampling", Float) = 0
+
+_FurLengthMask ("Fur Length Mask--{reference_properties:[_FurLengthMaskPan, _FurLengthMaskUV]}", 2D) = "white" { }
+[HideInInspector][Vector2]_FurLengthMaskPan ("Panning", Vector) = (0, 0, 0, 0)
+[HideInInspector][ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Panosphere, 4, World Pos, 5, Local Pos, 8, Polar UV, 6, Distorted UV, 7)]_FurLengthMaskUV ("UV", Int) = 0
+//[HideInInspector][ToggleUI]_FurLengthMaskStochastic ("Stochastic Sampling", Float) = 0
+
+[Normal]_FurVectorTex ("Fur Vector Map--{reference_properties:[_FurVectorTexPan, _FurVectorTexUV, _FurVectorScale]}", 2D) = "bump" { }
+[HideInInspector]_FurVectorScale ("Fur Vector scale", Range(-10, 10)) = 1
+[HideInInspector][Vector2]_FurVectorTexPan ("Panning", Vector) = (0, 0, 0, 0)
+[HideInInspector][ThryWideEnum(UV0, 0, UV1, 1, UV2, 2, UV3, 3, Panosphere, 4, World Pos, 5, Local Pos, 8, Polar UV, 6, Distorted UV, 7)] _FurVectorTexUV ("UV", Int) = 0
+//[HideInInspector][ToggleUI]_FurVectorTexStochastic ("Stochastic Sampling", Float) = 0
+
+_FurVector ("Vector Length", Vector) = (0.0, 0.0, 1.0, 0.02)
+[ToggleUI]_VertexColor2FurVector ("VertexColor as Vector", Int) = 0
+_FurGravity ("Gravity", Range(0, 1)) = 0.25
+_FurRandomize ("Randomize", Float) = 0
+_FurAO ("AO", Range(0, 1)) = 0
+[ThryWideEnum(Subdivision, 0, Shrink, 1)]_FurMeshType ("FurMeshType", Int) = 1
+[IntRange]_FurLayerNum ("Layer Num", Range(1, 4)) = 2
+_FurRootOffset ("Root Offset", Range(-1, 0)) = 0
+_FurCutoutLength ("Cutout Length", Float) = 0.8
+_FurTouchStrength ("Touch Strength", Range(0, 1)) = 0
+
+#T#lilFurRenderingProperties
+[Enum(UnityEngine.Rendering.CullMode)]          _FurCull ("FurCull", Int) = 0
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurSrcBlend ("SrcBlend", Int) = 5
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurDstBlend ("DstBlend", Int) = 10
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurSrcBlendAlpha ("SrcBlendAlpha", Int) = 1
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurDstBlendAlpha ("DstBlendAlpha", Int) = 10
+[Enum(UnityEngine.Rendering.BlendOp)]           _FurBlendOp ("BlendOp", Int) = 0
+[Enum(UnityEngine.Rendering.BlendOp)]           _FurBlendOpAlpha ("BlendOpAlpha", Int) = 0
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurSrcBlendFA ("ForwardAdd SrcBlend", Int) = 1
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurDstBlendFA ("ForwardAdd DstBlend", Int) = 1
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurSrcBlendAlphaFA ("ForwardAdd SrcBlendAlpha", Int) = 0
+[Enum(UnityEngine.Rendering.BlendMode)]         _FurDstBlendAlphaFA ("ForwardAdd DstBlendAlpha", Int) = 1
+[Enum(UnityEngine.Rendering.BlendOp)]           _FurBlendOpFA ("ForwardAdd BlendOp", Int) = 4
+[Enum(UnityEngine.Rendering.BlendOp)]           _FurBlendOpAlphaFA ("ForwardAdd BlendOpAlpha", Int) = 4
+[ToggleUI]                                      _FurZClip ("ZClip", Int) = 1
+[ToggleUI]                                      _FurZWrite ("ZWrite", Int) = 0
+[Enum(UnityEngine.Rendering.CompareFunction)]   _FurZTest ("ZTest", Int) = 4
+[IntRange]                                      _FurStencilRef ("Stencil Reference Value", Range(0, 255)) = 0
+[IntRange]                                      _FurStencilReadMask ("Stencil ReadMask Value", Range(0, 255)) = 255
+[IntRange]                                      _FurStencilWriteMask ("Stencil WriteMask Value", Range(0, 255)) = 255
+[Enum(UnityEngine.Rendering.CompareFunction)]   _FurStencilComp ("Stencil Compare Function", Float) = 8
+[Enum(UnityEngine.Rendering.StencilOp)]         _FurStencilPass ("Stencil Pass", Float) = 0
+[Enum(UnityEngine.Rendering.StencilOp)]         _FurStencilFail ("Stencil Fail", Float) = 0
+[Enum(UnityEngine.Rendering.StencilOp)]         _FurStencilZFail ("Stencil ZFail", Float) = 0
+_FurOffsetFactor ("Offset Factor", Float) = 0
+_FurOffsetUnits ("Offset Units", Float) = 0
+[Enum(Thry.ColorMask)]                         	_FurColorMask ("Color Mask", Int) = 15
+[ToggleUI]                                     	_FurAlphaToMask ("AlphaToMask", Int) = 0
+
+#T#FurPassSkeleton
+
+Pass
+{
+	#if defined(PROP_FURNOISEMASK) || !defined(OPTIMIZER_ENABLED)
+		Texture2D _FurNoiseMask;
+		float4 _FurNoiseMask_ST;
+		float2 _FurNoiseMaskPan;
+		float _FurNoiseMaskUV;
+		float _FurNoiseMaskChannel;
+	#endif
+
+	#if defined(PROP_FURMASK) || !defined(OPTIMIZER_ENABLED)
+		Texture2D _FurMask;
+		float4 _FurMask_ST;
+		float2 _FurMaskPan;
+		float _FurMaskUV;
+		float _FurMaskChannel;
+	#endif
+
+	#if defined(PROP_FURLENGTHMASK) || !defined(OPTIMIZER_ENABLED)
+		Texture2D _FurLengthMask;
+		float4 _FurLengthMask_ST;
+		float2 _FurLengthMaskPan;
+		float _FurLengthMaskUV;
+		float _FurLengthMaskChannel;
+	#endif
+
+	#if defined(PROP_FURVECTORTEX) || !defined(OPTIMIZER_ENABLED)
+		Texture2D _FurVectorTex;
+		float4 _FurVectorTex_ST;
+		float2 _FurVectorTexPan;
+		float _FurVectorTexUV;
+	#endif
+
+	float _FurVectorScale;
+	float4 _FurVector;
+	uint _VertexColor2FurVector;
+	float _FurGravity;
+	float _FurRandomize;
+	float _FurAO;
+	uint _FurMeshType;
+	uint _FurLayerNum;
+	float _FurRootOffset;
+	float _FurCutoutLength;
+	float _FurTouchStrength;
+
+	int _FurCull;
+	int _FurSrcBlend;
+	int _FurDstBlend;
+	int _FurSrcBlendAlpha;
+	int _FurDstBlendAlpha;
+	int _FurBlendOp;
+	int _FurBlendOpAlpha;
+	int _FurSrcBlendFA;
+	int _FurDstBlendFA;
+	int _FurSrcBlendAlphaFA;
+	int _FurDstBlendAlphaFA;
+	int _FurBlendOpFA;
+	int _FurBlendOpAlphaFA;
+	int _FurZClip;
+	int _FurZWrite;
+	int _FurZTest;
+	int _FurStencilRef;
+	int _FurStencilReadMask;
+	int _FurStencilWriteMask;
+	int _FurStencilComp;
+	float _FurStencilPass;
+	float _FurStencilFail;
+	float _FurStencilZFail;
+	float _FurOffsetFactor;
+	float _FurOffsetUnits;
+	int _FurColorMask;
+	int _FurAlphaToMask;
+}

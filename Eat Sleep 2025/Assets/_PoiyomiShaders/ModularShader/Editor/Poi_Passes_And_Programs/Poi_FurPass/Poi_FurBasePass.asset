@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1039f25740a92fc4292bb1d94d07ad19, type: 3}
+  m_Name: Poi_FurBasePass
+  m_EditorClassIdentifier: 
+  Id: FurBasePass
+  Name: FurBasePass
+  Version: 
+  Author: 
+  Description: 
+  EnableProperties: []
+  Properties: []
+  ModuleDependencies: []
+  IncompatibleWith: []
+  Templates:
+  - Template: {fileID: -544282384758852595, guid: febbce3298c3c0c4d992438299863f92, type: 3}
+    Keywords:
+    - FUR_BASE_PASS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: 7449056989505374287, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - PASS_TAGS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: 2310593608786482759, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - BLEND_SETTINGS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: 3832984347748250920, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - PASS_ONLY_SHADER_KEYWORDS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -6871107543629246907, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - PROPERTY_VARIABLES
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: 5465639963307458612, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - PASS_PROGRAMS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: 8391684666856912493, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - STENCIL
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -7081097589873935411, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - PASS_ONLY_SHADER_KEYWORDS
+    NeedsVariant: 0
+    Queue: 0
+  - Template: {fileID: -674328060668909634, guid: d26706c0c4e335d4384647d8206b7b50, type: 3}
+    Keywords:
+    - EXTRAS_PROPERTIES
+    NeedsVariant: 0
+    Queue: 0
+  Functions: []
+  AdditionalSerializedData: 
