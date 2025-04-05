@@ -9,7 +9,7 @@ public sealed class AnomalyController : Singleton<AnomalyController>
     [SerializeField] private List<AnomalySwap> anomalies = new();
     [SerializeField] private List<Transform> spawnPoints = new();
     [SerializeField] private List<Transform> movePoints = new();
-    [SerializeField] private List<GameObject> spawnables = new();
+    [SerializeField] private List<Anomaly> spawnables = new();
     [SerializeField] private List<Transform> spawned = new();
 
     protected override void Awake()
@@ -22,12 +22,12 @@ public sealed class AnomalyController : Singleton<AnomalyController>
     [ContextMenu("Update Anomalies")]
     public void AnomalyUpdate()
     {
-        Debug.Log($"[ANOMALY] {nameof(AnomalyUpdate)}");
+        Debug.Log("[ANOMALY] Updating scene");
         MonoBehaviour[] sceneObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID);
 
         // Anomalies
         anomalies = sceneObjects.OfType<AnomalySwap>().ToList();
-        Debug.Log($"[ANOMALY] {nameof(anomalies)}count: {anomalies.Count}");
+        Debug.Log($"[ANOMALY] Total objects: {anomalies.Count}");
         foreach (AnomalySwap anomaly in anomalies)
         {
             anomaly.OriginalPosition = anomaly.transform.position;
@@ -36,20 +36,31 @@ public sealed class AnomalyController : Singleton<AnomalyController>
 
         // Spawn points
         spawnPoints = sceneObjects.OfType<AnomalySpawnPointParent>().SelectMany(spawns => spawns.transform.Children()).ToList();
-        Debug.Log($"[ANOMALY] {nameof(spawnPoints)} count: {spawnPoints.Count}");
+        Debug.Log($"[ANOMALY] Spawn points: {spawnPoints.Count}");
 
         // Spawn points
         movePoints = sceneObjects.OfType<AnomalyMovePointParent>().SelectMany(spawns => spawns.transform.Children()).ToList();
-        Debug.Log($"[ANOMALY] {nameof(movePoints)} count: {movePoints.Count}");
-
-        // Spawnable objects
-        spawnables = sceneObjects.OfType<AnomalySpawnObjects>().SelectMany(spawns => spawns.transform.Children()).Select(x => x.gameObject).ToList();
-        Debug.Log($"[ANOMALY] {nameof(spawnables)} count: {spawnables.Count}");
+        Debug.Log($"[ANOMALY] Move points: {movePoints.Count}");
+        
+        LoadAnomalyResources();
     }
+    
+    private void LoadAnomalyResources()
+    {
+        spawnables.Clear();
+        var spawnableAnomalies = Resources.LoadAll<GameObject>("Anomalies");
+        foreach (var go in spawnableAnomalies)
+        {
+            if (go.TryGetComponent<Anomaly>(out var spawnObject))
+                spawnables.Add(spawnObject);
+        }
+        Debug.Log($"[ANOMALY] Loaded {spawnables.Count} anomalies");
+    }
+    
     [ContextMenu("Anomaly Move")]
     public bool AnomalyMove()
     {
-        Debug.Log($"[ANOMALY] {nameof(AnomalyMove)}");
+        Debug.Log("[ANOMALY] Move object");
         if (movePoints.Count == 0 || anomalies.Count == 0)
         {
             Debug.LogWarning($"[ANOMALY] No {nameof(movePoints)} or {nameof(anomalies)}");
@@ -85,9 +96,9 @@ public sealed class AnomalyController : Singleton<AnomalyController>
             return false;
         }
 
-        GameObject prefab = spawnables.GetRandom();
+        Anomaly prefab = spawnables.GetRandom();
         Transform point = spawnPoints.GetRandom();
-        GameObject spawn = Instantiate(prefab, point.position, Quaternion.identity);
+        GameObject spawn = Instantiate(prefab.gameObject, point.position, Quaternion.identity);
 
         spawned.Add(spawn.transform);
 
