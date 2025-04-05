@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
         _rotationVelocity.x += _mouseDelta.x * MoveSensitivity * Time.deltaTime;
         _rotationVelocity.y -= _mouseDelta.y * MoveSensitivity * Time.deltaTime;
         _eulerRotation.x += _rotationVelocity.x;
-        _eulerRotation.y -= _rotationVelocity.y;
+        _eulerRotation.y += _rotationVelocity.y;
         
         _eulerRotation.x = Mathf.Clamp(_eulerRotation.x, RotationLimitHorizontal.x, RotationLimitHorizontal.y);
         _eulerRotation.y = Mathf.Clamp(_eulerRotation.y, RotationLimitVertical.x, RotationLimitVertical.y);

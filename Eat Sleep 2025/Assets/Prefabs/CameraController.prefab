@@ -67,7 +67,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6792866923498308271, guid: 1b1bfae3b65a28b449875ce7068c6c87, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.085
       objectReference: {fileID: 0}
     - target: {fileID: 6792866923498308271, guid: 1b1bfae3b65a28b449875ce7068c6c87, type: 3}
       propertyPath: m_LocalPosition.z
@@ -101,7 +101,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7377117062310776482, guid: 1b1bfae3b65a28b449875ce7068c6c87, type: 3}
+      propertyPath: field of view
+      value: 65.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377117062310776482, guid: 1b1bfae3b65a28b449875ce7068c6c87, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 495590565689657950, guid: 1b1bfae3b65a28b449875ce7068c6c87, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
