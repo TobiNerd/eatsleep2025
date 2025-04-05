@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public sealed class AnomalyController : MonoBehaviour
+public sealed class AnomalyController : Singleton<AnomalyController>
 {
     // Fields
     [SerializeField] private List<AnomalySwap> anomalies = new();
@@ -12,11 +12,15 @@ public sealed class AnomalyController : MonoBehaviour
     [SerializeField] private List<GameObject> spawnables = new();
     [SerializeField] private List<Transform> spawned = new();
 
-    private void Awake() => AnomalyUpdate();
+    protected override void Awake()
+    {
+        base.Awake();
+        AnomalyUpdate();
+    }
 
     // Methods
     [ContextMenu("Update Anomalies")]
-    private void AnomalyUpdate()
+    public void AnomalyUpdate()
     {
         Debug.Log("[ANOMALY] Updating scene");
         MonoBehaviour[] sceneObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID);
@@ -42,9 +46,8 @@ public sealed class AnomalyController : MonoBehaviour
         spawnables = sceneObjects.OfType<AnomalySpawnObjects>().SelectMany(spawns => spawns.transform.Children()).Select(x => x.gameObject).ToList();
         Debug.Log($"[ANOMALY] Spawnable objects: {spawnables.Count}");
     }
-
     [ContextMenu("Anomaly Move")]
-    private bool AnomalyMove()
+    public bool AnomalyMove()
     {
         Debug.Log("[ANOMALY] Move object");
         if (movePoints.Count == 0 || anomalies.Count == 0)
@@ -59,9 +62,8 @@ public sealed class AnomalyController : MonoBehaviour
 
         return true;
     }
-
     [ContextMenu("Reset Scene")]
-    private void AnomalyReset()
+    public void AnomalyReset()
     {
         Debug.Log("[ANOMALY] Resetting scene");
         foreach (AnomalySwap anomaly in anomalies)
@@ -73,9 +75,8 @@ public sealed class AnomalyController : MonoBehaviour
         foreach (Transform spawn in spawned) DestroyImmediate(spawn.gameObject);
         spawned.Clear();
     }
-
     [ContextMenu("Anomaly Spawn")]
-    private bool AnomalySpawn()
+    public bool AnomalySpawn()
     {
         Debug.Log("[ANOMALY] Spawning object");
         if (spawnPoints.Count == 0 || spawnables.Count == 0)
@@ -92,9 +93,8 @@ public sealed class AnomalyController : MonoBehaviour
 
         return true;
     }
-
     [ContextMenu("Anomaly Swap")]
-    private bool AnomalySwap()
+    public bool AnomalySwap()
     {
         Debug.Log("[ANOMALY] Swapping object");
         if (anomalies.Count < 2)
@@ -122,7 +122,6 @@ public sealed class AnomalyController : MonoBehaviour
         GameManager.I.InputActions.DebugSpawn.action.performed += AnomalySpawn;
         GameManager.I.InputActions.DebugSwap.action.performed += AnomalySwap;
     }
-
     private void OnDisable()
     {
         GameManager.I.InputActions.DebugMove.action.performed -= AnomalyMove;

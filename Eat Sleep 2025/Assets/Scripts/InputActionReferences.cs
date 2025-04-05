@@ -9,4 +9,7 @@ public class InputActionReferences : ScriptableObject
     public InputActionReference DebugReset;
     public InputActionReference DebugSpawn;
     public InputActionReference DebugSwap;
+    public InputActionReference ShootYourself;
+    public InputActionReference GoToSleep;
+
 }
