@@ -20,6 +20,7 @@ public sealed class GameManager : Singleton<GameManager>
     [SerializeField] private NightAction nightAction = NightAction.Nothing;
     [SerializeField] private AnomalyAIState aiState = AnomalyAIState.Awake;
     public bool IsNightPlaying => state == GameState.Playing;
+    public GameState GameState => state;
 
     [SerializeField] private AnomalyAILevel anomalyAILevel;
     public RepeatedTimer nightTimer = new(10.0f);
