@@ -3,7 +3,7 @@ using UnityEngine;
 namespace EatSleep.Step0
 {
     [ExecuteInEditMode]
-    public sealed class SpawnPoints : MonoBehaviour
+    public sealed class SpawnPointParent : MonoBehaviour
     {
         public Color gizmoCircle = Color.green;
         public float gizmoRadius = 0.5f;
