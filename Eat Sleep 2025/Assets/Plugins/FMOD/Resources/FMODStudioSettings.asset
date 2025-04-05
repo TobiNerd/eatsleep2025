@@ -454,7 +454,7 @@ MonoBehaviour:
   HasSourceProject: 0
   HasPlatforms: 0
   sourceProjectPath: 
-  sourceBankPath: Assets/FMOD/Desktop
+  sourceBankPath: Assets/FMOD
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
@@ -476,7 +476,7 @@ MonoBehaviour:
   RealChannelSettings: []
   Plugins: []
   MasterBanks:
-  - Master
+  - Desktop/Master
   Banks: []
   BanksToLoad: []
   LiveUpdatePort: 9264
@@ -505,7 +505,7 @@ MonoBehaviour:
   - {fileID: 5518503470204598830}
   - {fileID: 6278695579244100772}
   - {fileID: 7139097869902855474}
-  MigratedPlatforms: 00000000060000000b0000000c0000000a00000009000000050000001200000015000000080000000200000001000000
+  MigratedPlatforms: 0500000000000000060000000a0000000800000009000000120000000c000000150000000b0000000200000001000000
 --- !u!114 &646793174628045139
 MonoBehaviour:
   m_ObjectHideFlags: 0
