@@ -975,6 +975,10 @@ PrefabInstance:
       propertyPath: 'spawnPoints.Array.data[3]'
       value: 
       objectReference: {fileID: 8321952672464695595}
+    - target: {fileID: 8979134023642988671, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
+      propertyPath: StartTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9195147782554348243, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: m_Name
       value: Controllers
