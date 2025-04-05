@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: InputActionReferences
   m_EditorClassIdentifier: 
   MouseDelta: {fileID: -5004891959738988046, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
+  DebugSpawn: {fileID: -1818962027931027989, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
+  DebugReset: {fileID: -6376310974799330835, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
+  DebugSwap: {fileID: -7235290178024161980, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
