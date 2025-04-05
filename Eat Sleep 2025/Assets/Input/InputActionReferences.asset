@@ -17,3 +17,5 @@ MonoBehaviour:
   DebugReset: {fileID: -6376310974799330835, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
   DebugSpawn: {fileID: -1818962027931027989, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
   DebugSwap: {fileID: -7235290178024161980, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
+  ShootYourself: {fileID: 1642121231914211810, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
+  GoToSleep: {fileID: 805846313061690822, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
