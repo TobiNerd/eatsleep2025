@@ -9,6 +9,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float dropTime = 0.3f;
     [SerializeField] private float bounceStrength = 10f;
 
+    private static readonly Vector3 uprigthTorso = new(0.0f, -90.0f, 0.0f);
+    private static readonly Vector3 layingDownTorso = new(-90.0f, -90.0f, 0.0f);
+
     [Range(0.1f, 20f)] public float MoveSensitivity = 20f;
     [Range(0, 10f)] public float MoveDampening = 0.01f;
     public Vector2 RotationLimitVertical = new(-90f, 90f);
@@ -53,8 +56,6 @@ public class CameraController : MonoBehaviour
         GameManager.I.InputActions.MouseDelta.action.performed -= OnMouseMoved;
     }
 
-    private static readonly Vector3 uprigthTorso = new(-90.0f, -90.0f, 0.0f);
-    private static readonly Vector3 layingDownTorso = new(180.0f, -90.0f, 0.0f);
     [ContextMenu("Death Animation")]
     void DeathAnimation()
     {
@@ -73,8 +74,9 @@ public class CameraController : MonoBehaviour
     [ContextMenu("Wake Up Animation")]
     void WakeUpAnimation()
     {
-        FadeToBlack.I.Clear((int)(headLiftTime * 500));
         AnimationIndex index = GameManager.I.Animations.Add();
+        FadeToBlack.I.Clear((int)(headLiftTime * 500));
+        _torso.localRotation = Quaternion.Euler(layingDownTorso);
         Sequence wakeSequence = DOTween.Sequence();
         wakeSequence.Append(_torso.DOLocalRotate(uprigthTorso, headLiftTime).SetEase(Ease.OutSine));
         wakeSequence.OnComplete(() =>
