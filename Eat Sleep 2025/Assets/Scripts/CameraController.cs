@@ -101,7 +101,12 @@ public class CameraController : MonoBehaviour
         const int openEyesDurationMS = 1000;
         FadeToBlack.I.Clear(openEyesDurationMS);
     }
-    void LostGameAnimation() => _torso.rotation = Quaternion.Euler(layingDownTorso);
+    void LostGameAnimation()
+    {
+        const int lostGameFadeDurationMS = 1000;
+        FadeToBlack.I.Fade(lostGameFadeDurationMS, withBlood: true);
+        _torso.DOLocalRotate(layingDownTorso, lostGameFadeDurationMS).SetEase(Ease.OutSine);
+    }
     private void Update() => RotateCamera();
     private void OnMouseMoved(InputAction.CallbackContext ctx)
     {
