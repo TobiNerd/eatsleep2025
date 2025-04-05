@@ -61,37 +61,36 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void Update()
     {
-        if (Animations.Running()) return;
-
-
-        State = state switch
-        {
-            GameState.Day => playerAction switch
-            {
-                PlayerAction.ShootYourself => GameState.LostNight,
-                PlayerAction.GoToSleep => GameState.WonNight,
-                _ => GameState.Day
-            },
-            GameState.NightSetup => betweenNightsDelayTimer.IsRunning() ? GameState.NightSetup : GameState.Playing,
-            GameState.Playing => !nightTimer.IsRunning()
-                ? aiState is AnomalyAIState.Dreaming ? GameState.LostNight : GameState.WonNight
-                : playerAction switch
-                {
-                    PlayerAction.Nothing => GameState.Playing,
-                    PlayerAction.ShootYourself => aiState is AnomalyAIState.Dreaming ? GameState.WonNight : GameState.LostNight,
-                    PlayerAction.GoToSleep => aiState is AnomalyAIState.Dreaming ? GameState.LostNight : GameState.WonNight,
-                    _ => throw new ArgumentOutOfRangeException()
-                },
-            GameState.WonNight => ++timesWon == maxWins ? GameState.Win : GameState.NightSetup,
-            GameState.LostNight => lostDelayTimer.IsRunning() ? GameState.LostNight : GameState.Day,
-            GameState.Win => playerAction switch
-            {
-                PlayerAction.ShootYourself => GameState.LostNight,
-                _ => GameState.Win
-            },
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        if (!Animations.Running()) State = GetNextState();
     }
+
+    private GameState GetNextState() => state switch
+    {
+        GameState.Day => playerAction switch
+        {
+            PlayerAction.ShootYourself => GameState.LostNight,
+            PlayerAction.GoToSleep => GameState.WonNight,
+            _ => GameState.Day
+        },
+        GameState.NightSetup => betweenNightsDelayTimer.IsRunning() ? GameState.NightSetup : GameState.Playing,
+        GameState.Playing => !nightTimer.IsRunning()
+            ? aiState is AnomalyAIState.Dreaming ? GameState.LostNight : GameState.WonNight
+            : playerAction switch
+            {
+                PlayerAction.Nothing => GameState.Playing,
+                PlayerAction.ShootYourself => aiState is AnomalyAIState.Dreaming ? GameState.WonNight : GameState.LostNight,
+                PlayerAction.GoToSleep => aiState is AnomalyAIState.Dreaming ? GameState.LostNight : GameState.WonNight,
+                _ => throw new ArgumentOutOfRangeException()
+            },
+        GameState.WonNight => ++timesWon == maxWins ? GameState.WinGame : GameState.NightSetup,
+        GameState.LostNight => lostDelayTimer.IsRunning() ? GameState.LostNight : GameState.Day,
+        GameState.WinGame => playerAction switch
+        {
+            PlayerAction.ShootYourself => GameState.LostNight,
+            _ => GameState.WinGame
+        },
+        _ => throw new ArgumentOutOfRangeException()
+    };
 
     private void StateChanged(GameState oldState, GameState newState)
     {
@@ -112,7 +111,7 @@ public sealed class GameManager : Singleton<GameManager>
                 break;
             case GameState.LostNight:
                 break;
-            case GameState.Win:
+            case GameState.WinGame:
                 InputActions.ShootYourself.action.performed -= ShootYourself;
                 InputActions.GoToSleep.action.performed -= GoToSleep;
                 break;
@@ -120,10 +119,15 @@ public sealed class GameManager : Singleton<GameManager>
                 throw new ArgumentOutOfRangeException(nameof(oldState), oldState, null);
         }
 
+        const float MS_TO_S = 0.001f;
         switch (newState)
         {
             case GameState.Day:
-                CameraController.StartGameAnimation();
+                FadeToBlack.I.Black();
+                const int openEyesDurationMS = 1000;
+                FadeToBlack.I.Clear(openEyesDurationMS);
+                CameraController.UprightAnimation(openEyesDurationMS * MS_TO_S);
+
                 timesWon = 0;
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
@@ -131,7 +135,10 @@ public sealed class GameManager : Singleton<GameManager>
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.Playing:
-                CameraController.WakeUpAnimation();
+                const int wakeUpDurationMS = 500;
+                FadeToBlack.I.Clear(wakeUpDurationMS);
+                CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S);
+
                 nightTimer.Reset();
                 playerAction = PlayerAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
@@ -145,10 +152,12 @@ public sealed class GameManager : Singleton<GameManager>
                 AnomalyAI();
                 break;
             case GameState.LostNight:
-                CameraController.LostGameAnimation();
+                const int lostGameFadeDurationMS = 1000;
+                FadeToBlack.I.Fade(lostGameFadeDurationMS, withBlood: true);
+                CameraController.LaydownAnimation(lostGameFadeDurationMS * MS_TO_S * 0.5f);
                 lostDelayTimer.Reset();
                 break;
-            case GameState.Win:
+            case GameState.WinGame:
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
@@ -202,7 +211,7 @@ public sealed class GameManager : Singleton<GameManager>
         if (playerAction is not PlayerAction.Nothing || Animations.Running()) return;
 
         playerAction = PlayerAction.GoToSleep;
-        CameraController.SleepAnimation();
+        CameraController.LaydownAnimation(1.5f);
     }
     private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
     private void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
@@ -222,7 +231,7 @@ public enum GameState
     WonNight,
     NightSetup,
     LostNight,
-    Win
+    WinGame
 }
 
 public enum AnomalyAIState
