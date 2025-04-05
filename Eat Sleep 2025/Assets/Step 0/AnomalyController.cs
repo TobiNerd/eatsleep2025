@@ -70,9 +70,9 @@ namespace EatSleep.Step0
 
             GameObject prefab = spawnables.GetRandom();
             Transform point = spawnPoints.GetRandom();
-            GameObject spawned = Instantiate(prefab, point.position, Quaternion.identity);
+            GameObject spawn = Instantiate(prefab, point.position, Quaternion.identity);
 
-            this.spawned.Add(spawned.transform);
+            spawned.Add(spawn.transform);
 
             return true;
         }
@@ -80,14 +80,15 @@ namespace EatSleep.Step0
         [ContextMenu("Reset Scene")]
         void ResetRoom()
         {
-            Debug.Log("[ANOMALY] Restting scene");
+            Debug.Log("[ANOMALY] Resetting scene");
             foreach (AnomalySwap anomaly in anomalies)
             {
                 anomaly.transform.position = anomaly.OriginalPosition;
                 anomaly.transform.rotation = anomaly.OriginalRotation;
             }
 
-            foreach (Transform spawn in spawned) Destroy(spawn.gameObject);
+            foreach (Transform spawn in spawned) DestroyImmediate(spawn.gameObject);
+            spawned.Clear();
         }
     }
 }
