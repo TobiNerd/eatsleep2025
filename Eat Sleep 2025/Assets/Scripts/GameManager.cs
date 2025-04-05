@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public sealed class GameManager : Singleton<GameManager>
 {
@@ -16,15 +17,17 @@ public sealed class GameManager : Singleton<GameManager>
     public Action LostGameEvent;
     public AnimationList Animations = new();
 
-    [SerializeField] private GameState state = GameState.Day;
-    [SerializeField] private NightAction nightAction = NightAction.Nothing;
+    [SerializeField] private GameState state;
+    [SerializeField] private PlayerAction playerAction = PlayerAction.Nothing;
     [SerializeField] private AnomalyAIState aiState = AnomalyAIState.Awake;
     public bool IsNightPlaying => state == GameState.Playing;
+    public GameState GameState => state;
 
     [SerializeField] private AnomalyAILevel anomalyAILevel;
     public RepeatedTimer nightTimer = new(10.0f);
-    public RepeatedTimer setupTimer = new(2.0f);
-    
+    public RepeatedTimer betweenNightsDelayTimer = new(2.0f);
+    public RepeatedTimer lostDelayTimer = new(2.0f);
+
     public static Action<GameState> OnStateChanged;
 
     private GameState State
@@ -47,7 +50,7 @@ public sealed class GameManager : Singleton<GameManager>
         base.Awake();
         LoadStartupAssets();
     }
-    
+
     private void LoadStartupAssets()
     {
         var startupAsset = Resources.LoadAll<GameObject>("InstantiateOnStartup");
@@ -63,6 +66,7 @@ public sealed class GameManager : Singleton<GameManager>
     {
         _playerInput = GetComponent<PlayerInput>();
         _playerInput.actions.FindActionMap("Debug").Enable();
+        state = GameState.LostNight;
     }
     private void Update()
     {
@@ -70,11 +74,16 @@ public sealed class GameManager : Singleton<GameManager>
 
         State = state switch
         {
-            GameState.Day => GameState.NightSetup,
-            GameState.NightSetup => !setupTimer.Continue() ? GameState.NightSetup : GameState.Playing,
+            GameState.Day => playerAction switch
+            {
+                PlayerAction.ShootYourself => GameState.LostNight,
+                PlayerAction.GoToSleep => GameState.WonNight,
+                _ => GameState.Day
+            },
+            GameState.NightSetup => !betweenNightsDelayTimer.Continue() ? GameState.NightSetup : GameState.Playing,
             GameState.Playing => NightLoop(),
             GameState.WonNight => GameState.NightSetup,
-            GameState.LostNight => GameState.LostNight,
+            GameState.LostNight => !lostDelayTimer.Continue() ? GameState.LostNight : GameState.Day,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -84,13 +93,17 @@ public sealed class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameState.Day:
+                Debug.Log("Sub");
                 StartGameEvent?.Invoke();
                 anomalyAILevel = AnomalyAILevel.Easy;
+                playerAction = PlayerAction.Nothing;
+                InputActions.ShootYourself.action.performed += ShootYourself;
+                InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.Playing:
                 WakeUpEvent?.Invoke();
                 nightTimer.Reset();
-                nightAction = NightAction.Nothing;
+                playerAction = PlayerAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
@@ -98,10 +111,11 @@ public sealed class GameManager : Singleton<GameManager>
                 if (aiState is AnomalyAIState.Dreaming) anomalyAILevel++;
                 break;
             case GameState.NightSetup:
-                setupTimer.Reset();
+                betweenNightsDelayTimer.Reset();
                 AnomalyAI();
                 break;
             case GameState.LostNight:
+                lostDelayTimer.Reset();
                 LostGameEvent?.Invoke();
                 break;
             default:
@@ -113,6 +127,9 @@ public sealed class GameManager : Singleton<GameManager>
         switch (oldState)
         {
             case GameState.Day:
+                Debug.Log("Unsub");
+                InputActions.ShootYourself.action.performed -= ShootYourself;
+                InputActions.GoToSleep.action.performed -= GoToSleep;
                 break;
             case GameState.Playing:
                 InputActions.ShootYourself.action.performed -= ShootYourself;
@@ -131,15 +148,15 @@ public sealed class GameManager : Singleton<GameManager>
 
     private GameState NightLoop()
     {
-        if (!nightTimer.Continue()) nightAction = NightAction.Timeout;
+        if (!nightTimer.Continue()) playerAction = PlayerAction.Timeout;
 
-        if (nightAction is not NightAction.Nothing) Debug.Log($"[{nameof(GameState)}] {nameof(NightAction)} {nightAction}");
+        if (playerAction is not PlayerAction.Nothing) Debug.Log($"[{nameof(GameState)}] {nameof(PlayerAction)} {playerAction}");
         bool isAnomaly = aiState is AnomalyAIState.Dreaming;
-        return nightAction switch
+        return playerAction switch
         {
-            NightAction.Nothing => GameState.Playing,
-            NightAction.ShootYourself => isAnomaly ? GameState.WonNight : GameState.LostNight,
-            NightAction.Timeout or NightAction.GoToSleep => isAnomaly ? GameState.LostNight : GameState.WonNight,
+            PlayerAction.Nothing => GameState.Playing,
+            PlayerAction.ShootYourself => isAnomaly ? GameState.WonNight : GameState.LostNight,
+            PlayerAction.Timeout or PlayerAction.GoToSleep => isAnomaly ? GameState.LostNight : GameState.WonNight,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -179,19 +196,19 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void ShootYourself()
     {
-        nightAction = NightAction.ShootYourself;
+        playerAction = PlayerAction.ShootYourself;
         DeathEvent?.Invoke();
     }
     private void GoToSleep()
     {
-        nightAction = NightAction.GoToSleep;
+        playerAction = PlayerAction.GoToSleep;
         SleepEvent?.Invoke();
     }
     private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
     private void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
 }
 
-public enum NightAction
+public enum PlayerAction
 {
     Nothing,
     ShootYourself,
