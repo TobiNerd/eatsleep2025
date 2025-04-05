@@ -7,6 +7,9 @@ public sealed class GameManager : Singleton<GameManager>
     public InputActionReferences InputActions;
     private PlayerInput _playerInput;
 
+    public Action DeathEvent;
+    public Action SleepEvent;
+
     [SerializeField] private GameState state = GameState.Day;
     [SerializeField] private NightAction nightAction = NightAction.Nothing;
     [SerializeField] private AnomalyAIState aiState = AnomalyAIState.Awake;
@@ -148,12 +151,12 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void ShootYourself()
     {
-        // Do animation
+        DeathEvent?.Invoke();
         nightAction = NightAction.ShootYourself;
     }
     private void GoToSleep()
     {
-        // Do Animations
+        SleepEvent?.Invoke();
         nightAction = NightAction.GoToSleep;
     }
     private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
