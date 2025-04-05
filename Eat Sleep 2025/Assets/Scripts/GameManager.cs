@@ -40,6 +40,22 @@ public sealed class GameManager : Singleton<GameManager>
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        LoadStartupAssets();
+    }
+    
+    private void LoadStartupAssets()
+    {
+        var startupAsset = Resources.LoadAll<GameObject>("InstantiateOnStartup");
+        foreach (var go in startupAsset)
+        {
+            GameObject spawn = Instantiate(go, this.transform);
+            spawn.transform.localPosition = Vector3.zero;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
