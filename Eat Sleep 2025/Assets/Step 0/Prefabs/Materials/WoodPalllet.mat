@@ -2823,7 +2823,7 @@ Material:
     - footer_twitter: 0
     - footer_youtube: 0
     - m_AudioLinkCategory: 0
-    - m_OutlineCategory: 1
+    - m_OutlineCategory: 0
     - m_end_ALDecalSpectrum: 0
     - m_end_ALVolumeColor: 0
     - m_end_Alpha: 0
