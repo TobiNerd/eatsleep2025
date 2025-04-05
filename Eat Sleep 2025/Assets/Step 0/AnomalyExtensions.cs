@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EatSleep.Step0
 {
-    public static class ExtensionMethods
+    public static class AnomalyExtensions
     {
         public static void AnomalySwap(this Transform self, Transform other, SwapFlags swapFlags)
         {

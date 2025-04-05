@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace EatSleep.Step0
 {
-    public class AnomalyController : MonoBehaviour
+    public sealed class AnomalyController : MonoBehaviour
     {
-        [SerializeField] private List<AnomalySwap> anomalies = new();
+        // Fields
+        [SerializeField] List<AnomalySwap> anomalies = new();
 
+        // Methods
         [ContextMenu("Update Anomalies")]
         void UpdateAnomalyList()
         {
@@ -18,6 +20,7 @@ namespace EatSleep.Step0
                 anomaly.OriginalPosition = anomaly.transform.position;
                 anomaly.OriginalRotation = anomaly.transform.rotation;
             }
+
             Debug.Log($"Total objects: {anomalies.Count}");
         }
 
@@ -45,7 +48,11 @@ namespace EatSleep.Step0
         [ContextMenu("Reset Scene")]
         void ResetRoom()
         {
-
+            foreach (AnomalySwap anomaly in anomalies)
+            {
+                anomaly.transform.position = anomaly.OriginalPosition;
+                anomaly.transform.rotation = anomaly.OriginalRotation;
+            }
         }
     }
 }
