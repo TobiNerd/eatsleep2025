@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2701131586550163090
 Transform:
   m_ObjectHideFlags: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 396208410605955218}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.243, y: 3.728, z: -0.8913827}
+  m_LocalPosition: {x: 18.243, y: 4.014, z: -0.8913827}
   m_LocalScale: {x: 0.09061948, y: 0.32289106, z: 0.08351498}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -328,7 +328,7 @@ Transform:
   m_GameObject: {fileID: 5312346562570290030}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.608803, y: 2.9266717, z: 1.0236173}
+  m_LocalPosition: {x: 18.16, y: 3.008, z: 1.398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -345,7 +345,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.3111641, g: 0.448849, b: 0.5169811, a: 1}
-  m_Intensity: 5
+  m_Intensity: 3.27
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -387,7 +387,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -415,7 +415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &916019422451497291
 Transform:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ Transform:
   m_GameObject: {fileID: 6298173957852850446}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.44, y: -2.203, z: -0.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -440,7 +440,7 @@ Light:
   m_GameObject: {fileID: 6298173957852850446}
   m_Enabled: 1
   serializedVersion: 11
-  m_Type: 0
+  m_Type: 2
   m_Color: {r: 0.9245283, g: 0.8508128, b: 0.5006408, a: 1}
   m_Intensity: 2
   m_Range: 5.41

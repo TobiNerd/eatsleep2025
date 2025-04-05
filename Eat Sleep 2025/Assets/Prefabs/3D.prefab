@@ -276,6 +276,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ea839054e3c81274aa5c966065c6b312, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 986740857a4a83740b73e383b08f7ef8, type: 2}
     - target: {fileID: 919132149155446097, guid: ea839054e3c81274aa5c966065c6b312, type: 3}
       propertyPath: m_Name
       value: Pillow
@@ -478,6 +482,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9fa54d96218d89f4f9585f9344459945, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 95e069605d4ee5042a10b554a6d50bcf, type: 2}
     - target: {fileID: 919132149155446097, guid: 9fa54d96218d89f4f9585f9344459945, type: 3}
       propertyPath: m_Name
       value: DoorBoard
@@ -544,6 +552,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1145bb91f20f28f47946c2862ea499e0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 84afd55cf11bcf34cb414ed1a49041fb, type: 2}
     - target: {fileID: 919132149155446097, guid: 1145bb91f20f28f47946c2862ea499e0, type: 3}
       propertyPath: m_Name
       value: Mattress
@@ -618,6 +630,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ed60c3c4abc88ea4c9569027515ca6bb, type: 3}
+      propertyPath: m_CastShadows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ed60c3c4abc88ea4c9569027515ca6bb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 27f458adcac2d9c4d97b32eee8dfc4ca, type: 2}
     - target: {fileID: 919132149155446097, guid: ed60c3c4abc88ea4c9569027515ca6bb, type: 3}
       propertyPath: m_Name
       value: room
@@ -732,11 +752,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c68bd289a4ad3046855917b3e6cd7e9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5086018
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c68bd289a4ad3046855917b3e6cd7e9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5086018
+      value: -0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c68bd289a4ad3046855917b3e6cd7e9, type: 3}
       propertyPath: m_LocalRotation.y
