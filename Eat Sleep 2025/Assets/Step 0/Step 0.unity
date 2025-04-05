@@ -517,7 +517,7 @@ Transform:
   m_GameObject: {fileID: 3186337994577330263}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.26, y: -1.01, z: -0.26999998}
+  m_LocalPosition: {x: 1.26, y: 0.289, z: -1.989}
   m_LocalScale: {x: 0.09061948, y: 0.32289106, z: 0.08351498}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -918,7 +918,7 @@ PrefabInstance:
     - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: 'anomalies.Array.data[0]'
       value: 
-      objectReference: {fileID: 5907743756171076657}
+      objectReference: {fileID: 4394601737695927617}
     - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: 'anomalies.Array.data[1]'
       value: 
@@ -926,11 +926,11 @@ PrefabInstance:
     - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: 'anomalies.Array.data[2]'
       value: 
-      objectReference: {fileID: 4394601737695927617}
+      objectReference: {fileID: 5803239682923618669}
     - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: 'anomalies.Array.data[3]'
       value: 
-      objectReference: {fileID: 5803239682923618669}
+      objectReference: {fileID: 5907743756171076657}
     - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: 'movePoints.Array.data[0]'
       value: 
