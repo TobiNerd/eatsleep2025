@@ -12,9 +12,11 @@ public sealed class AnomalyController : MonoBehaviour
     [SerializeField] private List<GameObject> spawnables = new();
     [SerializeField] private List<Transform> spawned = new();
 
+    private void Awake() => AnomalyUpdate();
+
     // Methods
     [ContextMenu("Update Anomalies")]
-    private void UpdateAnomalyList()
+    private void AnomalyUpdate()
     {
         Debug.Log("[ANOMALY] Updating scene");
         MonoBehaviour[] sceneObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID);
