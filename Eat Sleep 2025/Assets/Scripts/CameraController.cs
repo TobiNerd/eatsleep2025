@@ -9,8 +9,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float dropTime = 0.3f;
     [SerializeField] private float bounceStrength = 10f;
 
-    private static readonly Vector3 uprigthTorso = new(0.0f, -90.0f, 0.0f);
-    private static readonly Vector3 layingDownTorso = new(-90.0f, -90.0f, 0.0f);
+    private static readonly Quaternion uprigthTorso = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
+    private static readonly Quaternion layingDownTorso = Quaternion.Euler(new Vector3(-90.0f, -90.0f, 0.0f));
 
     [Range(0.1f, 20f)] public float MoveSensitivity = 20f;
     [Range(0, 10f)] public float MoveDampening = 0.01f;
@@ -76,9 +76,9 @@ public class CameraController : MonoBehaviour
     {
         AnimationIndex index = GameManager.I.Animations.Add();
         FadeToBlack.I.Clear((int)(headLiftTime * 500));
-        _torso.localRotation = Quaternion.Euler(layingDownTorso);
+        _torso.localRotation = layingDownTorso;
         Sequence wakeSequence = DOTween.Sequence();
-        wakeSequence.Append(_torso.DOLocalRotate(uprigthTorso, headLiftTime).SetEase(Ease.OutSine));
+        wakeSequence.Append(_torso.DOLocalRotateQuaternion(uprigthTorso, headLiftTime).SetEase(Ease.OutSine));
         wakeSequence.OnComplete(() =>
         {
             Debug.Log("🌅 Wake-up animation done");
@@ -88,31 +88,34 @@ public class CameraController : MonoBehaviour
     [ContextMenu("Sleep Animation")]
     void SleepAnimation()
     {
-        FadeToBlack.I.Fade((int)(headLiftTime * 500));
         AnimationIndex index = GameManager.I.Animations.Add();
         Sequence wakeSequence = DOTween.Sequence();
-        wakeSequence.Append(_torso.DOLocalRotate(layingDownTorso, headLiftTime).SetEase(Ease.OutSine));
+        wakeSequence.Append(_torso.DOLocalRotateQuaternion(layingDownTorso, headLiftTime).SetEase(Ease.OutSine));
         wakeSequence.OnComplete(() =>
         {
-            Debug.Log("😴 Sleep animation done");
+            Debug.Log("😴 Sleep animation almost done");
+            const int asleepDurationMS = 1000;
+            FadeToBlack.I.Fade(asleepDurationMS);
             GameManager.I.Animations.Complete(index);
         });
     }
     void StartGameAnimation()
     {
+        FadeToBlack.I.Fade(1);
         const int openEyesDurationMS = 1000;
         FadeToBlack.I.Clear(openEyesDurationMS);
+        _torso.localRotation = uprigthTorso;
     }
     void LostGameAnimation()
     {
         const int lostGameFadeDurationMS = 1000;
         FadeToBlack.I.Fade(lostGameFadeDurationMS, withBlood: true);
-        _torso.DOLocalRotate(layingDownTorso, lostGameFadeDurationMS).SetEase(Ease.OutSine);
+        _torso.DOLocalRotateQuaternion(layingDownTorso, lostGameFadeDurationMS).SetEase(Ease.OutSine);
     }
     private void Update() => RotateCamera();
     private void OnMouseMoved(InputAction.CallbackContext ctx)
     {
-        if (GameManager.I.Animations.Running()) return;
+        if (GameManager.I.Animations.Running() || GameManager.I.GameState is not GameState.Day and not GameState.Playing) return;
 
         _mouseDelta = ctx.ReadValue<Vector2>();
         _rotationVelocity.x += _mouseDelta.x * MoveSensitivity * Time.deltaTime;

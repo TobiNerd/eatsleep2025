@@ -24,7 +24,7 @@ public sealed class GameManager : Singleton<GameManager>
     public GameState GameState => state;
 
     [SerializeField] private AnomalyAILevel anomalyAILevel;
-    public RepeatedTimer nightTimer = new(10.0f);
+    public RepeatedTimer nightTimer = new(30.0f);
     public RepeatedTimer betweenNightsDelayTimer = new(2.0f);
     public RepeatedTimer lostDelayTimer = new(2.0f);
 
@@ -80,10 +80,10 @@ public sealed class GameManager : Singleton<GameManager>
                 PlayerAction.GoToSleep => GameState.WonNight,
                 _ => GameState.Day
             },
-            GameState.NightSetup => !betweenNightsDelayTimer.Continue() ? GameState.NightSetup : GameState.Playing,
+            GameState.NightSetup => betweenNightsDelayTimer.TickAndRunning() ? GameState.NightSetup : GameState.Playing,
             GameState.Playing => NightLoop(),
             GameState.WonNight => GameState.NightSetup,
-            GameState.LostNight => !lostDelayTimer.Continue() ? GameState.LostNight : GameState.Day,
+            GameState.LostNight => lostDelayTimer.TickAndRunning() ? GameState.LostNight : GameState.Day,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -93,7 +93,6 @@ public sealed class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameState.Day:
-                Debug.Log("Sub");
                 StartGameEvent?.Invoke();
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
@@ -127,7 +126,6 @@ public sealed class GameManager : Singleton<GameManager>
         switch (oldState)
         {
             case GameState.Day:
-                Debug.Log("Unsub");
                 InputActions.ShootYourself.action.performed -= ShootYourself;
                 InputActions.GoToSleep.action.performed -= GoToSleep;
                 break;
@@ -148,7 +146,7 @@ public sealed class GameManager : Singleton<GameManager>
 
     private GameState NightLoop()
     {
-        if (!nightTimer.Continue()) playerAction = PlayerAction.Timeout;
+        if (!nightTimer.TickAndRunning()) playerAction = PlayerAction.Timeout;
 
         if (playerAction is not PlayerAction.Nothing) Debug.Log($"[{nameof(GameState)}] {nameof(PlayerAction)} {playerAction}");
         bool isAnomaly = aiState is AnomalyAIState.Dreaming;
@@ -196,11 +194,13 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void ShootYourself()
     {
+        if (playerAction is not PlayerAction.Nothing || Animations.Running()) return;
         playerAction = PlayerAction.ShootYourself;
         DeathEvent?.Invoke();
     }
     private void GoToSleep()
     {
+        if (playerAction is not PlayerAction.Nothing || Animations.Running()) return;
         playerAction = PlayerAction.GoToSleep;
         SleepEvent?.Invoke();
     }
@@ -251,7 +251,7 @@ public class RepeatedTimer
         TotalTime = totalTime;
         TimeLeft = totalTime;
     }
-    public bool Continue()
+    public bool TickAndRunning()
     {
         if (TimeLeft <= 0.0f) return false;
 
