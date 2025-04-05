@@ -59,7 +59,7 @@ public class NightEventSystem : Singleton<NightEventSystem>
 public class NightEvent
 {
     public StudioEventEmitter AudioEmitter;
-    public Animation Animation;
+    public Animator Animation;
     public GameObject EnableWhenActive;
 
     public void Start()
@@ -67,7 +67,7 @@ public class NightEvent
         if (AudioEmitter)
             AudioEmitter.Play();
         if (Animation)
-            Animation.Play();
+            Animation.SetBool(Animation.parameters[0].name, true);
         if (EnableWhenActive)
             EnableWhenActive.SetActive(true);
     }
@@ -77,7 +77,7 @@ public class NightEvent
         if (AudioEmitter)
             AudioEmitter.Stop();
         if (Animation)
-            Animation.Stop();
+            Animation.SetBool(Animation.parameters[0].name, false);
         if (EnableWhenActive)
             EnableWhenActive.SetActive(false);
     }
