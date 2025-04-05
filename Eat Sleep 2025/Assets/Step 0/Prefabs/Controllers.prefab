@@ -49,8 +49,21 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  spawnPoints: []
-  spawnables: []
+  - {fileID: 0}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  movePoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnables:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   spawned: []
 --- !u!1001 &8049295408276111477
 PrefabInstance:

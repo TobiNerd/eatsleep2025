@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [ExecuteInEditMode]
-public sealed class SpawnPointParent : MonoBehaviour
+public sealed class AnomalySpawnPointParent : MonoBehaviour
 {
     public Color gizmoCircle = Color.green;
     public float gizmoRadius = 0.5f;
@@ -13,7 +13,6 @@ public sealed class SpawnPointParent : MonoBehaviour
             Vector3 position = transform.GetChild(i).position;
             Gizmos.color = gizmoCircle;
             Gizmos.DrawSphere(position, gizmoRadius);
-            // Gizmos.DrawIcon(position, "sv_label_3.png", true);
         }
     }
 }
