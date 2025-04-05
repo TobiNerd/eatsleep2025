@@ -9,8 +9,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float dropTime = 0.3f;
     [SerializeField] private float bounceStrength = 10f;
 
-    private static readonly Vector3 uprigthTorso = new(0.0f, -90.0f, 0.0f);
-    private static readonly Vector3 layingDownTorso = new(-90.0f, -90.0f, 0.0f);
+    private static readonly Quaternion uprigthTorso = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
+    private static readonly Quaternion layingDownTorso = Quaternion.Euler(new Vector3(-90.0f, -90.0f, 0.0f));
 
     [Range(0.1f, 20f)] public float MoveSensitivity = 20f;
     [Range(0, 10f)] public float MoveDampening = 0.01f;
@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
     private Vector2 _rotationVelocity;
     private Vector2 _eulerRotation;
 
+
     private void Awake()
     {
         _cam = GetComponentInChildren<Camera>();
@@ -34,30 +35,46 @@ public class CameraController : MonoBehaviour
 
         Vector3 startEuler = _head.localRotation.eulerAngles;
         _eulerRotation = new Vector2(startEuler.y, startEuler.x);
+        ResetScene();
     }
     private void OnEnable()
     {
-        GameManager.I.DeathEvent += DeathAnimation;
-        GameManager.I.SleepEvent += SleepAnimation;
-        GameManager.I.WakeUpEvent += WakeUpAnimation;
-        GameManager.I.StartGameEvent += StartGameAnimation;
-        GameManager.I.LostGameEvent += LostGameAnimation;
         GameManager.I.InputActions.MouseDelta.action.performed += OnMouseMoved;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
     private void OnDisable()
     {
-        GameManager.I.DeathEvent -= DeathAnimation;
-        GameManager.I.SleepEvent -= SleepAnimation;
-        GameManager.I.WakeUpEvent -= WakeUpAnimation;
-        GameManager.I.StartGameEvent -= StartGameAnimation;
-        GameManager.I.LostGameEvent -= LostGameAnimation;
         GameManager.I.InputActions.MouseDelta.action.performed -= OnMouseMoved;
     }
 
-    [ContextMenu("Death Animation")]
-    void DeathAnimation()
+    public void ResetScene() => _torso.localRotation = uprigthTorso;
+
+    public void UprightAnimation(float durationS)
+    {
+        AnimationIndex index = GameManager.I.Animations.Add();
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationS).SetEase(Ease.OutSine));
+        sequence.OnComplete(() =>
+        {
+            Debug.Log("🌅 Wake-up animation done");
+            GameManager.I.Animations.Complete(index);
+        });
+    }
+    public void LaydownAnimation(float durationS)
+    {
+        AnimationIndex index = GameManager.I.Animations.Add();
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationS).SetEase(Ease.OutSine));
+        sequence.OnComplete(() =>
+        {
+            Debug.Log("😴 Sleep animation almost done");
+            const int asleepDurationMS = 1000;
+            FadeToBlack.I.Fade(asleepDurationMS);
+            GameManager.I.Animations.Complete(index);
+        });
+    }
+    public void DeathAnimation()
     {
         AnimationIndex index = GameManager.I.Animations.Add();
         Sequence deathSequence = DOTween.Sequence();
@@ -69,50 +86,14 @@ public class CameraController : MonoBehaviour
         {
             Debug.Log("💀 Death animation complete.");
             GameManager.I.Animations.Complete(index);
+            _torso.localRotation = layingDownTorso;
         });
     }
-    [ContextMenu("Wake Up Animation")]
-    void WakeUpAnimation()
-    {
-        AnimationIndex index = GameManager.I.Animations.Add();
-        FadeToBlack.I.Clear((int)(headLiftTime * 500));
-        _torso.localRotation = Quaternion.Euler(layingDownTorso);
-        Sequence wakeSequence = DOTween.Sequence();
-        wakeSequence.Append(_torso.DOLocalRotate(uprigthTorso, headLiftTime).SetEase(Ease.OutSine));
-        wakeSequence.OnComplete(() =>
-        {
-            Debug.Log("🌅 Wake-up animation done");
-            GameManager.I.Animations.Complete(index);
-        });
-    }
-    [ContextMenu("Sleep Animation")]
-    void SleepAnimation()
-    {
-        FadeToBlack.I.Fade((int)(headLiftTime * 500));
-        AnimationIndex index = GameManager.I.Animations.Add();
-        Sequence wakeSequence = DOTween.Sequence();
-        wakeSequence.Append(_torso.DOLocalRotate(layingDownTorso, headLiftTime).SetEase(Ease.OutSine));
-        wakeSequence.OnComplete(() =>
-        {
-            Debug.Log("😴 Sleep animation done");
-            GameManager.I.Animations.Complete(index);
-        });
-    }
-    void StartGameAnimation()
-    {
-        const int openEyesDurationMS = 1000;
-        FadeToBlack.I.Clear(openEyesDurationMS);
-    }
-    void LostGameAnimation()
-    {
-        const int lostGameFadeDurationMS = 1000;
-        FadeToBlack.I.Fade(lostGameFadeDurationMS, withBlood: true);
-        _torso.DOLocalRotate(layingDownTorso, lostGameFadeDurationMS).SetEase(Ease.OutSine);
-    }
+
     private void Update() => RotateCamera();
     private void OnMouseMoved(InputAction.CallbackContext ctx)
     {
-        if (GameManager.I.Animations.Running()) return;
+        if (GameManager.I.Animations.Running() || GameManager.I.GameState is not GameState.Day and not GameState.Playing) return;
 
         _mouseDelta = ctx.ReadValue<Vector2>();
         _rotationVelocity.x += _mouseDelta.x * MoveSensitivity * Time.deltaTime;
