@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4494140333060028453
+--- !u!1 &5558785694843340927
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5835966103273725518}
-  - component: {fileID: 3872512199622812568}
-  - component: {fileID: 26642525040837943}
-  - component: {fileID: 6031559617682388709}
+  - component: {fileID: 6792866923498308271}
+  - component: {fileID: 7377117062310776482}
+  - component: {fileID: 495590565689657950}
   m_Layer: 0
-  m_Name: MainCamera
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5835966103273725518
+--- !u!4 &6792866923498308271
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4494140333060028453}
+  m_GameObject: {fileID: 5558785694843340927}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.0000001, z: 1}
+  m_LocalRotation: {x: -0.03218441, y: 0.70298225, z: -0.031869963, w: -0.7097637}
+  m_LocalPosition: {x: 3.773, y: -1.083, z: -2.024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6792866923498308271}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &3872512199622812568
+--- !u!20 &7377117062310776482
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4494140333060028453}
+  m_GameObject: {fileID: 5558785694843340927}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -85,13 +84,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &26642525040837943
+--- !u!114 &495590565689657950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4494140333060028453}
+  m_GameObject: {fileID: 5558785694843340927}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
@@ -129,60 +128,3 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &6031559617682388709
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4494140333060028453}
-  m_Enabled: 1
---- !u!1 &5558785694843340927
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6792866923498308271}
-  - component: {fileID: 8021594853283380615}
-  m_Layer: 0
-  m_Name: CameraController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6792866923498308271
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5558785694843340927}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.032186672, y: -0.7029823, z: 0.0318668, w: 0.70976365}
-  m_LocalPosition: {x: 3.773, y: -1.083, z: -2.024}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5835966103273725518}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 5.192, y: -89.45, z: -0.001}
---- !u!114 &8021594853283380615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5558785694843340927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7433ccc0a00a47fb809c0ab539498793, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSensitivity: 20
-  MoveDampening: 0.53
-  RotationLimitVertical: {x: -90, y: 20}
-  RotationLimitHorizontal: {x: -60, y: 60}
