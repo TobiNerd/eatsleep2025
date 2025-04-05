@@ -1,0 +1,63 @@
+
+change the sampler macro to actually take the name of the sampler and not remove _sampler from the start
+
+
+Pre 9.1 ToDo
+https://discord.com/channels/550477546958094348/553319525387599910/1291790746780827742 global mask for cloth lighting
+voronoi hue shift
+RGBA alpha modes
+SDF as Lightmap
+Thry tool for correctly setting shaders on upgrade to 9.0
+change the blending names fovr grabpass
+* fur ui broken
+* clip pos z adjust
+https://discord.com/channels/550477546958094348/550477704617787422/1214626902879371274
+* AudioLink options for Rim Lighting are no longer exposed when set to UTS2 or LilToon as of 9.0.47. It's only exposed when using Poiyomi Style.
+* Point light passthrough for same as base
+* Theme colors don't use oklab
+* Add more control the the linear emission glitter ramp up as well as density
+poiyomi world problems https://discord.com/channels/550477546958094348/579103312776003594/1228482003054366862
+
+Was experimenting with Two Pass, found that POI_PASS_BASE/POI_PASS_ADD (and accompanying multi_compile_fwdbase etc) are not defined in the secondary passes.
+Meanwhile some modules use those define instead of UNITY_PASS_*
+Don't know if intentional but doubt it.
+
+Shadow color map in liltoon
+
+https://discord.com/channels/550477546958094348/550477704617787422/1192982874174017557
+
+Don't know how to fix
+decal depth uv0 only (uses tangents which are generated from uv0)
+
+post 9.0
+* Use Luminance for Min Brightness when using Realistic Lighting
+* use depth to move skirt out of leg geometry
+* matcap spritesheet
+* truchet thickness audio link
+* outline grabpass with pixelation
+* internal parallax no global mask
+* internal parallax no way to use it as emission and it shows in the dark by default
+* LTCGI
+* fur
+* add a no special uv toggle to decals
+* scrolling emission offset by uv x or y
+* UV glitching for textures
+* screenspace ao in base pass
+* plane uv better pano effects including fresnel effects and depth
+* Paralax write to depth
+* normal shadows https://gitlab.com/s-ilent/filamented/-/blob/master/Filamented/SharedNormalShadowLib.hlsl?ref_type=heads
+* take a look at the gem cloth aniso
+* 3d noise R&D
+* voronoi mask
+* Video player stuff uniform Texture2D _Udon_VideoTex; exists if >16px
+
+
+barbell squats
+barbell / dumbell benchpress
+vertical / horizontal bar pull
+romanian deadlift
+bar / dumbell shoulder press
+calf raises
+
+The lochs the ala mhigan quarter
+kugana melee

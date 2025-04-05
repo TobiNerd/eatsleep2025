@@ -1,0 +1,116 @@
+// Notes:
+// LIL_RENDER = 0(Opaque), 1(Cutout), 2(Transparent)
+// LIL_FUR_PRE = 1(first pass of two pass fur), 0(else)
+
+#T#FurPropertyVariables
+[HideInInspector] m_lilfurCategory ("lilFur", Float) = 0
+
+#K#FUR_SPECIFIC_PROPERTIES
+
+//start MIT liltoon
+[HideInInspector] m_start_lilfurRendering ("Rendering", Float) = 0
+
+[Enum(UnityEngine.Rendering.CullMode)] _FurCull ("Cull", Int) = 0
+[Enum(Off, 0, On, 1)] _FurZWrite ("ZWrite", Int) = 0
+[Enum(UnityEngine.Rendering.CompareFunction)] _FurZTest ("ZTest", Int) = 4
+_FurOffsetFactor ("Offset Factor", Float) = 0.0
+_FurOffsetUnits ("Offset Units", Float) = 0
+[Enum(Thry.ColorMask)] _FurColorMask ("Color Mask", Int) = 15
+[HideInInspector][ToggleUI] _FurAlphaToMask ("sAlphaToMask", Int) = 0
+
+[HideInInspector] m_start_lilFurBase ("Base Blending", Float) = 0
+
+[Enum(Thry.BlendOp)] _FurBlendOp ("RGB Blend Op", Int) = 0
+[Enum(UnityEngine.Rendering.BlendMode)] _FurSrcBlend ("RGB Source Blend", Int) = 5
+[Enum(UnityEngine.Rendering.BlendMode)] _FurDstBlend ("RGB Destination Blend", Int) = 10
+[Enum(Thry.BlendOp)] _FurBlendOpAlpha ("Alpha Blend Op", Int) = 0
+[Enum(UnityEngine.Rendering.BlendMode)] _FurSrcBlendAlpha ("Alpha Source Blend", Int) = 1
+[Enum(UnityEngine.Rendering.BlendMode)] _FurDstBlendAlpha ("Alpha Destination Blend", Int) = 10
+
+[HideInInspector] m_end_lilFurBase ("Base Blending", Float) = 0
+[HideInInspector] m_start_lilFurAdd ("Add Blending", Float) = 0
+
+[Enum(Thry.BlendOp)] _FurBlendOpFA ("RGB Blend Op", Int) = 4
+[Enum(UnityEngine.Rendering.BlendMode)] _FurSrcBlendFA ("RGB Source Blend", Int) = 1
+[Enum(UnityEngine.Rendering.BlendMode)] _FurDstBlendFA ("RGB Destination Blend", Int) = 1
+[Enum(Thry.BlendOp)] _FurBlendOpAlphaFA ("Alpha Blend Op", Int) = 4
+[Enum(UnityEngine.Rendering.BlendMode)] _FurSrcBlendAlphaFA ("Alpha Source Blend", Int) = 0
+[Enum(UnityEngine.Rendering.BlendMode)] _FurDstBlendAlphaFA ("Alpha Destination Blend", Int) = 1
+
+[HideInInspector] m_end_lilFurAdd ("Add Blending", Float) = 0
+[HideInInspector] m_start_lilFurStencil ("Stencil", Float) = 0
+
+[ThryIntRange] _FurStencilRef ("Stencil Reference Value", Range(0, 255)) = 0
+[ThryIntRange] _FurStencilReadMask ("Stencil ReadMask Value", Range(0, 255)) = 255
+[ThryIntRange] _FurStencilWriteMask ("Stencil WriteMask Value", Range(0, 255)) = 255
+[Enum(UnityEngine.Rendering.CompareFunction)] _FurStencilComp ("Stencil Compare Function", Float) = 8
+[Enum(UnityEngine.Rendering.StencilOp)] _FurStencilPass ("Stencil Pass Op", Float) = 0
+[Enum(UnityEngine.Rendering.StencilOp)] _FurStencilFail ("Stencil Fail Op", Float) = 0
+[Enum(UnityEngine.Rendering.StencilOp)] _FurStencilZFail ("Stencil ZFail Op", Float) = 0
+
+[HideInInspector] m_end_lilFurStencil ("Stencil", Float) = 0
+[HideInInspector] m_end_lilfurRendering ("Rendering", Float) = 0
+//end MIT liltoon
+
+#T#FurBasePassTags
+Name "FurBase"
+Tags { "LightMode" = "ForwardBase" }
+
+#T#FurBasePassStencil
+//start MIT liltoon
+Stencil
+{
+    Ref [_FurStencilRef]
+    ReadMask [_FurStencilReadMask]
+    WriteMask [_FurStencilWriteMask]
+    Comp [_FurStencilComp]
+    Pass [_FurStencilPass]
+    Fail [_FurStencilFail]
+    ZFail [_FurStencilZFail]
+}
+
+#T#FurBasePassBlendSettings
+ZWrite [_FurZWrite]
+Cull [_FurCull]
+#K#CULL_TWO_PASS_OVERRIDE_0
+#KI#CULL_TWO_PASS_OVERRIDE_1
+AlphaToMask [_FurAlphaToMask]
+ZTest [_FurZTest]
+ColorMask [_FurColorMask]
+Offset [_FurOffsetFactor], [_FurOffsetUnits]
+
+BlendOp [_FurBlendOp], [_FurBlendOpAlpha]
+Blend [_FurSrcBlend] [_FurDstBlend], [_FurSrcBlendAlpha] [_FurDstBlendAlpha]
+//end MIT liltoon
+
+#T#FurBasePassOnlyKeywords
+#pragma multi_compile_fwdbase
+#pragma multi_compile_instancing
+#pragma multi_compile_fog
+#pragma multi_compile _ VERTEXLIGHT_ON
+#define POI_PASS_BASE
+#define POI_PASS_LILFUR
+#define LIL_ONEPASS_FUR
+
+#T#FurBasePassKeywords
+#K#FUR_BASE_PASS_KEYWORDS
+
+#T#FurBasePassPropertyVariables
+#K#FUR_BASE_PROPERTY_VARIABLES
+
+
+#T#FurBasePassPrograms
+#K#VERTEX_FUR_BASE_DATA_STRUCTURES
+#K#VERTEX_FUR_BASE_FUNCTIONS_EARLY
+#K#VERTEX_FUR_BASE_FUNCTIONS
+#K#VERTEX_FUR_BASE_FUNCTIONS_LATE
+#K#VERTEX_FUR_BASE_PROGRAM
+
+#K#GEOMETRY_FUR_BASE_FUNCTIONS
+#K#GEOMETRY_FUR_BASE_PROGRAM
+
+#K#FRAGMENT_FUR_BASE_DATA_STRUCTURES
+#K#FRAGMENT_FUR_BASE_FUNCTIONS_EARLY
+#K#FRAGMENT_FUR_BASE_FUNCTIONS
+#K#FRAGMENT_FUR_BASE_FUNCTIONS_LATE
+#K#FRAGMENT_FUR_BASE_PROGRAM

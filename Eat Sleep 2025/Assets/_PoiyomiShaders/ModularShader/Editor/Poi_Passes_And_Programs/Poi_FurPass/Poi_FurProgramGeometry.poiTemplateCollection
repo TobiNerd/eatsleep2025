@@ -1,0 +1,56 @@
+// substantial parts copied from liltoon's fur shader implementation
+
+// MIT License
+
+// Copyright (c) 2020-2024 lilxyzw
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+#T#PoiFurGeometryPragma
+#pragma geometry geom
+
+#T#PoiFurGeometryDefines
+#define POI_FUR_GEOMETRY
+
+#T#PoiFurGeometryVertexOutVariable
+uint vertexId : TEXCOORD12;
+
+#T#PoiFurGeometryVertexMods
+o.vertexId = v.vertexId;
+
+#T#PoiFurGeometryProgram
+#K#FUR_GEOMETRY_FUNCTIONS_EARLY
+#K#FUR_GEOMETRY_FUNCTIONS
+#K#FUR_GEOMETRY_FUNCTIONS_LATE
+
+#if !defined(OPTIMIZER_ENABLED)
+    [instance(2)]
+#else
+    [instance(_FurMeshType + 1)]
+#endif
+[maxvertexcount(22)]
+void geom(triangle VertexOut input[3], inout TriangleStream<VertexOut> outStream, uint instanceID : SV_GSInstanceID)
+{
+    UNITY_SETUP_INSTANCE_ID(input[0]);
+    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input[0]);
+
+    #K#FUR_GEOMETRY_BEFORE_INIT
+
+    VertexOut output;
+    PoiInitStruct(VertexOut, output);
+    UNITY_TRANSFER_INSTANCE_ID(input[0], output);
+    UNITY_TRANSFER_VERTEX_OUTPUT_STEREO(input[0], output);
+
+
+    #K#FUR_GEOMETRY_MODS_EARLY
+    #K#FUR_GEOMETRY_MODS
+    #K#FUR_GEOMETRY_MODS_LATE
+}
