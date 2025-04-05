@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 public class InputActionReferences : ScriptableObject
 {
     public InputActionReference MouseDelta;
-    public InputActionReference DebugSpawn;
+    public InputActionReference DebugMove;
     public InputActionReference DebugReset;
+    public InputActionReference DebugSpawn;
     public InputActionReference DebugSwap;
 }
