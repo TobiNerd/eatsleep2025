@@ -22,12 +22,12 @@ public sealed class AnomalyController : Singleton<AnomalyController>
     [ContextMenu("Update Anomalies")]
     public void AnomalyUpdate()
     {
-        Debug.Log("[ANOMALY] Updating scene");
+        Debug.Log($"[ANOMALY] {nameof(AnomalyUpdate)}");
         MonoBehaviour[] sceneObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID);
 
         // Anomalies
         anomalies = sceneObjects.OfType<AnomalySwap>().ToList();
-        Debug.Log($"[ANOMALY] Total objects: {anomalies.Count}");
+        Debug.Log($"[ANOMALY] {nameof(anomalies)}count: {anomalies.Count}");
         foreach (AnomalySwap anomaly in anomalies)
         {
             anomaly.OriginalPosition = anomaly.transform.position;
@@ -36,20 +36,20 @@ public sealed class AnomalyController : Singleton<AnomalyController>
 
         // Spawn points
         spawnPoints = sceneObjects.OfType<AnomalySpawnPointParent>().SelectMany(spawns => spawns.transform.Children()).ToList();
-        Debug.Log($"[ANOMALY] Spawn points: {spawnPoints.Count}");
+        Debug.Log($"[ANOMALY] {nameof(spawnPoints)} count: {spawnPoints.Count}");
 
         // Spawn points
         movePoints = sceneObjects.OfType<AnomalyMovePointParent>().SelectMany(spawns => spawns.transform.Children()).ToList();
-        Debug.Log($"[ANOMALY] Move points: {movePoints.Count}");
+        Debug.Log($"[ANOMALY] {nameof(movePoints)} count: {movePoints.Count}");
 
         // Spawnable objects
         spawnables = sceneObjects.OfType<AnomalySpawnObjects>().SelectMany(spawns => spawns.transform.Children()).Select(x => x.gameObject).ToList();
-        Debug.Log($"[ANOMALY] Spawnable objects: {spawnables.Count}");
+        Debug.Log($"[ANOMALY] {nameof(spawnables)} count: {spawnables.Count}");
     }
     [ContextMenu("Anomaly Move")]
     public bool AnomalyMove()
     {
-        Debug.Log("[ANOMALY] Move object");
+        Debug.Log($"[ANOMALY] {nameof(AnomalyMove)}");
         if (movePoints.Count == 0 || anomalies.Count == 0)
         {
             Debug.LogWarning($"[ANOMALY] No {nameof(movePoints)} or {nameof(anomalies)}");
