@@ -13,10 +13,13 @@ public sealed class GameManager : Singleton<GameManager>
     [SerializeField] private GameState state = GameState.Day;
     [SerializeField] private NightAction nightAction = NightAction.Nothing;
     [SerializeField] private AnomalyAIState aiState = AnomalyAIState.Awake;
+    public bool IsNightPlaying => state == GameState.Playing;
 
     [SerializeField] private AnomalyAILevel anomalyAILevel;
     public RepeatedTimer nightTimer = new(10.0f);
     public RepeatedTimer setupTimer = new(2.0f);
+    
+    public static Action<GameState> OnStateChanged;
 
     private GameState State
     {
@@ -29,6 +32,7 @@ public sealed class GameManager : Singleton<GameManager>
             StateStart(value);
             Debug.Log($"[{nameof(GameState)}] {value}");
             state = value;
+            OnStateChanged?.Invoke(value);
         }
     }
 
