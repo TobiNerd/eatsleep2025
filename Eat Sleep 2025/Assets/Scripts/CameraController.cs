@@ -37,6 +37,8 @@ public class CameraController : MonoBehaviour
         GameManager.I.DeathEvent += DeathAnimation;
         GameManager.I.SleepEvent += SleepAnimation;
         GameManager.I.WakeUpEvent += WakeUpAnimation;
+        GameManager.I.StartGameEvent += StartGameAnimation;
+        GameManager.I.LostGameEvent += LostGameAnimation;
         GameManager.I.InputActions.MouseDelta.action.performed += OnMouseMoved;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -46,6 +48,8 @@ public class CameraController : MonoBehaviour
         GameManager.I.DeathEvent -= DeathAnimation;
         GameManager.I.SleepEvent -= SleepAnimation;
         GameManager.I.WakeUpEvent -= WakeUpAnimation;
+        GameManager.I.StartGameEvent -= StartGameAnimation;
+        GameManager.I.LostGameEvent -= LostGameAnimation;
         GameManager.I.InputActions.MouseDelta.action.performed -= OnMouseMoved;
     }
 
@@ -57,30 +61,14 @@ public class CameraController : MonoBehaviour
         AnimationIndex index = GameManager.I.Animations.Add();
         Sequence deathSequence = DOTween.Sequence();
 
-        // 1. Slowly tilt head downward (like giving up)
-        deathSequence.Append(
-            _head.DOLocalRotate(new Vector3(45f, 0, 0), lookDownTime)
-                .SetEase(Ease.InOutSine)
-        );
-
-        // 2. Drop the head fast
-        deathSequence.Append(
-            _head.DOLocalRotate(new Vector3(90f, 0, 0), dropTime)
-                .SetEase(Ease.InCubic)
-        );
-
-        // 3. Little bounce or shake at the end
-        deathSequence.Append(
-            _head.DOShakeRotation(0.5f, new Vector3(10, 5, 5), vibrato: 8, randomness: 20)
-        );
-
+        deathSequence.Append(_head.DOLocalRotate(new Vector3(45f, 0, 0), lookDownTime).SetEase(Ease.InOutSine));
+        deathSequence.Append(_head.DOLocalRotate(new Vector3(90f, 0, 0), dropTime).SetEase(Ease.InCubic));
+        deathSequence.Append(_head.DOShakeRotation(0.5f, new Vector3(10, 5, 5), vibrato: 8, randomness: 20));
         deathSequence.OnComplete(() =>
         {
             Debug.Log("💀 Death animation complete.");
             GameManager.I.Animations.Complete(index);
-            // Optional: ragdoll, sound, disable control, etc.
         });
-
     }
     [ContextMenu("Wake Up Animation")]
     void WakeUpAnimation()
@@ -95,7 +83,6 @@ public class CameraController : MonoBehaviour
             GameManager.I.Animations.Complete(index);
         });
     }
-
     [ContextMenu("Sleep Animation")]
     void SleepAnimation()
     {
@@ -109,6 +96,12 @@ public class CameraController : MonoBehaviour
             GameManager.I.Animations.Complete(index);
         });
     }
+    void StartGameAnimation()
+    {
+        const int openEyesDurationMS = 1000;
+        FadeToBlack.I.Clear(openEyesDurationMS);
+    }
+    void LostGameAnimation() => _torso.rotation = Quaternion.Euler(layingDownTorso);
     private void Update() => RotateCamera();
     private void OnMouseMoved(InputAction.CallbackContext ctx)
     {
