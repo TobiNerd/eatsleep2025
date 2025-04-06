@@ -11,6 +11,7 @@ public class SoundController : MonoBehaviour
     public StudioEventEmitter Gasp;
     public StudioEventEmitter CockShotgun;
     public StudioEventEmitter Situp;
+    public StudioEventEmitter SitupFoley;
 
 
     public Light sunWinningLight;

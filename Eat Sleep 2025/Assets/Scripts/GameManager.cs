@@ -143,6 +143,7 @@ public sealed class GameManager : Singleton<GameManager>
             case GameState.Playing:
                 SoundController.Survived.Play();
                 SoundController.Situp.Play();
+                SoundController.SitupFoley.Play();
 
                 const int wakeUpDurationMS = 500;
                 UIController.I.Clear(wakeUpDurationMS);
@@ -166,6 +167,7 @@ public sealed class GameManager : Singleton<GameManager>
                 break;
             case GameState.WinGame:
                 SoundController.Win.Play();
+                SoundController.SitupFoley.Play();
 
                 UIController.I.Clear(wakeUpDurationMS * 5);
                 CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S * 5);
