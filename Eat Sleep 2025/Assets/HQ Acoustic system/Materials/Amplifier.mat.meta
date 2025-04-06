@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5a2006fe0d7e5a14fa1c811f9443ccc7
+timeCreated: 1437237525
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41886
+  packageName: HQ Acoustic system
+  packageVersion: 1.0
+  assetPath: Assets/HQ Acoustic system/Materials/Amplifier.mat
+  uploadId: 73353
