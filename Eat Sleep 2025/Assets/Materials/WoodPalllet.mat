@@ -2452,7 +2452,7 @@ Material:
     - m_end_videoEffects: 0
     - m_end_voronoi: 0
     - m_end_voronoiRandom: 0
-    - m_lightingCategory: 1
+    - m_lightingCategory: 0
     - m_mainCategory: 0
     - m_modifierCategory: 0
     - m_renderingCategory: 0

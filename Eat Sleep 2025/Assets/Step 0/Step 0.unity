@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
+  m_FogColor: {r: 0.121324316, g: 0.13118906, b: 0.1509434, a: 1}
   m_FogMode: 2
-  m_FogDensity: 0.172
+  m_FogDensity: 0.2
   m_LinearFogStart: 0
   m_LinearFogEnd: 13.6
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 32
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0
+  m_ReflectionIntensity: 0.216
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
