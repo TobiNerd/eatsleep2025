@@ -324,9 +324,6 @@ Shape/Vague;dc8b5c6210105f244a16ac66c4bf2c9b
 
 m_start_rim2LightOptions
 RimLight/Medium;cd543b8385a6fc64c9f2a6a132dd5e35
-RimLight/Rich;bcb812225818dc8499854c25e422d5f9
-RimLight/Soft;4695a0bd29dbef449a3e3ed8a034d9af
-RimLight/White;082e6ce312cb36240ac99221be09b383
 RimShade/Black;89e19e7cef2a12543a2f69609b3430fc
 RimShade/Dark;d1384a280fe1437428c77c08894641af
 RimShade/Medium;0ccb38b2c23d92c45b411cde37a69228
@@ -405,7 +402,4 @@ Eyes over hair / Hair (RenderQueue 2000);e174c5d3a58ccc94485ccecee53382be
 Stencilled Outline;d0965c132fc7cd14cbe2fdab2f6c8f27
 
 m_start_OutlineStencil
-Eyes over hair / Body (RenderQueue must be less than Hair);2d376c758a7e2b242aeb13083a455c9c
-Eyes over hair / Eye (RenderQueue must be less than hair);5cf16c95560282047908bcfff06e446c
-Eyes over hair / Hair (RenderQueue 2000);e174c5d3a58ccc94485ccecee53382be
 Stencilled Outline;d0965c132fc7cd14cbe2fdab2f6c8f27

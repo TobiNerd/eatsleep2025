@@ -62,15 +62,21 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void Update()
     {
+        if (InputActions.QuitGame.action.WasPerformedThisFrame()) Application.Quit();
+
         if (Animations.Running()) return;
 
-        State = GetNextState();
         UIController.I.SetTime(GetHour(), GetMinute(), IsCloseToEnding() ? Color.red : Color.white);
         if (State is GameState.Day or GameState.Playing or GameState.WinGame && playerAction is PlayerAction.Nothing)
         {
-            if (InputActions.ShootYourself.action.WasPerformedThisFrame()) ShootYourself();
+            if (InputActions.ShootYourself.action.WasPerformedThisFrame())
+            {
+                ShootYourself();
+            }
             else if (InputActions.GoToSleep.action.WasPerformedThisFrame()) GoToSleep();
         }
+
+        State = GetNextState();
     }
 
     private GameState GetNextState() => state switch
@@ -114,11 +120,15 @@ public sealed class GameManager : Singleton<GameManager>
 
     private void StateChanged(GameState oldState, GameState newState)
     {
-        Debug.Log($"[{nameof(GameState)}] {newState}");
+        Debug.Log($"[{nameof(GameState)}] {oldState} -> {newState}");
         if (oldState is GameState.Playing)
         {
             if (playerAction is PlayerAction.Nothing) GoToSleep();
-            if (playerAction is PlayerAction.ShootYourself) UIController.I.Fade(1);
+            if (newState is GameState.WonNight && playerAction is PlayerAction.ShootYourself) // Shoot yourself and win
+            {
+                UIController.I.Fade(1);
+                SoundController.Gasp.Play();
+            }
         }
 
         const float MS_TO_S = 0.001f;
@@ -139,7 +149,6 @@ public sealed class GameManager : Singleton<GameManager>
             case GameState.Playing:
                 SoundController.Survived.Play();
                 SoundController.Situp.Play();
-                if (playerAction is PlayerAction.ShootYourself) SoundController.Gasp.Play();
 
                 const int wakeUpDurationMS = 500;
                 UIController.I.Clear(wakeUpDurationMS);
@@ -212,15 +221,15 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void ShootYourself()
     {
+        SoundController.Gun.Play();
         playerAction = PlayerAction.ShootYourself;
         CameraController.DeathAnimation();
-        SoundController.Gun.Play();
     }
     private void GoToSleep()
     {
+        SoundController.LayDown.Play();
         playerAction = PlayerAction.GoToSleep;
         CameraController.LaydownAnimation(1.5f);
-        SoundController.LayDown.Play();
     }
 }
 
