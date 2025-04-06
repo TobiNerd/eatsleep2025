@@ -187,7 +187,29 @@ public sealed class GameManager : Singleton<GameManager>
     private void AnomalyAI()
     {
         AnomalyController.I.AnomalyReset();
-        aiState = UnityEngine.Random.Range(0, 2) == 0 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+        
+        switch (anomalyAILevel)
+        {
+            case AnomalyAILevel.Obvious:
+                aiState = UnityEngine.Random.Range(0, 10) <= 9 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+                break;
+            case AnomalyAILevel.Easy:
+                aiState = UnityEngine.Random.Range(0, 10) <= 8 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+                break;
+            case AnomalyAILevel.Medium:
+                aiState = UnityEngine.Random.Range(0, 10) <= 7 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+                break;
+            case AnomalyAILevel.Hard:
+                aiState = UnityEngine.Random.Range(0, 10) <= 6 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+                break;
+            case AnomalyAILevel.VeryHard:
+                aiState = UnityEngine.Random.Range(0, 10) <= 5 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+                break;
+            default:
+                aiState = UnityEngine.Random.Range(0, 10) <= 4 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
+                break;
+        }
+        
         Debug.Log($"[{nameof(AnomalyAIState)}] {aiState}");
         if (aiState is AnomalyAIState.Awake) return;
 
