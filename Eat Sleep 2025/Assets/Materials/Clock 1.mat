@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RubicsCub
+  m_Name: Clock 1
   m_Shader: {fileID: 4800000, guid: 7845a1ca48a75804c8925b2bd5680f7f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -70,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 00fc94b6e9971654cbb7e94a1906ac3b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6d93760847050034a895d2580fb6f8a5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ClearCoatFallback:
@@ -91,7 +91,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _CubeMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 0, y: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CubeMapMask:
         m_Texture: {fileID: 0}
@@ -302,7 +302,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 36c06477f81b4aa449c04b7d9b852189, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2f90b5e9912cf2e44b7d82067326b55c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Matcap:
@@ -343,7 +343,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Matcap4:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 0, y: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Matcap4Mask:
         m_Texture: {fileID: 0}
@@ -354,7 +354,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 8f1afe06c999e18489464a71c6f4dba5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2d3999e5a472d004e82b359ede7fa116, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MirrorTexture:
@@ -374,7 +374,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 6f2fad660b109a047827cc80102cec08, type: 3}
+        m_Texture: {fileID: 2800000, guid: fbb14d3ee0b145c4e806140d55120b10, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineMask:
@@ -398,7 +398,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 28767aa916a6b9a439ec98b59a93d507, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0b30c1782f728544d89e8f671c7474b2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PathingColorMap:
@@ -471,7 +471,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _RimMask:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 0, y: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RimTex:
         m_Texture: {fileID: 0}
@@ -491,11 +491,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Set_Rim2LightMask:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 0, y: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Set_RimLightMask:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 0, y: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shadow2ndColorTex:
         m_Texture: {fileID: 0}
@@ -917,8 +917,8 @@ Material:
     - _CubeMapNormal: 1
     - _CubeMapSaturation: 1
     - _CubeMapSmoothness: 1
-    - _CubeMapUVMode: 0
-    - _CubeMapWorldNormalsStrength: 0
+    - _CubeMapUVMode: 1
+    - _CubeMapWorldNormalsStrength: 1
     - _CubemapBlendType: 0
     - _Cull: 2
     - _CurvFix: 1
@@ -1128,7 +1128,7 @@ Material:
     - _DepthRimMixBaseColor: 0
     - _DepthRimMixLightColor: 0
     - _DepthRimMultiply: 0
-    - _DepthRimNormalToUse: 0
+    - _DepthRimNormalToUse: 1
     - _DepthRimReplace: 0
     - _DepthRimSharpness: 0.2
     - _DepthRimType: 0
@@ -2000,7 +2000,7 @@ Material:
     - _Matcap4HueShiftColorSpace: 0
     - _Matcap4HueShiftEnabled: 0
     - _Matcap4HueShiftSpeed: 0
-    - _Matcap4Intensity: 0.1
+    - _Matcap4Intensity: 1
     - _Matcap4LightMask: 0
     - _Matcap4MaskChannel: 0
     - _Matcap4MaskGlobalMask: 0
@@ -2019,7 +2019,7 @@ Material:
     - _Matcap4SmoothnessEnabled: 0
     - _Matcap4TPSDepthEnabled: 0
     - _Matcap4TPSMaskStrength: 1
-    - _Matcap4UVMode: 0
+    - _Matcap4UVMode: 1
     - _Matcap4UVToBlend: 1
     - _MatcapAdd: 0
     - _MatcapAddToLight: 0
@@ -3582,7 +3582,7 @@ Material:
     - _ClearCoatSpecularTint: {r: 1, g: 1, b: 1, a: 1}
     - _ClothMetallicSmoothnessMapPan: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CubeMapColor: {r: 0, g: 0, b: 0, a: 1}
+    - _CubeMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _CubeMapMaskPan: {r: 0, g: 0, b: 0, a: 0}
     - _CubeMapRotation: {r: 0, g: 0, b: 0, a: 0}
     - _CubeMapRotationPan: {r: 0, g: 0, b: 0, a: 0}
@@ -3765,7 +3765,7 @@ Material:
     - _Matcap3MaskPan: {r: 0, g: 0, b: 0, a: 0}
     - _Matcap3NormalMapPan: {r: 0, g: 0, b: 0, a: 0}
     - _Matcap3Pan: {r: 0, g: 0, b: 0, a: 0}
-    - _Matcap4Color: {r: 0.7, g: 0.75, b: 0.85, a: 1}
+    - _Matcap4Color: {r: 1, g: 1, b: 1, a: 1}
     - _Matcap4MaskPan: {r: 0, g: 0, b: 0, a: 0}
     - _Matcap4Pan: {r: 0, g: 0, b: 0, a: 0}
     - _MatcapColor: {r: 1, g: 1, b: 1, a: 1}
