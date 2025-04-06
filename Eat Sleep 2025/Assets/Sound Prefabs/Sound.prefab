@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 4311629027594738385}
   - component: {fileID: 5785397488358800745}
   m_Layer: 0
-  m_Name: Sit Up
+  m_Name: Sit Up 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,6 +593,69 @@ MonoBehaviour:
       Data3: 233580201
       Data4: -1809753699
     Path: event:/Player SFX/Sit Up 2
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!1 &6469577464887491605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 690113723031383950}
+  - component: {fileID: 5642509475256449200}
+  m_Layer: 0
+  m_Name: Gasp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &690113723031383950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469577464887491605}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.17861, y: -2.2040498, z: -2.1278853}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4290370884511854972}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5642509475256449200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469577464887491605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -2123480114
+      Data2: 1248803804
+      Data3: -1119604823
+      Data4: 1885422953
+    Path: event:/Player SFX/Gasps
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -1195,9 +1258,12 @@ PrefabInstance:
       addedObject: {fileID: 7335245581130434367}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 4
-      addedObject: {fileID: 227657643332424482}
+      addedObject: {fileID: 690113723031383950}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 5
+      addedObject: {fileID: 227657643332424482}
+    - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
+      insertIndex: 6
       addedObject: {fileID: 7326086031322955950}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
