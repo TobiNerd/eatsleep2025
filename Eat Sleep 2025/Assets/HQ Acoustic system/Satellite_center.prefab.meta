@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bd24db164c1b0a04b8b50a651bca8f72
+timeCreated: 1437240930
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41886
+  packageName: HQ Acoustic system
+  packageVersion: 1.0
+  assetPath: Assets/HQ Acoustic system/Satellite_center.prefab
+  uploadId: 73353

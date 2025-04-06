@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 10720e2c0f89c1d4b9332e0709f6ea2d
+timeCreated: 1437240939
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41886
+  packageName: HQ Acoustic system
+  packageVersion: 1.0
+  assetPath: Assets/HQ Acoustic system/Amplifier.prefab
+  uploadId: 73353
