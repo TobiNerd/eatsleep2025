@@ -311,8 +311,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: ForceModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: NoiseModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: NoiseModule.frequency
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
       propertyPath: ShapeModule.m_Scale.x
       value: 6.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: VelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: -0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: NoiseModule.scrollSpeed.scalar
+      value: 2.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1802707930050265951, guid: e6f0cc558ea910e49a4e5de24c452585, type: 3}
+      propertyPath: VelocityModule.speedModifier.scalar
+      value: 0.16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
