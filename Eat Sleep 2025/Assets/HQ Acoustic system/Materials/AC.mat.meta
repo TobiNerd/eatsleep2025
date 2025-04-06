@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f3a1a80c441b01b4096e547eaf37e9b2
+timeCreated: 1437237208
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 41886
+  packageName: HQ Acoustic system
+  packageVersion: 1.0
+  assetPath: Assets/HQ Acoustic system/Materials/AC.mat
+  uploadId: 73353
