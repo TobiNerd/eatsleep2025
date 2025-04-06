@@ -13,7 +13,6 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - BSSBLOOMFOGTYPE_HEIGHT
-  - VIGNETTE_MASKED
   - _LIGHTINGMODE_REALISTIC
   - _RIM2STYLE_POIYOMI
   - _RIMSTYLE_POIYOMI
@@ -2529,7 +2528,7 @@ Material:
     - _ShaderOptimizerEnabled: 0
     - _ShaderUIWarning0: -0
     - _ShaderUIWarning1: -0
-    - _ShadingEnabled: 1
+    - _ShadingEnabled: 0
     - _ShadingRampedLightMapApplyGlobalMaskBlendType: 2
     - _ShadingRampedLightMapApplyGlobalMaskIndex: 0
     - _ShadingRampedLightMapInverseApplyGlobalMaskBlendType: 2
