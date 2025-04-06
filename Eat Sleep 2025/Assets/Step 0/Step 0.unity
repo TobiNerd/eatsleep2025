@@ -774,6 +774,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 818607732}
     - target: {fileID: 778125826115835644, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
+      propertyPath: SitupFoley
+      value: 
+      objectReference: {fileID: 1897598357}
+    - target: {fileID: 778125826115835644, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: CockShotgun
       value: 
       objectReference: {fileID: 1307546849}
