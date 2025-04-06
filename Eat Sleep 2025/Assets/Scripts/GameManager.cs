@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public sealed class GameManager : Singleton<GameManager>
 {
     public CameraController CameraController;
+    public SoundController SoundController;
     public InputActionReferences InputActions;
     private PlayerInput _playerInput;
 
@@ -148,10 +150,13 @@ public sealed class GameManager : Singleton<GameManager>
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.Playing:
+                SoundController.Survived.Play();
+                SoundController.Situp.Play();
+                if (playerAction is PlayerAction.ShootYourself) SoundController.Gasp.Play();
+
                 const int wakeUpDurationMS = 500;
                 UIController.I.Clear(wakeUpDurationMS);
                 CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S);
-
                 nightTimer.Reset();
                 playerAction = PlayerAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
@@ -165,11 +170,15 @@ public sealed class GameManager : Singleton<GameManager>
                 AnomalyAI();
                 break;
             case GameState.LostNight:
+                SoundController.Lost.Play();
+
                 const int lostGameFadeDurationMS = 1000;
                 UIController.I.Fade(lostGameFadeDurationMS, withBlood: true);
                 lostDelayTimer.Reset();
                 break;
             case GameState.WinGame:
+                SoundController.Win.Play();
+
                 playerAction = PlayerAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
@@ -223,6 +232,7 @@ public sealed class GameManager : Singleton<GameManager>
 
         playerAction = PlayerAction.ShootYourself;
         CameraController.DeathAnimation();
+        SoundController.Gun.Play();
     }
     private void GoToSleep()
     {
@@ -230,6 +240,7 @@ public sealed class GameManager : Singleton<GameManager>
 
         playerAction = PlayerAction.GoToSleep;
         CameraController.LaydownAnimation(1.5f);
+        SoundController.LayDown.Play();
     }
     private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
     private void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
