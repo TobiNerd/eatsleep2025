@@ -70,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6ab56630abf85224584af7c1b1e0c613, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ClearCoatFallback:
@@ -282,11 +282,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LightingAOMaps:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 439ad637216d96d4892074eb5b4ca730, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LightingDetailShadowMaps:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 439ad637216d96d4892074eb5b4ca730, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LightingShadowMasks:
@@ -845,7 +845,7 @@ Material:
     - _BlueTextureUV: 0
     - _BumpMapStochastic: 0
     - _BumpMapUV: 0
-    - _BumpScale: 1
+    - _BumpScale: 0.51
     - _CCIgnoreCastedShadows: 0
     - _CameraAngleMax: 90
     - _CameraAngleMin: 45
@@ -2778,7 +2778,7 @@ Material:
     - footer_twitter: 0
     - footer_youtube: 0
     - m_AudioLinkCategory: 0
-    - m_OutlineCategory: 0
+    - m_OutlineCategory: 1
     - m_end_ALDecalSpectrum: 0
     - m_end_ALVolumeColor: 0
     - m_end_Alpha: 0
@@ -2918,8 +2918,8 @@ Material:
     - m_end_videoEffects: 0
     - m_end_voronoi: 0
     - m_end_voronoiRandom: 0
-    - m_lightingCategory: 0
-    - m_mainCategory: 0
+    - m_lightingCategory: 1
+    - m_mainCategory: 1
     - m_modifierCategory: 0
     - m_renderingCategory: 0
     - m_specialFXCategory: 0
@@ -2992,7 +2992,7 @@ Material:
     - m_start_PPAnimations: 0
     - m_start_PathAudioLink: 0
     - m_start_PoiGlobalCategory: 0
-    - m_start_PoiLightData: 0
+    - m_start_PoiLightData: 1
     - m_start_PoiPostProcessingCategory: 0
     - m_start_PoiShading: 1
     - m_start_PoiUVCategory: 0
