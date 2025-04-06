@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,10 +20,10 @@ public sealed class GameManager : Singleton<GameManager>
     public GameState GameState => state;
 
     [SerializeField] private int maxWins = 10;
-    [SerializeField] private int timesWon = 0;
+    [SerializeField] private int timesWon;
     [SerializeField] private AnomalyAILevel anomalyAILevel;
     public RepeatedTimer nightTimer = new(30.0f);
-    public RepeatedTimer betweenNightsDelayTimer = new(2.0f);
+    public RepeatedTimer betweenNightsDelayTimer = new(1.0f);
     public RepeatedTimer lostDelayTimer = new(2.0f);
 
     public static Action<GameState> OnStateChanged;
@@ -47,14 +46,11 @@ public sealed class GameManager : Singleton<GameManager>
         base.Awake();
         LoadStartupAssets();
     }
-
     private void LoadStartupAssets()
     {
         GameObject[] startupAsset = Resources.LoadAll<GameObject>("InstantiateOnStartup");
         foreach (GameObject spawn in startupAsset.Select(go => Instantiate(go, transform))) spawn.transform.localPosition = Vector3.zero;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -66,8 +62,15 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void Update()
     {
-        if (!Animations.Running()) State = GetNextState();
-        UIController.I.SetTime(GetHour(), GetMinute());
+        if (Animations.Running()) return;
+
+        State = GetNextState();
+        UIController.I.SetTime(GetHour(), GetMinute(), IsCloseToEnding() ? Color.red : Color.white);
+        if (State is GameState.Day or GameState.Playing or GameState.WinGame && playerAction is PlayerAction.Nothing)
+        {
+            if (InputActions.ShootYourself.action.WasPerformedThisFrame()) ShootYourself();
+            else if (InputActions.GoToSleep.action.WasPerformedThisFrame()) GoToSleep();
+        }
     }
 
     private GameState GetNextState() => state switch
@@ -100,40 +103,22 @@ public sealed class GameManager : Singleton<GameManager>
         _ => throw new ArgumentOutOfRangeException()
     };
 
+    // Timer
     private const int DAY_HOUR = 19;
     private const int NIGHT_START_HOUR = 22;
     private const int END_MINUTE = 60;
+    private const int CLOSE_TO_ENDING_TIME = 5;
     int GetHour() => GameState is GameState.Day ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
     int GetMinute() => GameState is not GameState.Playing ? 0 : END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime);
+    bool IsCloseToEnding() => GameState is GameState.Playing && nightTimer.TimeLeft < CLOSE_TO_ENDING_TIME;
 
     private void StateChanged(GameState oldState, GameState newState)
     {
         Debug.Log($"[{nameof(GameState)}] {newState}");
-        switch (oldState)
+        if (oldState is GameState.Playing)
         {
-            case GameState.Day:
-                InputActions.ShootYourself.action.performed -= ShootYourself;
-                InputActions.GoToSleep.action.performed -= GoToSleep;
-                break;
-            case GameState.Playing:
-                if (playerAction is PlayerAction.Nothing) GoToSleep();
-                InputActions.ShootYourself.action.performed -= ShootYourself;
-                InputActions.GoToSleep.action.performed -= GoToSleep;
-                break;
-            case GameState.WonNight:
-                break;
-            case GameState.NightSetup:
-                break;
-            case GameState.LostNight:
-                break;
-            case GameState.WinGame:
-                InputActions.ShootYourself.action.performed -= ShootYourself;
-                InputActions.GoToSleep.action.performed -= GoToSleep;
-                break;
-            case GameState.WinGameSleep:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(oldState), oldState, null);
+            if (playerAction is PlayerAction.Nothing) GoToSleep();
+            if (playerAction is PlayerAction.ShootYourself) UIController.I.Fade(1);
         }
 
         const float MS_TO_S = 0.001f;
@@ -149,8 +134,7 @@ public sealed class GameManager : Singleton<GameManager>
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
 
-                InputActions.ShootYourself.action.performed += ShootYourself;
-                InputActions.GoToSleep.action.performed += GoToSleep;
+                SoundController.sunWinningLight.intensity = 1;
                 break;
             case GameState.Playing:
                 SoundController.Survived.Play();
@@ -162,8 +146,6 @@ public sealed class GameManager : Singleton<GameManager>
                 CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S);
                 nightTimer.Reset();
                 playerAction = PlayerAction.Nothing;
-                InputActions.ShootYourself.action.performed += ShootYourself;
-                InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.WonNight:
                 if (aiState is AnomalyAIState.Dreaming) anomalyAILevel++;
@@ -183,8 +165,7 @@ public sealed class GameManager : Singleton<GameManager>
                 SoundController.Win.Play();
 
                 playerAction = PlayerAction.Nothing;
-                InputActions.ShootYourself.action.performed += ShootYourself;
-                InputActions.GoToSleep.action.performed += GoToSleep;
+                SoundController.sunWinningLight.intensity++;
                 break;
             case GameState.WinGameSleep:
                 UIController.I.Clear(wakeUpDurationMS);
@@ -231,22 +212,16 @@ public sealed class GameManager : Singleton<GameManager>
     }
     private void ShootYourself()
     {
-        if (playerAction is not PlayerAction.Nothing || Animations.Running()) return;
-
         playerAction = PlayerAction.ShootYourself;
         CameraController.DeathAnimation();
         SoundController.Gun.Play();
     }
     private void GoToSleep()
     {
-        if (playerAction is not PlayerAction.Nothing || Animations.Running()) return;
-
         playerAction = PlayerAction.GoToSleep;
         CameraController.LaydownAnimation(1.5f);
         SoundController.LayDown.Play();
     }
-    private void ShootYourself(InputAction.CallbackContext ctx) => ShootYourself();
-    private void GoToSleep(InputAction.CallbackContext ctx) => GoToSleep();
 }
 
 public enum PlayerAction
