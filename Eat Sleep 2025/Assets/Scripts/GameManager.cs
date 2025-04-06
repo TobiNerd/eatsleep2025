@@ -222,6 +222,7 @@ public sealed class GameManager : Singleton<GameManager>
     {
         SoundController.Gun.Play();
         playerAction = PlayerAction.ShootYourself;
+        SimpleShoot.I.Fire();
         CameraController.DeathAnimation();
     }
     private void GoToSleep()
