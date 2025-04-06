@@ -50,16 +50,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  movePoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   spawnables:
   - {fileID: 0}
   - {fileID: 0}
@@ -190,6 +180,8 @@ MonoBehaviour:
   LayDown: {fileID: 0}
   Gasp: {fileID: 0}
   CockShotgun: {fileID: 0}
+  Situp: {fileID: 0}
+  sunWinningLight: {fileID: 0}
 --- !u!4 &4926653417068607127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3164388593412978402, guid: ddcde1b24cba14a4cb32f2551f7a0e6a, type: 3}
