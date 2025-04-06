@@ -97,7 +97,7 @@ public sealed class GameManager : Singleton<GameManager>
 
     private const int DAY_HOUR = 19;
     private const int NIGHT_START_HOUR = 22;
-    private const int END_MINUTE = 15;
+    private const int END_MINUTE = 60;
     int GetHour() => GameState is GameState.Day ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
     int GetMinute() => GameState is not GameState.Playing ? 0 : END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime);
 
