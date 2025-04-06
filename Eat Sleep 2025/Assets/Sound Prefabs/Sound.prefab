@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &164098895350074553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6969899003649348455}
+  - component: {fileID: 960829162627354079}
+  m_Layer: 0
+  m_Name: Lightning Far
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6969899003649348455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164098895350074553}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8366604, y: -2.232359, z: -8.0650425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4596069995335935828}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &960829162627354079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164098895350074553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1402348638
+      Data2: 1204936367
+      Data3: -1007669848
+      Data4: -146935746
+    Path: event:/SFX Normal/Lightning Far
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &335813591446207639
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +100,69 @@ Transform:
   - {fileID: 6534205096474044956}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1972803445145658879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5827768486190611032}
+  - component: {fileID: 2960140914029309370}
+  m_Layer: 0
+  m_Name: Lightning Close
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5827768486190611032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972803445145658879}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8366604, y: -2.232359, z: -8.0650425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4596069995335935828}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2960140914029309370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972803445145658879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1402348638
+      Data2: 1204936367
+      Data3: -1007669848
+      Data4: -146935746
+    Path: event:/SFX Normal/Lightning Far
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &2039557071226653435
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +352,69 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!1 &3915096694969363372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1324883835860161211}
+  - component: {fileID: 6515966507855635694}
+  m_Layer: 0
+  m_Name: Play This After Player killed themselves and they survive
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1324883835860161211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915096694969363372}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5065536, y: -6.0453854, z: -4.2776074}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4290370884511854972}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6515966507855635694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3915096694969363372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -56296740
+      Data2: 1265922084
+      Data3: 2046602118
+      Data4: 445360235
+    Path: event:/Player SFX/Survived one more night - lead in to sit up
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &4269303199854811955
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +530,132 @@ MonoBehaviour:
       Data3: 2036220320
       Data4: -275568186
     Path: event:/SFX Normal/Cats outside
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!1 &5820405923961182285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4311629027594738385}
+  - component: {fileID: 5785397488358800745}
+  m_Layer: 0
+  m_Name: Sit Up
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4311629027594738385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820405923961182285}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5065536, y: -6.0453854, z: -4.2776074}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4290370884511854972}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5785397488358800745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820405923961182285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 841417292
+      Data2: 1203394700
+      Data3: 233580201
+      Data4: -1809753699
+    Path: event:/Player SFX/Sit Up 2
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!1 &6936124152027643753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 871227267013813265}
+  - component: {fileID: 2904166880288176179}
+  m_Layer: 0
+  m_Name: Whale Sonds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &871227267013813265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6936124152027643753}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6534205096474044956}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2904166880288176179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6936124152027643753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1133419794
+      Data2: 1296405411
+      Data3: 907902851
+      Data4: 1280422230
+    Path: event:/SFX Anomaly/Whale
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -599,7 +914,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4592641471461929747, guid: 9d8380a6bbaaa45cbb897d940ca9ab4a, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 5827768486190611032}
+    - targetCorrespondingSourceObject: {fileID: 4592641471461929747, guid: 9d8380a6bbaaa45cbb897d940ca9ab4a, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 6969899003649348455}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d8380a6bbaaa45cbb897d940ca9ab4a, type: 3}
 --- !u!4 &4596069995335935828 stripped
@@ -795,6 +1116,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1518329070031811298, guid: 128eb5c996f8f4c888cc7a0219fc9ff7, type: 3}
       insertIndex: 2
       addedObject: {fileID: 7469334983808909004}
+    - targetCorrespondingSourceObject: {fileID: 1518329070031811298, guid: 128eb5c996f8f4c888cc7a0219fc9ff7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 871227267013813265}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 128eb5c996f8f4c888cc7a0219fc9ff7, type: 3}
 --- !u!4 &6534205096474044956 stripped
@@ -859,15 +1183,21 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 2680509991581742354}
+      addedObject: {fileID: 1324883835860161211}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 7335245581130434367}
+      addedObject: {fileID: 2680509991581742354}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 227657643332424482}
+      addedObject: {fileID: 4311629027594738385}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 3
+      addedObject: {fileID: 7335245581130434367}
+    - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 227657643332424482}
+    - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
+      insertIndex: 5
       addedObject: {fileID: 7326086031322955950}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}

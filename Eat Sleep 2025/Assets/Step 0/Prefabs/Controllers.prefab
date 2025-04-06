@@ -73,6 +73,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1341905230015800797}
     m_Modifications:
+    - target: {fileID: 1380526273979629578, guid: ddcde1b24cba14a4cb32f2551f7a0e6a, type: 3}
+      propertyPath: SoundController
+      value: 
+      objectReference: {fileID: 778125826115835644}
     - target: {fileID: 3164388593412978402, guid: ddcde1b24cba14a4cb32f2551f7a0e6a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.2304883
@@ -127,6 +131,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7399867018912129418, guid: ddcde1b24cba14a4cb32f2551f7a0e6a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3272443660162983653}
+    - targetCorrespondingSourceObject: {fileID: 7399867018912129418, guid: ddcde1b24cba14a4cb32f2551f7a0e6a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 778125826115835644}
   m_SourcePrefab: {fileID: 100100000, guid: ddcde1b24cba14a4cb32f2551f7a0e6a, type: 3}
 --- !u!1 &650009688525103615 stripped
 GameObject:
@@ -164,6 +171,25 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &778125826115835644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650009688525103615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39520edce5b84a999b9e0a20971761d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gun: {fileID: 0}
+  Survived: {fileID: 0}
+  Win: {fileID: 0}
+  Lost: {fileID: 0}
+  LayDown: {fileID: 0}
+  Gasp: {fileID: 0}
+  CockShotgun: {fileID: 0}
 --- !u!4 &4926653417068607127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3164388593412978402, guid: ddcde1b24cba14a4cb32f2551f7a0e6a, type: 3}
