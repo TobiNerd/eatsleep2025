@@ -69,10 +69,7 @@ public sealed class GameManager : Singleton<GameManager>
         UIController.I.SetTime(GetHour(), GetMinute(), IsCloseToEnding() ? Color.red : Color.white);
         if (State is GameState.Day or GameState.Playing or GameState.WinGame && playerAction is PlayerAction.Nothing)
         {
-            if (InputActions.ShootYourself.action.WasPerformedThisFrame())
-            {
-                ShootYourself();
-            }
+            if (InputActions.ShootYourself.action.WasPerformedThisFrame()) ShootYourself();
             else if (InputActions.GoToSleep.action.WasPerformedThisFrame()) GoToSleep();
         }
 
@@ -115,7 +112,7 @@ public sealed class GameManager : Singleton<GameManager>
     private const int END_MINUTE = 60;
     private const int CLOSE_TO_ENDING_TIME = 5;
     int GetHour() => GameState is GameState.Day ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
-    int GetMinute() => GameState is not GameState.Playing ? 0 : END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime);
+    int GetMinute() => GameState is not GameState.Playing ? 0 : Math.Min(END_MINUTE - 1, END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime));
     bool IsCloseToEnding() => GameState is GameState.Playing && nightTimer.TimeLeft < CLOSE_TO_ENDING_TIME;
 
     private void StateChanged(GameState oldState, GameState newState)
@@ -124,11 +121,6 @@ public sealed class GameManager : Singleton<GameManager>
         if (oldState is GameState.Playing)
         {
             if (playerAction is PlayerAction.Nothing) GoToSleep();
-            if (newState is GameState.WonNight && playerAction is PlayerAction.ShootYourself) // Shoot yourself and win
-            {
-                UIController.I.Fade(1);
-                SoundController.Gasp.Play();
-            }
         }
 
         const float MS_TO_S = 0.001f;

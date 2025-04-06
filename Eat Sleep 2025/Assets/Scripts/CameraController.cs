@@ -85,6 +85,8 @@ public class CameraController : MonoBehaviour
         deathSequence.OnComplete(() =>
         {
             Debug.Log("💀 Death animation complete.");
+            UIController.I.Fade(1);
+            GameManager.I.SoundController.Gasp.Play();
             GameManager.I.Animations.Complete(index);
             _torso.localRotation = layingDownTorso;
         });
