@@ -146,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 673308464}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 3.658, y: 0.45300007, z: -1.799}
+  m_LocalPosition: {x: 3.5, y: 0.45300007, z: -2}
   m_LocalScale: {x: 0.57574, y: 0.57574, z: 0.57574}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -773,6 +773,10 @@ PrefabInstance:
       propertyPath: Survived
       value: 
       objectReference: {fileID: 818607732}
+    - target: {fileID: 778125826115835644, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
+      propertyPath: SitupFoley
+      value: 
+      objectReference: {fileID: 1897598357}
     - target: {fileID: 778125826115835644, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: CockShotgun
       value: 

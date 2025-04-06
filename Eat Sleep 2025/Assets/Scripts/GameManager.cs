@@ -186,7 +186,7 @@ public sealed class GameManager : Singleton<GameManager>
     private void AnomalyAI()
     {
         AnomalyController.I.AnomalyReset();
-        
+
         switch (anomalyAILevel)
         {
             case AnomalyAILevel.Obvious:
@@ -208,7 +208,7 @@ public sealed class GameManager : Singleton<GameManager>
                 aiState = UnityEngine.Random.Range(0, 10) <= 4 ? AnomalyAIState.Dreaming : AnomalyAIState.Awake;
                 break;
         }
-        
+
         Debug.Log($"[{nameof(AnomalyAIState)}] {aiState}");
         if (aiState is AnomalyAIState.Awake) return;
 
@@ -255,6 +255,7 @@ public sealed class GameManager : Singleton<GameManager>
     private void WakeUp(int durationMS)
     {
         SoundController.Situp.Play();
+        SoundController.SitupFoley.Play();
         UIController.I.Clear(durationMS);
         CameraController.UprightAnimation(durationMS * MS_TO_S);
     }
