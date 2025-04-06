@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
@@ -59,6 +58,7 @@ public class CameraController : MonoBehaviour
     public void LaydownAnimation(float durationS)
     {
         AnimationIndex index = GameManager.I.Animations.Add();
+        _head.DOLocalRotateQuaternion(Quaternion.identity, durationS);
         Sequence sequence = DOTween.Sequence();
         sequence.Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationS).SetEase(Ease.OutSine));
         sequence.OnComplete(() =>
