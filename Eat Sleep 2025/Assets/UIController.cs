@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -35,11 +34,12 @@ public sealed class UIController : Singleton<UIController>
         _black.experimental.animation.Start(_black.style.opacity.value, 0.0f, fadeDurationMS, (ve, t) => ve.style.opacity = t).OnCompleted(() => GameManager.I.Animations.Complete(index));
         _red.experimental.animation.Start(_red.style.opacity.value, 0.0f, fadeDurationMS, (ve, t) => ve.style.opacity = t);
     }
-    public void SetTime(int hr, int min)
+    public void SetTime(int hr, int min, Color? color = null)
     {
         if (hours == hr && minutes == min) return;
+        Color col = color ?? Color.white;
         hours = hr;
         minutes = min;
-        _time.text = $"{hr:D2}:{min:D2}";
+        _time.text = $"<color=#{(int)(col.r * 255):X2}{(int)(col.g * 255):X2}{(int)(col.b * 255):X2}>{hr:D2}:{min:D2}</color>";
     }
 }
