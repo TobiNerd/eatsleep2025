@@ -22,12 +22,15 @@ public sealed class AnomalyController : Singleton<AnomalyController>
     [ContextMenu("Update Anomalies")]
     public void AnomalyUpdate()
     {
+        var spawnPointsCount = 0;
+        var movePointsCount = 0;
+        
         Debug.Log("[ANOMALY] Updating scene");
-        MonoBehaviour[] sceneObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.InstanceID);
+        var anomalySwaps = FindObjectsByType<AnomalySwap>(FindObjectsSortMode.InstanceID);
 
         // Anomalies
-        anomalies = sceneObjects.OfType<AnomalySwap>().ToList();
-        Debug.Log($"[ANOMALY] Total objects: {anomalies.Count}");
+        anomalies = anomalySwaps.ToList();
+        Debug.Log($"[ANOMALY] Total swapables: {anomalies.Count}");
         foreach (AnomalySwap anomaly in anomalies)
         {
             anomaly.OriginalPosition = anomaly.transform.position;
@@ -35,25 +38,31 @@ public sealed class AnomalyController : Singleton<AnomalyController>
         }
 
         // Spawn points
-        foreach (var mono in sceneObjects)
+        var spawnPointParents = FindObjectsByType<AnomalySpawnPointParent>(FindObjectsSortMode.InstanceID);
+        foreach (var parent in spawnPointParents)
         {
-            if (mono is AnomalySpawnPointParent spawnParent)
-                foreach (var child in spawnParent.transform.Children())
-                {
-                    if (!spawnPoints.ContainsKey(spawnParent.anomalyFlag))
-                        spawnPoints.Add(spawnParent.anomalyFlag, new List<Transform>());
-                    spawnPoints[spawnParent.anomalyFlag].Add(child);
-                }
-            if (mono is AnomalyMovePointParent moveParent)
-                foreach (var child in moveParent.transform.Children())
-                {
-                    if (!movePoints.ContainsKey(moveParent.anomalyFlag))
-                        movePoints.Add(moveParent.anomalyFlag, new List<Transform>());
-                    movePoints[moveParent.anomalyFlag].Add(child);
-                }
+            foreach (var child in parent.transform.Children())
+            {
+                if (!spawnPoints.ContainsKey(parent.anomalyFlag))
+                    spawnPoints.Add(parent.anomalyFlag, new List<Transform>());
+                spawnPoints[parent.anomalyFlag].Add(child);
+                spawnPointsCount++;
+            }
+            
         }
-        Debug.Log($"[ANOMALY] Spawn points: {spawnPoints.Count}");
-        Debug.Log($"[ANOMALY] Move points: {movePoints.Count}");
+        Debug.Log($"[ANOMALY] Spawn points: {spawnPointsCount}");
+        
+        var movePointParents = FindObjectsByType<AnomalyMovePointParent>(FindObjectsSortMode.InstanceID);
+        foreach (var parent in movePointParents)
+            foreach (var child in parent.transform.Children())
+            {
+                if (!movePoints.ContainsKey(parent.anomalyFlag))
+                    movePoints.Add(parent.anomalyFlag, new List<Transform>());
+                movePoints[parent.anomalyFlag].Add(child);
+                movePointsCount++;
+            }
+        
+        Debug.Log($"[ANOMALY] Move points: {movePointsCount}");
         
         LoadAnomalyResources();
     }
@@ -88,6 +97,7 @@ public sealed class AnomalyController : Singleton<AnomalyController>
         Transform point = validMovePoints.GetRandom();
         anomaly.transform.position = point.position;
         anomaly.transform.rotation = point.rotation;
+        Debug.Log($"[ANOMALY] Moved anomaly: {anomaly.name}");
 
         return true;
     }
@@ -118,7 +128,7 @@ public sealed class AnomalyController : Singleton<AnomalyController>
         
         if (!movePoints.TryGetValue(prefab.anomalyFlags, out var validSpawnPoints))
             return false;
-        Debug.Log($"[ANOMALY] Spawning {prefab.name} object with {spawnPoints.Count} spawnpoints");
+        Debug.Log($"[ANOMALY] Spawning {prefab.name} object with {validSpawnPoints.Count} spawnpoints");
         
         Transform point = validSpawnPoints.GetRandom();
         GameObject spawn = Instantiate(prefab.gameObject, point.position, point.rotation);
@@ -151,6 +161,7 @@ public sealed class AnomalyController : Singleton<AnomalyController>
             }
         }
         a1.transform.AnomalySwap(a2.transform, SwapFlags.Position | SwapFlags.Rotation);
+        Debug.Log($"[ANOMALY] Swapped {a1.name} object with {a2.name}");
 
         return true;
     }

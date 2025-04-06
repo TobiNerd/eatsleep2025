@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 4311629027594738385}
   - component: {fileID: 5785397488358800745}
   m_Layer: 0
-  m_Name: Sit Up
+  m_Name: Sit Up 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,7 +567,7 @@ Transform:
   m_GameObject: {fileID: 5820405923961182285}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.38, y: 1.23, z: -2.82}
+  m_LocalPosition: {x: -1.5065536, y: -6.0453854, z: -4.2776074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -604,7 +604,7 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
---- !u!1 &5827277537301900116
+--- !u!1 &6469577464887491605
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -612,8 +612,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6026279007380663884}
-  - component: {fileID: 367741231856207311}
+  - component: {fileID: 690113723031383950}
+  - component: {fileID: 5642509475256449200}
   m_Layer: 0
   m_Name: Gasp
   m_TagString: Untagged
@@ -621,28 +621,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6026279007380663884
+--- !u!4 &690113723031383950
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5827277537301900116}
+  m_GameObject: {fileID: 6469577464887491605}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9779463, y: -0.46311992, z: -3.8845272}
+  m_LocalPosition: {x: -4.17861, y: -2.2040498, z: -2.1278853}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4290370884511854972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &367741231856207311
+--- !u!114 &5642509475256449200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5827277537301900116}
+  m_GameObject: {fileID: 6469577464887491605}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
@@ -1246,19 +1246,19 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 6026279007380663884}
-    - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
-      insertIndex: 1
       addedObject: {fileID: 1324883835860161211}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 2680509991581742354}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
-      insertIndex: 3
+      insertIndex: 2
       addedObject: {fileID: 4311629027594738385}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
-      insertIndex: 4
+      insertIndex: 3
       addedObject: {fileID: 7335245581130434367}
+    - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 690113723031383950}
     - targetCorrespondingSourceObject: {fileID: 7578877332820524682, guid: 0accc4f61b3f8454d903db351ccbc4cf, type: 3}
       insertIndex: 5
       addedObject: {fileID: 227657643332424482}

@@ -39,13 +39,8 @@ public class CameraController : MonoBehaviour
     }
     private void OnEnable()
     {
-        GameManager.I.InputActions.MouseDelta.action.performed += OnMouseMoved;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-    private void OnDisable()
-    {
-        GameManager.I.InputActions.MouseDelta.action.performed -= OnMouseMoved;
     }
 
     public void ResetScene() => _torso.localRotation = uprigthTorso;
@@ -93,11 +88,9 @@ public class CameraController : MonoBehaviour
     }
 
     private void Update() => RotateCamera();
-    private void OnMouseMoved(InputAction.CallbackContext ctx)
+    public void OnMouseMoved(Vector2 mouseDelta)
     {
-        if (GameManager.I.Animations.Running() || GameManager.I.GameState is not GameState.Day and not GameState.Playing and not GameState.WinGame) return;
-
-        _mouseDelta = ctx.ReadValue<Vector2>();
+        _mouseDelta = mouseDelta;
         _rotationVelocity.x += _mouseDelta.x * MoveSensitivity * Time.deltaTime;
         _rotationVelocity.y -= _mouseDelta.y * MoveSensitivity * Time.deltaTime;
         _eulerRotation.x += _rotationVelocity.x;
