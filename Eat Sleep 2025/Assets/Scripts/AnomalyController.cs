@@ -44,7 +44,7 @@ public sealed class AnomalyController : Singleton<AnomalyController>
                         spawnPoints.Add(spawnParent.anomalyFlag, new List<Transform>());
                     spawnPoints[spawnParent.anomalyFlag].Add(child);
                 }
-            else if (mono is AnomalyMovePointParent moveParent)
+            if (mono is AnomalyMovePointParent moveParent)
                 foreach (var child in moveParent.transform.Children())
                 {
                     if (!movePoints.ContainsKey(moveParent.anomalyFlag))
@@ -118,9 +118,10 @@ public sealed class AnomalyController : Singleton<AnomalyController>
         
         if (!movePoints.TryGetValue(prefab.anomalyFlags, out var validSpawnPoints))
             return false;
+        Debug.Log($"[ANOMALY] Spawning {prefab.name} object with {spawnPoints.Count} spawnpoints");
         
         Transform point = validSpawnPoints.GetRandom();
-        GameObject spawn = Instantiate(prefab.gameObject, point.position, Quaternion.identity);
+        GameObject spawn = Instantiate(prefab.gameObject, point.position, point.rotation);
 
         spawned.Add(spawn.transform);
 
@@ -136,7 +137,19 @@ public sealed class AnomalyController : Singleton<AnomalyController>
             return false;
         }
 
-        (AnomalySwap a1, AnomalySwap a2) = anomalies.GetRandom2();
+        var attempts = 0;
+        AnomalySwap a1 = null;
+        AnomalySwap a2 = null;
+        while (true)
+        {
+            attempts++;
+            if (attempts > 20) return false;
+            (a1, a2) = anomalies.GetRandom2();
+            if (a1.anomalyFlags.HasFlag(a2.sourceFlag))
+            {
+                break;
+            }
+        }
         a1.transform.AnomalySwap(a2.transform, SwapFlags.Position | SwapFlags.Rotation);
 
         return true;

@@ -28,5 +28,5 @@ public enum AnomalyFlag
     Window = 8,
     Table = 16,
     Shelf = 32,
-    SFX = 64,
+    SFX = 64
 }

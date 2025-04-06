@@ -254,33 +254,8 @@ PrefabInstance:
     - {fileID: 5129758098635430680, guid: 97a1a5c9e10d3074aa3394b170a735f4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3826895090947458516, guid: 97a1a5c9e10d3074aa3394b170a735f4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5860587002089435970}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97a1a5c9e10d3074aa3394b170a735f4, type: 3}
---- !u!1 &753127287831277344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3826895090947458516, guid: 97a1a5c9e10d3074aa3394b170a735f4, type: 3}
-  m_PrefabInstance: {fileID: 4569035447347063540}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5860587002089435970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753127287831277344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbaf637a30414f5198a97934f2846e52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NightEvent:
-    AudioEmitter: {fileID: 0}
-    Animation: {fileID: 0}
-    EnableWhenActive: {fileID: 0}
-  anomalyFlags: 4
 --- !u!4 &1888740188160376494 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2692693778577724506, guid: 97a1a5c9e10d3074aa3394b170a735f4, type: 3}
