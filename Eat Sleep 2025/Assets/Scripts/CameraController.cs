@@ -70,7 +70,7 @@ public class CameraController : MonoBehaviour
         {
             Debug.Log("😴 Sleep animation almost done");
             const int asleepDurationMS = 1000;
-            FadeToBlack.I.Fade(asleepDurationMS);
+            UIController.I.Fade(asleepDurationMS);
             GameManager.I.Animations.Complete(index);
         });
     }
@@ -93,7 +93,7 @@ public class CameraController : MonoBehaviour
     private void Update() => RotateCamera();
     private void OnMouseMoved(InputAction.CallbackContext ctx)
     {
-        if (GameManager.I.Animations.Running() || GameManager.I.GameState is not GameState.Day and not GameState.Playing) return;
+        if (GameManager.I.Animations.Running() || GameManager.I.GameState is not GameState.Day and not GameState.Playing and not GameState.WinGame) return;
 
         _mouseDelta = ctx.ReadValue<Vector2>();
         _rotationVelocity.x += _mouseDelta.x * MoveSensitivity * Time.deltaTime;

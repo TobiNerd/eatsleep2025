@@ -62,6 +62,7 @@ public sealed class GameManager : Singleton<GameManager>
     private void Update()
     {
         if (!Animations.Running()) State = GetNextState();
+        UIController.I.SetTime(GetHour(), GetMinute());
     }
 
     private GameState GetNextState() => state switch
@@ -87,10 +88,18 @@ public sealed class GameManager : Singleton<GameManager>
         GameState.WinGame => playerAction switch
         {
             PlayerAction.ShootYourself => GameState.LostNight,
+            PlayerAction.GoToSleep => GameState.WinGameSleep,
             _ => GameState.WinGame
         },
+        GameState.WinGameSleep => GameState.WinGame,
         _ => throw new ArgumentOutOfRangeException()
     };
+
+    private const int DAY_HOUR = 19;
+    private const int NIGHT_START_HOUR = 22;
+    private const int END_MINUTE = 15;
+    int GetHour() => GameState is GameState.Day ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
+    int GetMinute() => GameState is not GameState.Playing ? 0 : END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime);
 
     private void StateChanged(GameState oldState, GameState newState)
     {
@@ -102,6 +111,7 @@ public sealed class GameManager : Singleton<GameManager>
                 InputActions.GoToSleep.action.performed -= GoToSleep;
                 break;
             case GameState.Playing:
+                if (playerAction is PlayerAction.Nothing) GoToSleep();
                 InputActions.ShootYourself.action.performed -= ShootYourself;
                 InputActions.GoToSleep.action.performed -= GoToSleep;
                 break;
@@ -115,6 +125,8 @@ public sealed class GameManager : Singleton<GameManager>
                 InputActions.ShootYourself.action.performed -= ShootYourself;
                 InputActions.GoToSleep.action.performed -= GoToSleep;
                 break;
+            case GameState.WinGameSleep:
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(oldState), oldState, null);
         }
@@ -124,18 +136,20 @@ public sealed class GameManager : Singleton<GameManager>
         {
             case GameState.Day:
                 const int openEyesDurationMS = 200;
-                FadeToBlack.I.Clear(openEyesDurationMS);
+                UIController.I.Clear(openEyesDurationMS);
+                UIController.I.SetTime(20, 0);
                 CameraController.ResetScene();
 
                 timesWon = 0;
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
+
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
                 break;
             case GameState.Playing:
                 const int wakeUpDurationMS = 500;
-                FadeToBlack.I.Clear(wakeUpDurationMS);
+                UIController.I.Clear(wakeUpDurationMS);
                 CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S);
 
                 nightTimer.Reset();
@@ -152,12 +166,17 @@ public sealed class GameManager : Singleton<GameManager>
                 break;
             case GameState.LostNight:
                 const int lostGameFadeDurationMS = 1000;
-                FadeToBlack.I.Fade(lostGameFadeDurationMS, withBlood: true);
+                UIController.I.Fade(lostGameFadeDurationMS, withBlood: true);
                 lostDelayTimer.Reset();
                 break;
             case GameState.WinGame:
+                playerAction = PlayerAction.Nothing;
                 InputActions.ShootYourself.action.performed += ShootYourself;
                 InputActions.GoToSleep.action.performed += GoToSleep;
+                break;
+            case GameState.WinGameSleep:
+                UIController.I.Clear(wakeUpDurationMS);
+                CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -194,7 +213,8 @@ public sealed class GameManager : Singleton<GameManager>
                 AnomalyController.I.AnomalyMove();
                 break;
             default:
-                throw new ArgumentOutOfRangeException("You survived and won!!!");
+                AnomalyController.I.AnomalyMove();
+                break;
         }
     }
     private void ShootYourself()
@@ -229,7 +249,8 @@ public enum GameState
     WonNight,
     NightSetup,
     LostNight,
-    WinGame
+    WinGame,
+    WinGameSleep
 }
 
 public enum AnomalyAIState
@@ -252,6 +273,7 @@ public class RepeatedTimer
 {
     public float TotalTime;
     public float TimeLeft;
+    public float TimeUsed => TotalTime - TimeLeft;
 
     public RepeatedTimer(float totalTime)
     {
