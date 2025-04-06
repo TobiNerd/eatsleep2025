@@ -590,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a47d3a8d47e38418256a16fd29324f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anomalyFlag: 0
+  anomalyFlag: 16
   gizmoCircle: {r: 1, g: 0.7158611, b: 0, a: 0.6666667}
   gizmoRadius: 0.2
 --- !u!1 &3132712409796706581
@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d283c6da5b64a7284cfe601bd795e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anomalyFlag: 4
+  anomalyFlag: 32
   gizmoCircle: {r: 0, g: 1, b: 0, a: 1}
   gizmoRadius: 0.15
 --- !u!114 &5671939907318806725
@@ -1146,7 +1146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a47d3a8d47e38418256a16fd29324f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anomalyFlag: 0
+  anomalyFlag: 32
   gizmoCircle: {r: 1, g: 0.7158611, b: 0, a: 0.6666667}
   gizmoRadius: 0.2
 --- !u!1 &7681231715591303896

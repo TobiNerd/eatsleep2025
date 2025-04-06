@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,10 +13,26 @@ public sealed class AnomalyController : Singleton<AnomalyController>
     [SerializeField] private List<Anomaly> spawnables = new();
     [SerializeField] private List<Transform> spawned = new();
 
+    private AnomalyFlag[] AllAnomalyFlags = Enum.GetValues(typeof(AnomalyFlag)) as AnomalyFlag[];
+
     protected override void Awake()
     {
         base.Awake();
         AnomalyUpdate();
+    }
+
+    private AnomalyFlag GetRandomFlag(Anomaly anomaly)
+    {
+        List<AnomalyFlag> activeFlags = new List<AnomalyFlag>();
+        foreach (var flag in AllAnomalyFlags)
+        {
+            if (flag == AnomalyFlag.None) continue; // Skip 'None'
+    
+            if (anomaly.anomalyFlags.HasFlag(flag))
+                activeFlags.Add(flag);
+        }
+
+        return activeFlags.GetRandom();
     }
 
     // Methods
@@ -90,9 +107,12 @@ public sealed class AnomalyController : Singleton<AnomalyController>
         }
 
         AnomalySwap anomaly = anomalies.GetRandom();
-        
-        if (!movePoints.TryGetValue(anomaly.anomalyFlags, out var validMovePoints))
+
+        if (!movePoints.TryGetValue(GetRandomFlag(anomaly), out var validMovePoints))
+        {
+            Debug.LogError($"Failed to get valid move points for {anomaly} with flags {anomaly.anomalyFlags.ToString()}");
             return false;
+        }
         
         Transform point = validMovePoints.GetRandom();
         anomaly.transform.position = point.position;
@@ -126,8 +146,11 @@ public sealed class AnomalyController : Singleton<AnomalyController>
 
         Anomaly prefab = spawnables.GetRandom();
         
-        if (!movePoints.TryGetValue(prefab.anomalyFlags, out var validSpawnPoints))
+        if (!movePoints.TryGetValue(GetRandomFlag(prefab), out var validSpawnPoints))
+        {
+            Debug.LogError($"Failed to get valid spawn points for {prefab} with flags {prefab.anomalyFlags.ToString()}");
             return false;
+        }
         Debug.Log($"[ANOMALY] Spawning {prefab.name} object with {validSpawnPoints.Count} spawnpoints");
         
         Transform point = validSpawnPoints.GetRandom();
