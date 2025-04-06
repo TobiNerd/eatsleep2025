@@ -401,17 +401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2108796370 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4906066418308187035, guid: ed9c7c44ff1edb8409ea59d0994d7234, type: 3}
-  m_PrefabInstance: {fileID: 8967716335626869606}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &712566808265963204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -756,7 +745,7 @@ PrefabInstance:
     - target: {fileID: 778125826115835644, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: Gasp
       value: 
-      objectReference: {fileID: 2108796370}
+      objectReference: {fileID: 8967716335626869607}
     - target: {fileID: 778125826115835644, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: Lost
       value: 
@@ -821,70 +810,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'anomalies.Array.data[0]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'anomalies.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'anomalies.Array.data[2]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'anomalies.Array.data[3]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'movePoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'movePoints.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'movePoints.Array.data[2]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'movePoints.Array.data[3]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'spawnables.Array.data[0]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'spawnables.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'spawnables.Array.data[2]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'spawnPoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'spawnPoints.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'spawnPoints.Array.data[2]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5709676458989464251, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: 'spawnPoints.Array.data[3]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8979134023642988671, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
-      propertyPath: GunSound
-      value: 
-      objectReference: {fileID: 1139403262}
     - target: {fileID: 8979134023642988671, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: CameraController
       value: 
@@ -976,6 +901,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed9c7c44ff1edb8409ea59d0994d7234, type: 3}
+--- !u!114 &8967716335626869607 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5642509475256449200, guid: ed9c7c44ff1edb8409ea59d0994d7234, type: 3}
+  m_PrefabInstance: {fileID: 8967716335626869606}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

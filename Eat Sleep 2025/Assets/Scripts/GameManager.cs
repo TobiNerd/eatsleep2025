@@ -69,6 +69,8 @@ public sealed class GameManager : Singleton<GameManager>
         UIController.I.SetTime(GetHour(), GetMinute(), IsCloseToEnding() ? Color.red : Color.white);
         if (State is GameState.Day or GameState.Playing or GameState.WinGame && playerAction is PlayerAction.Nothing)
         {
+            if (InputActions.MouseDelta.action.WasPerformedThisFrame()) CameraController.OnMouseMoved(InputActions.MouseDelta.action.ReadValue<Vector2>());
+
             if (InputActions.ShootYourself.action.WasPerformedThisFrame()) ShootYourself();
             else if (InputActions.GoToSleep.action.WasPerformedThisFrame()) GoToSleep();
         }
@@ -108,13 +110,17 @@ public sealed class GameManager : Singleton<GameManager>
 
     // Timer
     private const int DAY_HOUR = 19;
-    private const int NIGHT_START_HOUR = 22;
+    private const int NIGHT_START_HOUR = 23;
     private const int END_MINUTE = 60;
     private const int CLOSE_TO_ENDING_TIME = 5;
     int GetHour() => GameState is GameState.Day or GameState.WinGame or GameState.WinGameSleep ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
-    int GetMinute() => GameState is not GameState.Playing ? 0 : Math.Min(END_MINUTE - 1, END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime));
+    int GetMinute() => GameState is not GameState.Playing
+        ? 0
+        : Math.Min(END_MINUTE - 1, END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime));
     bool IsCloseToEnding() => GameState is GameState.Playing && nightTimer.TimeLeft < CLOSE_TO_ENDING_TIME;
     Color LerpDoomSunColor(float t) => Color.Lerp(new Color(1.0f, 0.89f, 0.59f), new Color(1.0f, 0.0f, 0.22f), t);
+
+    const float MS_TO_S = 0.001f;
 
     private void StateChanged(GameState oldState, GameState newState)
     {
@@ -123,8 +129,6 @@ public sealed class GameManager : Singleton<GameManager>
         {
             if (playerAction is PlayerAction.Nothing) GoToSleep();
         }
-
-        const float MS_TO_S = 0.001f;
         switch (newState)
         {
             case GameState.Day:
@@ -133,7 +137,7 @@ public sealed class GameManager : Singleton<GameManager>
                 UIController.I.SetTime(20, 0);
                 CameraController.ResetScene();
 
-                timesWon = 0;
+                timesWon = -1;
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
 
@@ -141,12 +145,10 @@ public sealed class GameManager : Singleton<GameManager>
                 SoundController.sunWinningLight.intensity = 1;
                 break;
             case GameState.Playing:
-                SoundController.Survived.Play();
-                SoundController.Situp.Play();
-
+                if (timesWon is 0) SoundController.Survived.Play();
                 const int wakeUpDurationMS = 500;
-                UIController.I.Clear(wakeUpDurationMS);
-                CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S);
+                WakeUp(wakeUpDurationMS);
+
                 nightTimer.Reset();
                 playerAction = PlayerAction.Nothing;
                 break;
@@ -166,9 +168,7 @@ public sealed class GameManager : Singleton<GameManager>
                 break;
             case GameState.WinGame:
                 SoundController.Win.Play();
-
-                UIController.I.Clear(wakeUpDurationMS * 5);
-                CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S * 5);
+                WakeUp(wakeUpDurationMS * 5);
 
                 playerAction = PlayerAction.Nothing;
                 const float DOOMSDAY_MAX = 10.0f;
@@ -176,8 +176,7 @@ public sealed class GameManager : Singleton<GameManager>
                 SoundController.sunWinningLight.color = LerpDoomSunColor(SoundController.sunWinningLight.intensity / DOOMSDAY_MAX);
                 break;
             case GameState.WinGameSleep:
-                UIController.I.Clear(wakeUpDurationMS);
-                CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S);
+                WakeUp(wakeUpDurationMS);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -252,6 +251,12 @@ public sealed class GameManager : Singleton<GameManager>
         SoundController.LayDown.Play();
         playerAction = PlayerAction.GoToSleep;
         CameraController.LaydownAnimation(1.5f);
+    }
+    private void WakeUp(int durationMS)
+    {
+        SoundController.Situp.Play();
+        UIController.I.Clear(durationMS);
+        CameraController.UprightAnimation(durationMS * MS_TO_S);
     }
 }
 
