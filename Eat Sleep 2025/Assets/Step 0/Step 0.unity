@@ -728,33 +728,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1381424392780020909, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5896226
-      objectReference: {fileID: 0}
-    - target: {fileID: 1381424392780020909, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8898988
-      objectReference: {fileID: 0}
-    - target: {fileID: 1381424392780020909, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4508677011961335509, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
       propertyPath: m_Name
       value: Lighting
-      objectReference: {fileID: 0}
-    - target: {fileID: 8121046974667998358, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
-      propertyPath: m_Color.b
-      value: 0.2971698
-      objectReference: {fileID: 0}
-    - target: {fileID: 8121046974667998358, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8114358
-      objectReference: {fileID: 0}
-    - target: {fileID: 8121046974667998358, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
-      propertyPath: m_Color.r
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
