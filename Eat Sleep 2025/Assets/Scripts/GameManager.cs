@@ -59,7 +59,10 @@ public sealed class GameManager : Singleton<GameManager>
     {
         _playerInput = GetComponent<PlayerInput>();
         _playerInput.actions.FindActionMap("Debug").Enable();
-        state = GameState.LostNight;
+
+        state = GameState.Day;
+        StateChanged(state, state);
+        OnStateChanged?.Invoke(state);
     }
     private void Update()
     {
