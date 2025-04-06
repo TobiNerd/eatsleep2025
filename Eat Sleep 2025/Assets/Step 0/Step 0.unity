@@ -15,18 +15,18 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.121324316, g: 0.13118906, b: 0.1509434, a: 1}
+  m_FogColor: {r: 0.16830188, g: 0.1773585, b: 0.19999999, a: 1}
   m_FogMode: 2
-  m_FogDensity: 0.2
+  m_FogDensity: 0.168
   m_LinearFogStart: 0
   m_LinearFogEnd: 13.6
-  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 0.0721823, g: 0.08690361, b: 0.13962269, a: 1}
   m_AmbientEquatorColor: {r: 0.12213881, g: 0.09084173, b: 0.06847818, a: 1}
   m_AmbientGroundColor: {r: 0.0017688684, g: 0.0015769629, b: 0.0011931518, a: 1}
-  m_AmbientIntensity: 0
-  m_AmbientMode: 3
+  m_AmbientIntensity: 0.5
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.13705944, g: 0.3327665, b: 0.8301887, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9f06bc7639f9eab4d92112fddb3ed1b3, type: 2}
   m_HaloStrength: 0
   m_FlareStrength: 0.176
   m_FlareFadeSpeed: 2.43
