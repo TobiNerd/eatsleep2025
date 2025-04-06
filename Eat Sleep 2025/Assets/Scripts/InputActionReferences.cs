@@ -11,5 +11,6 @@ public class InputActionReferences : ScriptableObject
     public InputActionReference DebugSwap;
     public InputActionReference ShootYourself;
     public InputActionReference GoToSleep;
+    public InputActionReference QuitGame;
 
 }

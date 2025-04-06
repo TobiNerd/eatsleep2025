@@ -19,3 +19,4 @@ MonoBehaviour:
   DebugSwap: {fileID: -7235290178024161980, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
   ShootYourself: {fileID: 1642121231914211810, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
   GoToSleep: {fileID: 805846313061690822, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}
+  QuitGame: {fileID: 8222915111258403986, guid: 8ab62dbacf25ff24194ab5a751f17ba8, type: 3}

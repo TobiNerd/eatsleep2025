@@ -317,6 +317,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!108 &1452186832 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 1381424392780020909, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
+  m_PrefabInstance: {fileID: 5867588383250053185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1502998025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -723,9 +728,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381424392780020909, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5896226
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381424392780020909, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8898988
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381424392780020909, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4508677011961335509, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
       propertyPath: m_Name
       value: Lighting
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121046974667998358, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2971698
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121046974667998358, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8114358
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121046974667998358, guid: fd35b31aa532b7a40988e36d41b1aa29, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -772,6 +801,10 @@ PrefabInstance:
       propertyPath: CockShotgun
       value: 
       objectReference: {fileID: 1307546849}
+    - target: {fileID: 778125826115835644, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
+      propertyPath: sunWinningLight
+      value: 
+      objectReference: {fileID: 1452186832}
     - target: {fileID: 1341905230015800797, guid: 5dfcbf7c41fb8c849b662290fa100e39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
