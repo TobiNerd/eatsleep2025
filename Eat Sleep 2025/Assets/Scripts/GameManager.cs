@@ -111,9 +111,10 @@ public sealed class GameManager : Singleton<GameManager>
     private const int NIGHT_START_HOUR = 22;
     private const int END_MINUTE = 60;
     private const int CLOSE_TO_ENDING_TIME = 5;
-    int GetHour() => GameState is GameState.Day ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
+    int GetHour() => GameState is GameState.Day or GameState.WinGame or GameState.WinGameSleep ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
     int GetMinute() => GameState is not GameState.Playing ? 0 : Math.Min(END_MINUTE - 1, END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime));
     bool IsCloseToEnding() => GameState is GameState.Playing && nightTimer.TimeLeft < CLOSE_TO_ENDING_TIME;
+    Color LerpDoomSunColor(float t) => Color.Lerp(new Color(1.0f, 0.89f, 0.59f), new Color(1.0f, 0.0f, 0.22f), t);
 
     private void StateChanged(GameState oldState, GameState newState)
     {
@@ -136,6 +137,7 @@ public sealed class GameManager : Singleton<GameManager>
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
 
+                SoundController.sunWinningLight.color = LerpDoomSunColor(0.0f);
                 SoundController.sunWinningLight.intensity = 1;
                 break;
             case GameState.Playing:
@@ -165,8 +167,13 @@ public sealed class GameManager : Singleton<GameManager>
             case GameState.WinGame:
                 SoundController.Win.Play();
 
+                UIController.I.Clear(wakeUpDurationMS * 5);
+                CameraController.UprightAnimation(wakeUpDurationMS * MS_TO_S * 5);
+
                 playerAction = PlayerAction.Nothing;
+                const float DOOMSDAY_MAX = 10.0f;
                 SoundController.sunWinningLight.intensity++;
+                SoundController.sunWinningLight.color = LerpDoomSunColor(SoundController.sunWinningLight.intensity / DOOMSDAY_MAX);
                 break;
             case GameState.WinGameSleep:
                 UIController.I.Clear(wakeUpDurationMS);
