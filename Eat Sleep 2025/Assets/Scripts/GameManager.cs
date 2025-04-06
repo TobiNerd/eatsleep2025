@@ -110,7 +110,7 @@ public sealed class GameManager : Singleton<GameManager>
 
     // Timer
     private const int DAY_HOUR = 19;
-    private const int NIGHT_START_HOUR = 23;
+    private const int NIGHT_START_HOUR = 22;
     private const int END_MINUTE = 60;
     private const int CLOSE_TO_ENDING_TIME = 5;
     int GetHour() => GameState is GameState.Day or GameState.WinGame or GameState.WinGameSleep ? DAY_HOUR : (NIGHT_START_HOUR + timesWon) % 24;
@@ -141,6 +141,7 @@ public sealed class GameManager : Singleton<GameManager>
                 anomalyAILevel = AnomalyAILevel.Easy;
                 playerAction = PlayerAction.Nothing;
 
+                AnomalyController.I.AnomalyReset();
                 SoundController.sunWinningLight.color = LerpDoomSunColor(0.0f);
                 SoundController.sunWinningLight.intensity = 1;
                 break;
