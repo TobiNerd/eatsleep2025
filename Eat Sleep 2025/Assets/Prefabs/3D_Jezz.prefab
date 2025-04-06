@@ -806,10 +806,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 763283551145781490, guid: cc8090b786a2df8468e87b7907b4e0a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5200078703580801746}
   m_SourcePrefab: {fileID: 100100000, guid: cc8090b786a2df8468e87b7907b4e0a8, type: 3}
 --- !u!4 &3325956691872202219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5005326178840931201, guid: cc8090b786a2df8468e87b7907b4e0a8, type: 3}
   m_PrefabInstance: {fileID: 7736716174811387498}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7046422603574525592 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 763283551145781490, guid: cc8090b786a2df8468e87b7907b4e0a8, type: 3}
+  m_PrefabInstance: {fileID: 7736716174811387498}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5200078703580801746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046422603574525592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbaf637a30414f5198a97934f2846e52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NightEvent:
+    AudioEmitter: {fileID: 0}
+    Animation: {fileID: 0}
+    EnableWhenActive: {fileID: 0}
+  anomalyFlags: 48
+  sourceFlag: 32
