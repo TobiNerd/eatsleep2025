@@ -100,24 +100,24 @@ public sealed class GameManager : Singleton<GameManager>
                     _ => throw new ArgumentOutOfRangeException(nameof(playerAction), playerAction, null)
                 },
             GameState.GameOver => lostDelayTimer.Tick() is TimerState.TimerPlaying ? null : GameState.Day,
-            GameState.Win => playerAction switch
+            GameState.GameWon => playerAction switch
             {
                 PlayerAction.PlayerNone => null,
-                PlayerAction.PlayerGoingToSleep => GameState.Win,
+                PlayerAction.PlayerGoingToSleep => GameState.GameWon,
                 PlayerAction.PlayerShootingThemselves => GameState.GameOver,
                 _ => throw new ArgumentOutOfRangeException(nameof(playerAction), playerAction, null)
             },
             _ => throw new ArgumentOutOfRangeException(nameof(GameState), GameState, null)
         };
 
-        GameState WonNightState() => ++nightsSurvived == maxNights ? GameState.Win : GameState.Night;
+        GameState WonNightState() => ++nightsSurvived == maxNights ? GameState.GameWon : GameState.Night;
     }
     private void StateChanged(GameState oldState, GameState newState)
     {
         Debug.Log($"[{nameof(GameState)}] {oldState} -> {newState}");
         switch (oldState)
         {
-            case GameState.Day or GameState.GameOver or GameState.Win:
+            case GameState.Day or GameState.GameOver or GameState.GameWon:
                 break;
             case GameState.Night:
                 if (newState is not GameState.GameOver && playerAction is PlayerAction.PlayerShootingThemselves) I.SoundController.Gasp.Play();
@@ -159,7 +159,7 @@ public sealed class GameManager : Singleton<GameManager>
                 UIController.I.Fade(lostGameFadeDurationMS, withBlood: true);
                 lostDelayTimer.Reset();
                 break;
-            case GameState.Win:
+            case GameState.GameWon:
                 SoundController.Win.Play();
                 WakeUp(wakeUpDurationMS * 5);
 
@@ -251,12 +251,12 @@ public sealed class GameManager : Singleton<GameManager>
     {
         GameState.Day => 19,
         GameState.Night or GameState.GameOver => (NIGHT_START_HOUR + nightsSurvived) % 24,
-        GameState.Win => 14,
+        GameState.GameWon => 14,
         _ => throw new ArgumentOutOfRangeException(nameof(GameState), GameState, null)
     };
     private int GetMinute() => GameState switch
     {
-        GameState.Day or GameState.GameOver or GameState.Win => 0,
+        GameState.Day or GameState.GameOver or GameState.GameWon => 0,
         GameState.Night => Math.Min(END_MINUTE - 1, END_MINUTE * Mathf.FloorToInt(nightTimer.TimeUsed) / Mathf.FloorToInt(nightTimer.TotalTime)),
         _ => throw new ArgumentOutOfRangeException(nameof(GameState), GameState, null)
     };

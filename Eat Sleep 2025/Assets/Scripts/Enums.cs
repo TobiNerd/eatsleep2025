@@ -16,7 +16,7 @@ public enum GameState
     Day,
     Night,
     GameOver,
-    Win,
+    GameWon,
 }
 
 public enum AnomalyAIState

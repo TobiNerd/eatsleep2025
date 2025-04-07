@@ -13,10 +13,7 @@ public class GameStateListener : MonoBehaviour
 
     private void CheckState()
     {
-        if (GameManager.I.GameState == EnabledState)
-            gameObject.SetActive(true);
-        else
-            gameObject.SetActive(false);
+        gameObject.SetActive(GameManager.I.GameState == EnabledState);
     }
 
     private void OnStateChanged(GameState state)
