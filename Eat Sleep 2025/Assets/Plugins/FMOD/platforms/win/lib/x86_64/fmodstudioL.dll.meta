@@ -1,28 +1,2 @@
 fileFormatVersion: 2
-guid: 064c9b10a6d004ed881409deb8b6fb3f
-PluginImporter:
-  externalObjects: {}
-  serializedVersion: 3
-  iconMap: {}
-  executionOrder: {}
-  defineConstraints: []
-  isPreloaded: 0
-  isOverridable: 0
-  isExplicitlyReferenced: 0
-  validateReferences: 1
-  platformData:
-    Any:
-      enabled: 0
-      settings: {}
-    Editor:
-      enabled: 1
-      settings:
-        CPU: x86_64
-        DefaultValueInitialized: true
-        OS: Windows
-    Win64:
-      enabled: 0
-      settings: {}
-  userData:
-  assetBundleName:
-  assetBundleVariant:
+guid: fcd1ddb4c55223e44a199f7a9aeee179
