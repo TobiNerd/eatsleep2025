@@ -55,54 +55,44 @@ public class CameraController : MonoBehaviour
 
     public void SitUpAnimation(int durationMS)
     {
-        GameManager.I.BlockingCounter.Add();
-        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone)
-            Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
-        ResetHead();
         PlayerAnimationState = PlayerAnimationState.PlayerSitUp;
-        DOTween.Sequence()
-            .Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine))
-            .AppendCallback(() =>
-            {
-                GameManager.I.BlockingCounter.Release();
-                PlayerAnimationState = PlayerAnimationState.PlayerNone;
-            });
+
+        ResetHead();
+        CreateAnimationSequence()
+            .Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine));
     }
     public void LayDownAnimation(int durationMS)
     {
-        const int asleepDurationMS = 1000;
-
-        GameManager.I.BlockingCounter.Add();
-        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone)
-            Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
         PlayerAnimationState = PlayerAnimationState.PlayerLayDown;
-        _head.DOLocalRotateQuaternion(Quaternion.identity, durationMS * MS_TO_S);
-        DOTween.Sequence()
+
+        const int asleepDurationMS = 1000;
+        CreateAnimationSequence()
             .Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine))
-            .Append(UIController.I.Fade(asleepDurationMS))
-            .AppendCallback(() =>
-            {
-                GameManager.I.BlockingCounter.Release();
-                PlayerAnimationState = PlayerAnimationState.PlayerNone;
-            });
+            .Join(_head.DOLocalRotateQuaternion(Quaternion.identity, durationMS * MS_TO_S))
+            .Append(UIController.I.Fade(asleepDurationMS));
     }
     public void DeathAnimation()
     {
-        GameManager.I.BlockingCounter.Add();
-        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone)
-            Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
         PlayerAnimationState = PlayerAnimationState.PlayerDeath;
-        DOTween.Sequence()
+
+        CreateAnimationSequence()
             .Append(_head.DOLocalRotate(new Vector3(45f, 0, 0), lookDownTime).SetEase(Ease.InOutSine))
             .Append(_head.DOLocalRotate(new Vector3(90f, 0, 0), dropTime).SetEase(Ease.InCubic))
             .Append(_head.DOShakeRotation(0.5f, new Vector3(10, 5, 5), vibrato: 8, randomness: 20))
-            .Append(UIController.I.Fade(500))
-            .AppendCallback(() =>
-            {
-                GameManager.I.BlockingCounter.Release();
-                _torso.localRotation = layingDownTorso;
-                PlayerAnimationState = PlayerAnimationState.PlayerNone;
-            });
+            .Append(UIController.I.Fade(500));
+    }
+
+    private Sequence CreateAnimationSequence()
+    {
+        GameManager.I.BlockingCounter.Add();
+
+        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone) Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+
+        return DOTween.Sequence().OnComplete(() =>
+        {
+            GameManager.I.BlockingCounter.Release();
+            PlayerAnimationState = PlayerAnimationState.PlayerNone;
+        });
     }
     public void MovePlayerHead(Vector2 mouseDelta)
     {
