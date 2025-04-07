@@ -61,7 +61,7 @@ public sealed class GameManager : Singleton<GameManager>
         }
         else
         {
-            if (InputActions.MouseDelta.action.WasPerformedThisFrame()) CameraController.OnMouseMoved(InputActions.MouseDelta.action.ReadValue<Vector2>());
+            if (InputActions.MouseDelta.action.WasPerformedThisFrame()) CameraController.MovePlayerHead(InputActions.MouseDelta.action.ReadValue<Vector2>());
 
             if (InputActions.ShootYourself.action.WasPerformedThisFrame()) ShootYourself();
             else if (InputActions.GoToSleep.action.WasPerformedThisFrame()) GoToSleep(1500);
@@ -121,6 +121,7 @@ public sealed class GameManager : Singleton<GameManager>
                 break;
             case GameState.Night:
                 if (newState is not GameState.GameOver && playerAction is PlayerAction.PlayerShootingThemselves) I.SoundController.Gasp.Play();
+
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(GameState), GameState, null);

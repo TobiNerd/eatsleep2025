@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,24 +20,33 @@ public sealed class UIController : Singleton<UIController>
         _red.style.opacity = 0.0f;
     }
 
-    public void Fade(int fadeDurationMS, bool withBlood = false)
+    private static Tween FadeAnimation(VisualElement ve, float to, int fadeDurationMS)
+    {
+        GameManager.I.BlockingCounter.Add();
+        return DOTween.To(v => ve.style.opacity = v, ve.style.opacity.value, to, fadeDurationMS * CameraController.MS_TO_S)
+            .OnComplete(() => GameManager.I.BlockingCounter.Release());
+    }
+    public Tween Fade(int fadeDurationMS, bool withBlood = false)
     {
         Debug.Log($"[{nameof(UIController)}] {nameof(Fade)}");
-        GameManager.I.BlockingCounter.Add();
-        _black.experimental.animation.Start(_black.style.opacity.value, 1.0f, fadeDurationMS, (ve, t) => ve.style.opacity = t).OnCompleted(() => GameManager.I.BlockingCounter.Release());
-        const float delayPercentage = 0.5f;
-        if (withBlood) _red.experimental.animation.Start(_red.style.opacity.value, 1.0f, fadeDurationMS, (ve, t) => ve.style.opacity = (t - delayPercentage) / (1 - delayPercentage));
+        if (withBlood)
+        {
+            const float redDelayPercentage = 0.5f;
+            _red.experimental.animation.Start(_red.style.opacity.value, 1.0f, fadeDurationMS, (ve, t) => ve.style.opacity = (t - redDelayPercentage) / (1 - redDelayPercentage));
+        }
+
+        return FadeAnimation(_black, 1.0f, fadeDurationMS);
     }
-    public void Clear(int fadeDurationMS)
+    public Tween Clear(int fadeDurationMS)
     {
         Debug.Log($"[{nameof(UIController)}] {nameof(Clear)}");
-        GameManager.I.BlockingCounter.Add();
-        _black.experimental.animation.Start(_black.style.opacity.value, 0.0f, fadeDurationMS, (ve, t) => ve.style.opacity = t).OnCompleted(() => GameManager.I.BlockingCounter.Release());
-        _red.experimental.animation.Start(_red.style.opacity.value, 0.0f, fadeDurationMS, (ve, t) => ve.style.opacity = t);
+        FadeAnimation(_red, 0.0f, fadeDurationMS);
+        return FadeAnimation(_black, 0.0f, fadeDurationMS);
     }
     public void SetTime(int hr, int min, Color? color = null)
     {
         if (hours == hr && minutes == min) return;
+
         Color col = color ?? Color.white;
         hours = hr;
         minutes = min;

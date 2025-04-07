@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private const float MS_TO_S = 0.001f;
+    public const float MS_TO_S = 0.001f;
 
     [SerializeField] private float lookDownTime = 0.5f;
     [SerializeField] private float dropTime = 0.3f;
@@ -20,10 +20,12 @@ public class CameraController : MonoBehaviour
     private Transform _head;
     private Transform _torso;
 
+    [field: SerializeField] public PlayerAnimationState PlayerAnimationState { get; set; } = PlayerAnimationState.PlayerNone;
+
     private Vector2 _accelerationOffset;
     private Vector2 _mouseDelta;
-    private Vector2 _rotationVelocity;
-    private Vector2 _eulerRotation;
+    [SerializeField] private Vector2 _rotationVelocity;
+    [SerializeField] private Vector2 _eulerRotation;
 
     private void Awake()
     {
@@ -31,8 +33,6 @@ public class CameraController : MonoBehaviour
         _head = _cam.transform;
         _torso = _head.parent;
 
-        Vector3 startEuler = _head.localRotation.eulerAngles;
-        _eulerRotation = new Vector2(startEuler.y, startEuler.x);
         ResetScene();
     }
     private void OnEnable()
@@ -40,18 +40,29 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+    private void Update() => _rotationVelocity *= MoveDampening * Time.deltaTime;
 
-    public void ResetScene() => _torso.localRotation = uprigthTorso;
+    public void ResetScene()
+    {
+        _torso.localRotation = uprigthTorso;
+        ResetHead();
+    }
+    private void ResetHead()
+    {
+        _eulerRotation = new Vector2();
+        MovePlayerHead(new Vector2());
+    }
 
-    [field: SerializeField] public PlayerAnimationState PlayerAnimationState { get; set; } = PlayerAnimationState.PlayerNone;
     public void SitUpAnimation(int durationMS)
     {
         GameManager.I.BlockingCounter.Add();
-        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone) Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone)
+            Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+        ResetHead();
         PlayerAnimationState = PlayerAnimationState.PlayerSitUp;
         DOTween.Sequence()
             .Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine))
-            .OnComplete(() =>
+            .AppendCallback(() =>
             {
                 GameManager.I.BlockingCounter.Release();
                 PlayerAnimationState = PlayerAnimationState.PlayerNone;
@@ -59,16 +70,18 @@ public class CameraController : MonoBehaviour
     }
     public void LayDownAnimation(int durationMS)
     {
+        const int asleepDurationMS = 1000;
+
         GameManager.I.BlockingCounter.Add();
-        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone) Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone)
+            Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
         PlayerAnimationState = PlayerAnimationState.PlayerLayDown;
         _head.DOLocalRotateQuaternion(Quaternion.identity, durationMS * MS_TO_S);
         DOTween.Sequence()
             .Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine))
-            .OnComplete(() =>
+            .Append(UIController.I.Fade(asleepDurationMS))
+            .AppendCallback(() =>
             {
-                const int asleepDurationMS = 1000;
-                UIController.I.Fade(asleepDurationMS);
                 GameManager.I.BlockingCounter.Release();
                 PlayerAnimationState = PlayerAnimationState.PlayerNone;
             });
@@ -76,23 +89,22 @@ public class CameraController : MonoBehaviour
     public void DeathAnimation()
     {
         GameManager.I.BlockingCounter.Add();
-        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone) Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone)
+            Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
         PlayerAnimationState = PlayerAnimationState.PlayerDeath;
         DOTween.Sequence()
             .Append(_head.DOLocalRotate(new Vector3(45f, 0, 0), lookDownTime).SetEase(Ease.InOutSine))
             .Append(_head.DOLocalRotate(new Vector3(90f, 0, 0), dropTime).SetEase(Ease.InCubic))
             .Append(_head.DOShakeRotation(0.5f, new Vector3(10, 5, 5), vibrato: 8, randomness: 20))
-            .OnComplete(() =>
+            .Append(UIController.I.Fade(500))
+            .AppendCallback(() =>
             {
-                UIController.I.Fade(500);
                 GameManager.I.BlockingCounter.Release();
                 _torso.localRotation = layingDownTorso;
                 PlayerAnimationState = PlayerAnimationState.PlayerNone;
             });
     }
-
-    private void Update() => RotateCamera();
-    public void OnMouseMoved(Vector2 mouseDelta)
+    public void MovePlayerHead(Vector2 mouseDelta)
     {
         _mouseDelta = mouseDelta;
         _rotationVelocity.x += _mouseDelta.x * MoveSensitivity * Time.deltaTime;
@@ -102,11 +114,7 @@ public class CameraController : MonoBehaviour
 
         _eulerRotation.x = Mathf.Clamp(_eulerRotation.x, RotationLimitHorizontal.x, RotationLimitHorizontal.y);
         _eulerRotation.y = Mathf.Clamp(_eulerRotation.y, RotationLimitVertical.x, RotationLimitVertical.y);
-    }
-    private void RotateCamera()
-    {
-        _head.localRotation = Quaternion.Euler(_eulerRotation.y, _eulerRotation.x, 0f);
 
-        _rotationVelocity *= MoveDampening * Time.deltaTime;
+        _head.localRotation = Quaternion.Euler(_eulerRotation.y, _eulerRotation.x, 0f);
     }
 }

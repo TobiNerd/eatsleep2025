@@ -3,8 +3,6 @@
 [AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
 public class SimpleShoot : Singleton<SimpleShoot>
 {
-    private static readonly int Fire1 = Animator.StringToHash("Fire1");
-
     [Header("Prefab Refrences")] public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public GameObject muzzleFlashPrefab;
@@ -29,7 +27,7 @@ public class SimpleShoot : Singleton<SimpleShoot>
 
     public void Shoot(bool withFlash, bool withBullet)
     {
-        gunAnimator.SetTrigger(Fire1);
+        gunAnimator.SetTrigger("Fire1");
 
         if (muzzleFlashPrefab && withFlash)
         {
