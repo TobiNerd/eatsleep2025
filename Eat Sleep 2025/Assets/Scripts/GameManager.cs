@@ -184,7 +184,7 @@ public sealed class GameManager : Singleton<GameManager>
             AnomalyAILevel.AIMedium => d10 <= 7,
             AnomalyAILevel.AIHard => d10 <= 6,
             AnomalyAILevel.AIVeryHard => d10 <= 5,
-            _ => throw new ArgumentOutOfRangeException(nameof(anomalyAILevel), anomalyAILevel, null)
+            _ => d10 <= 5 //throw new ArgumentOutOfRangeException(nameof(anomalyAILevel), anomalyAILevel, null)
         };
         aiState = aiActive ? AnomalyAIState.AnomalyActive : AnomalyAIState.AnomalyNone;
 
@@ -222,7 +222,8 @@ public sealed class GameManager : Singleton<GameManager>
         Debug.Log($"[PlayerState] {nameof(ShootYourself)}");
         SoundController.Gun.Play();
         playerAction = PlayerAction.PlayerShootingThemselves;
-        SimpleShoot.I.Fire();
+        SimpleShoot.I.Shoot(withFlash: true, withBullet: false);
+        SimpleShoot.I.CasingRelease();
         CameraController.DeathAnimation();
     }
     private void GoToSleep(int durationMS)
