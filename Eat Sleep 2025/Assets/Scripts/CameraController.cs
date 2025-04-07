@@ -5,10 +5,8 @@ public class CameraController : MonoBehaviour
 {
     private const float MS_TO_S = 0.001f;
 
-    [SerializeField] private float headLiftTime = 1.5f;
     [SerializeField] private float lookDownTime = 0.5f;
     [SerializeField] private float dropTime = 0.3f;
-    [SerializeField] private float bounceStrength = 10f;
 
     private static readonly Quaternion uprigthTorso = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
     private static readonly Quaternion layingDownTorso = Quaternion.Euler(new Vector3(-90.0f, -90.0f, 0.0f));
@@ -45,46 +43,52 @@ public class CameraController : MonoBehaviour
 
     public void ResetScene() => _torso.localRotation = uprigthTorso;
 
-    public void UprightAnimation(int durationMS)
+    [field: SerializeField] public PlayerAnimationState PlayerAnimationState { get; set; } = PlayerAnimationState.PlayerNone;
+    public void SitUpAnimation(int durationMS)
     {
         GameManager.I.BlockingCounter.Add();
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine));
-        sequence.OnComplete(() =>
-        {
-            Debug.Log("🌅 Wake-up animation done");
-            GameManager.I.BlockingCounter.Release();
-        });
+        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone) Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+        PlayerAnimationState = PlayerAnimationState.PlayerSitUp;
+        DOTween.Sequence()
+            .Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine))
+            .OnComplete(() =>
+            {
+                GameManager.I.BlockingCounter.Release();
+                PlayerAnimationState = PlayerAnimationState.PlayerNone;
+            });
     }
-    public void LaydownAnimation(int durationMS)
+    public void LayDownAnimation(int durationMS)
     {
         GameManager.I.BlockingCounter.Add();
+        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone) Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+        PlayerAnimationState = PlayerAnimationState.PlayerLayDown;
         _head.DOLocalRotateQuaternion(Quaternion.identity, durationMS * MS_TO_S);
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine));
-        sequence.OnComplete(() =>
-        {
-            Debug.Log("😴 Sleep animation almost done");
-            const int asleepDurationMS = 1000;
-            UIController.I.Fade(asleepDurationMS);
-            GameManager.I.BlockingCounter.Release();
-        });
+        DOTween.Sequence()
+            .Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine))
+            .OnComplete(() =>
+            {
+                const int asleepDurationMS = 1000;
+                UIController.I.Fade(asleepDurationMS);
+                GameManager.I.BlockingCounter.Release();
+                PlayerAnimationState = PlayerAnimationState.PlayerNone;
+            });
     }
     public void DeathAnimation()
     {
         GameManager.I.BlockingCounter.Add();
-        Sequence deathSequence = DOTween.Sequence();
-
-        deathSequence.Append(_head.DOLocalRotate(new Vector3(45f, 0, 0), lookDownTime).SetEase(Ease.InOutSine));
-        deathSequence.Append(_head.DOLocalRotate(new Vector3(90f, 0, 0), dropTime).SetEase(Ease.InCubic));
-        deathSequence.Append(_head.DOShakeRotation(0.5f, new Vector3(10, 5, 5), vibrato: 8, randomness: 20));
-        deathSequence.OnComplete(() =>
-        {
-            Debug.Log("💀 Death animation complete.");
-            UIController.I.Fade(500);
-            GameManager.I.BlockingCounter.Release();
-            _torso.localRotation = layingDownTorso;
-        });
+        if (PlayerAnimationState is not PlayerAnimationState.PlayerNone) Debug.LogWarning($"[{nameof(PlayerAnimationState)}] Current: {PlayerAnimationState} Expected: {PlayerAnimationState.PlayerNone}");
+        PlayerAnimationState = PlayerAnimationState.PlayerDeath;
+        DOTween.Sequence()
+            .Append(_head.DOLocalRotate(new Vector3(45f, 0, 0), lookDownTime).SetEase(Ease.InOutSine))
+            .Append(_head.DOLocalRotate(new Vector3(90f, 0, 0), dropTime).SetEase(Ease.InCubic))
+            .Append(_head.DOShakeRotation(0.5f, new Vector3(10, 5, 5), vibrato: 8, randomness: 20))
+            .OnComplete(() =>
+            {
+                UIController.I.Fade(500);
+                GameManager.I.BlockingCounter.Release();
+                _torso.localRotation = layingDownTorso;
+                PlayerAnimationState = PlayerAnimationState.PlayerNone;
+            });
     }
 
     private void Update() => RotateCamera();
