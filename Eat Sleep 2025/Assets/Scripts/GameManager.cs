@@ -52,7 +52,7 @@ public sealed class GameManager : Singleton<GameManager>
 
         UIController.I.SetTime(GetHour(), GetMinute(), IsCloseToEnding() ? Color.red : Color.white);
 
-        if (BlockingCounter.StillRunning()) return;
+        if (BlockingCounter.GetState() is BlockingCounter.State.Blocking) return;
 
         if (subState is SubState.StateTransitioning)
         {
@@ -66,7 +66,7 @@ public sealed class GameManager : Singleton<GameManager>
             if (InputActions.ShootYourself.action.WasPerformedThisFrame()) ShootYourself();
             else if (InputActions.GoToSleep.action.WasPerformedThisFrame()) GoToSleep(1500);
 
-            if (BlockingCounter.StillRunning()) return;
+            if (BlockingCounter.GetState() is BlockingCounter.State.Blocking) return; // We double check because input might cause animation
 
             GameState? nextState = GetNextState();
             if (nextState == null) return;
@@ -90,7 +90,7 @@ public sealed class GameManager : Singleton<GameManager>
                 PlayerAction.PlayerShootingThemselves => GameState.GameOver,
                 _ => throw new ArgumentOutOfRangeException(nameof(playerAction), playerAction, null)
             },
-            GameState.Night => nightTimer.Tick() is TimerState.TimerFinished
+            GameState.Night => nightTimer.Tick() is Timer.State.Finished
                 ? aiState is AnomalyAIState.AnomalyActive ? GameState.GameOver : WonNightState()
                 : playerAction switch
                 {
@@ -99,7 +99,7 @@ public sealed class GameManager : Singleton<GameManager>
                     PlayerAction.PlayerShootingThemselves => aiState is AnomalyAIState.AnomalyActive ? WonNightState() : GameState.GameOver,
                     _ => throw new ArgumentOutOfRangeException(nameof(playerAction), playerAction, null)
                 },
-            GameState.GameOver => lostDelayTimer.Tick() is TimerState.TimerPlaying ? null : GameState.Day,
+            GameState.GameOver => lostDelayTimer.Tick() is Timer.State.Playing ? null : GameState.Day,
             GameState.GameWon => playerAction switch
             {
                 PlayerAction.PlayerNone => null,
@@ -271,17 +271,23 @@ public struct Timer
     public float TimeLeft;
     public float TimeUsed => TotalTime - TimeLeft;
 
+    public enum State
+    {
+        Finished,
+        Playing,
+    }
+
     public Timer(float totalTime)
     {
         TotalTime = totalTime;
         TimeLeft = totalTime;
     }
-    public TimerState Tick()
+    public State Tick()
     {
-        if (TimeLeft <= 0.0f) return TimerState.TimerFinished;
+        if (TimeLeft <= 0.0f) return State.Finished;
 
         TimeLeft -= Time.deltaTime;
-        return TimerState.TimerPlaying;
+        return State.Playing;
     }
     public void Reset()
     {
@@ -291,9 +297,15 @@ public struct Timer
 
 public struct BlockingCounter
 {
+    public enum State
+    {
+        Blocking,
+        Free,
+    }
+
     private int _count;
 
-    public bool StillRunning() => _count > 0;
+    public State GetState() => _count == 0 ? State.Free : State.Blocking;
     public void Add()
     {
 #if DEBUG_LEVEL_1

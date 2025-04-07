@@ -34,12 +34,6 @@ public enum AnomalyAILevel
     AIVeryHard,
 }
 
-public enum TimerState
-{
-    TimerFinished,
-    TimerPlaying,
-}
-
 public enum PlayerAnimationState
 {
     PlayerNone,

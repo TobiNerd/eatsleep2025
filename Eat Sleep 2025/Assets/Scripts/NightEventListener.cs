@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class NightEventListener : MonoBehaviour
@@ -10,7 +9,7 @@ public class NightEventListener : MonoBehaviour
     {
         NightEvent.Start();
     }
-    
+
     private void Start()
     {
         NightEventSystem.I.nightEvents.Add(NightEvent);
