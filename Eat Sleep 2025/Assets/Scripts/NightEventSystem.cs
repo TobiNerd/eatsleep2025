@@ -36,8 +36,7 @@ public class NightEventSystem : Singleton<NightEventSystem>
 
     private void Update()
     {
-        if (!GameManager.I.IsNightPlaying)
-            return;
+        if (GameManager.I.GameState is not GameState.Night) return;
         if (eventTimeSet)
         {
             if (DateTime.Now >= nextEventTime)

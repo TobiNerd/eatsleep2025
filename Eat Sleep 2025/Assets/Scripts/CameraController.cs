@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    private const float MS_TO_S = 0.001f;
+
     [SerializeField] private float headLiftTime = 1.5f;
     [SerializeField] private float lookDownTime = 0.5f;
     [SerializeField] private float dropTime = 0.3f;
@@ -25,7 +27,6 @@ public class CameraController : MonoBehaviour
     private Vector2 _rotationVelocity;
     private Vector2 _eulerRotation;
 
-
     private void Awake()
     {
         _cam = GetComponentInChildren<Camera>();
@@ -44,34 +45,34 @@ public class CameraController : MonoBehaviour
 
     public void ResetScene() => _torso.localRotation = uprigthTorso;
 
-    public void UprightAnimation(float durationS)
+    public void UprightAnimation(int durationMS)
     {
-        AnimationIndex index = GameManager.I.Animations.Add();
+        GameManager.I.BlockingCounter.Add();
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationS).SetEase(Ease.OutSine));
+        sequence.Append(_torso.DOLocalRotateQuaternion(uprigthTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine));
         sequence.OnComplete(() =>
         {
             Debug.Log("🌅 Wake-up animation done");
-            GameManager.I.Animations.Complete(index);
+            GameManager.I.BlockingCounter.Release();
         });
     }
-    public void LaydownAnimation(float durationS)
+    public void LaydownAnimation(int durationMS)
     {
-        AnimationIndex index = GameManager.I.Animations.Add();
-        _head.DOLocalRotateQuaternion(Quaternion.identity, durationS);
+        GameManager.I.BlockingCounter.Add();
+        _head.DOLocalRotateQuaternion(Quaternion.identity, durationMS * MS_TO_S);
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationS).SetEase(Ease.OutSine));
+        sequence.Append(_torso.DOLocalRotateQuaternion(layingDownTorso, durationMS * MS_TO_S).SetEase(Ease.OutSine));
         sequence.OnComplete(() =>
         {
             Debug.Log("😴 Sleep animation almost done");
             const int asleepDurationMS = 1000;
             UIController.I.Fade(asleepDurationMS);
-            GameManager.I.Animations.Complete(index);
+            GameManager.I.BlockingCounter.Release();
         });
     }
     public void DeathAnimation()
     {
-        AnimationIndex index = GameManager.I.Animations.Add();
+        GameManager.I.BlockingCounter.Add();
         Sequence deathSequence = DOTween.Sequence();
 
         deathSequence.Append(_head.DOLocalRotate(new Vector3(45f, 0, 0), lookDownTime).SetEase(Ease.InOutSine));
@@ -80,9 +81,8 @@ public class CameraController : MonoBehaviour
         deathSequence.OnComplete(() =>
         {
             Debug.Log("💀 Death animation complete.");
-            UIController.I.Fade(1);
-            GameManager.I.SoundController.Gasp.Play();
-            GameManager.I.Animations.Complete(index);
+            UIController.I.Fade(500);
+            GameManager.I.BlockingCounter.Release();
             _torso.localRotation = layingDownTorso;
         });
     }
