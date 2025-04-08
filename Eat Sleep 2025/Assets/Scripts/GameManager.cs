@@ -5,6 +5,15 @@ using UnityEngine.InputSystem;
 
 public sealed class GameManager : Singleton<GameManager>
 {
+    private const int OPEN_EYES_DURATION_MS = 200;
+    private const int LOST_GAME_FADE_DURATION_MS = 3000;
+    private const int WAKE_UP_DURATION_MS = 500;
+    private const float DOOMSDAY_MAX_INTENSITY = 12.0f;
+    private const int NIGHT_START_HOUR = 22;
+    private const int END_MINUTE = 60;
+    private const int CLOSE_TO_ENDING_TIME = 5;
+
+
     public CameraController CameraController;
     public SoundController SoundController;
     public InputActionReferences InputActions;
@@ -130,9 +139,8 @@ public sealed class GameManager : Singleton<GameManager>
         switch (newState)
         {
             case GameState.Day:
-                const int openEyesDurationMS = 200;
-                UIController.I.Clear(openEyesDurationMS);
-                CameraController.ResetScene();
+                UIController.I.Clear(OPEN_EYES_DURATION_MS);
+                CameraController.SitUpStance();
 
                 nightsSurvived = -1;
                 anomalyAILevel = AnomalyAILevel.AIEasy;
@@ -150,24 +158,21 @@ public sealed class GameManager : Singleton<GameManager>
                 AnomalyAI();
                 playerAction = PlayerAction.PlayerNone;
 
-                const int wakeUpDurationMS = 500;
-                WakeUp(wakeUpDurationMS);
+                WakeUp(WAKE_UP_DURATION_MS);
                 break;
             case GameState.GameOver:
                 SoundController.Lost.Play();
 
-                const int lostGameFadeDurationMS = 3000;
-                UIController.I.Fade(lostGameFadeDurationMS, withBlood: true);
+                UIController.I.Fade(LOST_GAME_FADE_DURATION_MS, withBlood: true);
                 lostDelayTimer.Reset();
                 break;
             case GameState.GameWon:
                 SoundController.Win.Play();
-                WakeUp(wakeUpDurationMS * 5);
+                WakeUp(WAKE_UP_DURATION_MS * 5);
 
                 playerAction = PlayerAction.PlayerNone;
-                const float DOOMSDAY_MAX = 10.0f;
                 SoundController.sunWinningLight.intensity++;
-                SoundController.sunWinningLight.color = LerpDoomSunColor(SoundController.sunWinningLight.intensity / DOOMSDAY_MAX);
+                SoundController.sunWinningLight.color = LerpDoomSunColor(SoundController.sunWinningLight.intensity / DOOMSDAY_MAX_INTENSITY);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(GameState), GameState, null);
@@ -242,11 +247,6 @@ public sealed class GameManager : Singleton<GameManager>
         UIController.I.Clear(durationMS);
         CameraController.SitUpAnimation(durationMS);
     }
-
-    private const int NIGHT_START_HOUR = 22;
-    private const int END_MINUTE = 60;
-    private const int CLOSE_TO_ENDING_TIME = 5;
-
 
     private int GetHour() => GameState switch
     {

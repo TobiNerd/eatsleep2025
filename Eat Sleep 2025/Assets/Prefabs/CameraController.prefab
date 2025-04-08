@@ -130,6 +130,9 @@ MonoBehaviour:
   RotationLimitVertical: {x: -90, y: 20}
   RotationLimitHorizontal: {x: -60, y: 60}
   <PlayerAnimationState>k__BackingField: 0
+  maxLagTime: 0.4
+  _rotationVelocity: {x: 0, y: 0}
+  _eulerRotation: {x: 0, y: 0}
 --- !u!1001 &4588397835712770288
 PrefabInstance:
   m_ObjectHideFlags: 0
