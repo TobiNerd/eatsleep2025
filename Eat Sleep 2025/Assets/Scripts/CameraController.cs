@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-    private void Update() => _rotationVelocity *= MoveDampening * Mathf.Max(maxLagTime, Time.deltaTime);
+    private void Update() => _rotationVelocity *= MoveDampening * Mathf.Min(maxLagTime, Time.deltaTime);
 
     public void SitUpStance()
     {
@@ -91,7 +91,7 @@ public class CameraController : MonoBehaviour
     }
     public void MovePlayerHead(Vector2 mouseDelta)
     {
-        _rotationVelocity += MoveSensitivity * Mathf.Max(maxLagTime, Time.deltaTime) * mouseDelta * new Vector2(1, -1);
+        _rotationVelocity += MoveSensitivity * Mathf.Min(maxLagTime, Time.deltaTime) * mouseDelta * new Vector2(1, -1);
 
         _eulerRotation.x = Mathf.Clamp(_eulerRotation.x + _rotationVelocity.x, RotationLimitHorizontal.x, RotationLimitHorizontal.y);
         _eulerRotation.y = Mathf.Clamp(_eulerRotation.y + _rotationVelocity.y, RotationLimitVertical.x, RotationLimitVertical.y);

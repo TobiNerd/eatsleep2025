@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 4
-  gizmoCircle: {r: 0, g: 1, b: 0, a: 1}
-  gizmoRadius: 0.15
+  gizmoCircle: {r: 0, g: 1, b: 0.38461924, a: 1}
+  gizmoRadius: 0.05
 --- !u!1 &1280182483426336950
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,8 +576,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 16
-  gizmoCircle: {r: 0, g: 1, b: 0, a: 1}
-  gizmoRadius: 0.15
+  gizmoCircle: {r: 0, g: 0.34345746, b: 1, a: 1}
+  gizmoRadius: 0.06
 --- !u!114 &2447008330789332587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,8 +591,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 16
-  gizmoCircle: {r: 1, g: 0.7158611, b: 0, a: 0.6666667}
-  gizmoRadius: 0.2
+  gizmoCircle: {r: 1, g: 0, b: 0.5819087, a: 0.6666667}
+  gizmoRadius: 0.05
 --- !u!1 &3132712409796706581
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,8 +863,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 1
-  gizmoCircle: {r: 0, g: 1, b: 0, a: 1}
-  gizmoRadius: 0.15
+  gizmoCircle: {r: 0, g: 0.64177275, b: 1, a: 1}
+  gizmoRadius: 0.06
 --- !u!1 &5713509582439125456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,8 +1132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 32
-  gizmoCircle: {r: 0, g: 1, b: 0, a: 1}
-  gizmoRadius: 0.15
+  gizmoCircle: {r: 0.12454414, g: 0, b: 1, a: 1}
+  gizmoRadius: 0.06
 --- !u!114 &5671939907318806725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1147,8 +1147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 32
-  gizmoCircle: {r: 1, g: 0.7158611, b: 0, a: 0.6666667}
-  gizmoRadius: 0.2
+  gizmoCircle: {r: 1, g: 0, b: 0.22247887, a: 0.6666667}
+  gizmoRadius: 0.05
 --- !u!1 &7681231715591303896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,8 +1299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 2
-  gizmoCircle: {r: 0, g: 1, b: 0, a: 1}
-  gizmoRadius: 0.15
+  gizmoCircle: {r: 0, g: 0.9828739, b: 1, a: 1}
+  gizmoRadius: 0.05
 --- !u!1 &8198470687643806440
 GameObject:
   m_ObjectHideFlags: 0

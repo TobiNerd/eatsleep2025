@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 64
-  gizmoCircle: {r: 1, g: 0.48472303, b: 0, a: 1}
-  gizmoRadius: 0.2
+  gizmoCircle: {r: 0.98929596, g: 1, b: 0, a: 1}
+  gizmoRadius: 0.1
 --- !u!1 &945703259355873913
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anomalyFlag: 4
   gizmoCircle: {r: 1, g: 0.48472303, b: 0, a: 1}
-  gizmoRadius: 0.2
+  gizmoRadius: 0.1
 --- !u!1 &1481701909670265910
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anomalyFlag: 1
   gizmoCircle: {r: 1, g: 0.48472303, b: 0, a: 1}
-  gizmoRadius: 0.2
+  gizmoRadius: 0.1
 --- !u!1 &2114945973629707754
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,8 +584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anomalyFlag: 8
-  gizmoCircle: {r: 1, g: 0.48472303, b: 0, a: 1}
-  gizmoRadius: 0.2
+  gizmoCircle: {r: 0.6415094, g: 0, b: 0.09257744, a: 1}
+  gizmoRadius: 0.1
 --- !u!1 &2983073286796611287
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,7 +983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anomalyFlag: 2
   gizmoCircle: {r: 1, g: 0.48472303, b: 0, a: 1}
-  gizmoRadius: 0.2
+  gizmoRadius: 0.1
 --- !u!1 &6089560886526272219
 GameObject:
   m_ObjectHideFlags: 0
